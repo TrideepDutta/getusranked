@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import JsonLd from "../components/JsonLd.astro";
 import "../styles/app.css";
 import {
   createGraphSchema,
@@ -121,6 +122,8 @@ const faqs = [
   },
 ];
 
+const faqSchema = getFaqSchema(faqs);
+
 const homeSchema = createGraphSchema([
   getOrganizationSchema(),
   getWebsiteSchema(),
@@ -129,7 +132,7 @@ const homeSchema = createGraphSchema([
     description: "GetUsRanked builds WordPress and Shopify sites with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
     url: `${SITE_URL}/`,
   }),
-  getFaqSchema(faqs),
+  faqSchema,
   getHowToSchema(processSteps),
 ]);
 ---
@@ -311,6 +314,22 @@ const homeSchema = createGraphSchema([
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ═══════ WHY GETUSRANKED ═══════ -->
+    <section id="why-us" class="section-pad bg-blue-deep text-canvas">
+      <div class="container-content">
+        <p class="eyebrow eyebrow-light mb-3 reveal">Why GetUsRanked</p>
+        <h2 class="text-canvas mb-10 reveal">Built different. Priced fairly.</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {whyUsPillars.map((pt, i) => (
+            <div class={`border border-canvas/10 bg-canvas/[0.03] rounded-[3px] p-6 reveal stagger-${i + 1}`}>
+              <h3 class="font-display font-bold text-canvas text-lg mb-3">{pt.title}</h3>
+              <p class="text-canvas/70 text-sm leading-relaxed">{pt.desc}</p>
+            </div>
+          ))}
+        </div>
 
         <!-- Trust badges (Full width 3 columns) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-canvas/10">
@@ -338,6 +357,7 @@ const homeSchema = createGraphSchema([
 
     <!-- ═══════ FREQUENTLY ASKED QUESTIONS ═══════ -->
     <section id="faq" class="section-pad bg-canvas">
+      <JsonLd schema={faqSchema} />
       <div class="container-content max-w-3xl">
         <p class="eyebrow mb-3 reveal">FAQ</p>
         <h2 class="mb-10 reveal">Frequently Asked Questions</h2>

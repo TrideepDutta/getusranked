@@ -143,6 +143,7 @@ export function getOfferCatalogSchema() {
  */
 export function getFaqSchema(faqs: FaqItem[]) {
   return {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
