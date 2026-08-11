@@ -445,8 +445,9 @@ const homeSchema = createGraphSchema([
               placeholder="you@company.com"
             />
           </div>
-          <button type="submit" class="btn btn-primary text-xs mt-2 self-start">
-            Get a Free Site Review
+          <div id="contact-form-status" class="hidden p-4 rounded-xl text-sm font-medium transition-all duration-200"></div>
+          <button id="contact-form-submit" type="submit" class="btn btn-primary text-xs mt-2 self-start flex items-center gap-2">
+            <span>Get a Free Site Review</span>
           </button>
         </form>
       </div>
@@ -483,5 +484,55 @@ const homeSchema = createGraphSchema([
       el.classList.add('revealed');
     });
   }
+
+  // Handle Form Submission to Google Sheet / Endpoint
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
+  const statusDiv = document.getElementById('contact-form-status');
+  const submitBtn = document.getElementById('contact-form-submit') as HTMLButtonElement | null;
+  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || '';
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!submitBtn || !statusDiv) return;
+
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-canvas inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Sending...</span>
+      `;
+      statusDiv.classList.add('hidden');
+
+      try {
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData.entries());
+
+        if (scriptUrl) {
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+        }
+
+        statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-up/10 text-up border border-up/20 border-line block';
+        statusDiv.innerHTML = '✓ Thank you! Your site review request has been sent successfully. We will get back to you shortly.';
+        contactForm.reset();
+      } catch (error) {
+        console.error('Submission error:', error);
+        statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20 block';
+        statusDiv.innerHTML = '✕ Something went wrong submitting your request. Please try again or email us directly.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    });
+  }
 </script>
+
 
