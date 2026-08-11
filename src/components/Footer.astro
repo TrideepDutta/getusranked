@@ -1,0 +1,92 @@
+---
+const quickLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about-us", label: "About Us" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact Us" },
+  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "https://instagram.com/getusranked" },
+  { label: "Facebook", href: "https://facebook.com/getusranked" },
+  { label: "LinkedIn", href: "https://linkedin.com/company/getusranked" },
+];
+---
+
+<footer class="bg-ink text-canvas">
+  <div class="container-content section-pad">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="no-underline hover:no-underline">
+          <span class="font-display font-bold text-xl text-canvas">
+            GetUs<span class="text-blue">Ranked</span>
+          </span>
+        </a>
+        <p class="text-canvas/60 text-sm mt-4 leading-relaxed max-w-xs">
+          SEO that tracks its own growth as proof. Transparent process, plain-language reporting, no lock-in contracts.
+        </p>
+
+        <!-- Social Profiles -->
+        <div class="mt-6 flex flex-wrap gap-4">
+          {socialLinks.map(s => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-canvas/60 hover:text-canvas text-xs font-mono no-underline transition-colors duration-200"
+            >
+              {s.label} &rarr;
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="eyebrow eyebrow-light mb-4">Quick Links</h4>
+        <nav class="flex flex-col gap-2.5" aria-label="Footer navigation">
+          {quickLinks.map(link => (
+            <a
+              href={link.href}
+              class="text-canvas/70 hover:text-canvas text-sm no-underline transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="eyebrow eyebrow-light mb-4">Get in Touch</h4>
+        <a
+          href="mailto:hello@getusranked.com"
+          class="text-canvas/70 hover:text-canvas text-sm no-underline transition-colors duration-200 block mb-2"
+        >
+          hello@getusranked.com
+        </a>
+        <div class="mt-6">
+          <a href="/contact" class="btn btn-ghost-light text-xs">Request a Free Audit</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider & Copyright -->
+    <div class="border-t border-canvas/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-canvas/40 text-xs font-mono">
+        &copy; {new Date().getFullYear()} GetUsRanked. All rights reserved.
+      </p>
+      <div class="flex gap-6">
+        <a href="/terms" class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
+          Terms
+        </a>
+        <a href="/privacy" class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
+          Privacy
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

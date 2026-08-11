@@ -1,0 +1,125 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about-us", label: "About Us" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact Us" },
+];
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="container-content flex items-center justify-between h-16 md:h-18">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 no-underline hover:no-underline">
+      <span class="font-display font-bold text-xl tracking-tight text-ink">
+        GetUs<span class="text-blue">Ranked</span>
+      </span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class:list={[
+            "font-mono text-xs uppercase tracking-widest no-underline transition-colors duration-200",
+            currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
+              ? "text-blue font-medium"
+              : "text-ink-soft hover:text-ink",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a href="/contact" class="btn btn-primary text-xs">Get a Free Audit</a>
+    </nav>
+
+    <!-- Mobile Toggle -->
+    <button
+      id="mobile-menu-toggle"
+      class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 cursor-pointer bg-transparent border-none"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      <span class="block w-5 h-px bg-ink transition-transform duration-200 origin-center" id="bar-1"></span>
+      <span class="block w-5 h-px bg-ink transition-opacity duration-200" id="bar-2"></span>
+      <span class="block w-5 h-px bg-ink transition-transform duration-200 origin-center" id="bar-3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden flex-col items-start gap-4 px-6 pb-6 bg-canvas border-b border-line"
+  >
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class:list={[
+          "font-mono text-sm uppercase tracking-widest no-underline transition-colors duration-200 w-full py-2",
+          currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
+            ? "text-blue font-medium"
+            : "text-ink-soft hover:text-ink",
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+    <a href="/contact" class="btn btn-primary text-xs mt-2 w-full justify-center">Get a Free Audit</a>
+  </div>
+</header>
+
+<!-- Spacer to offset fixed header -->
+<div class="h-16 md:h-18"></div>
+
+<script>
+  // Sticky blur effect
+  const header = document.getElementById("site-header");
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 10) {
+        header.style.backgroundColor = "rgba(238, 241, 239, 0.85)";
+        header.style.backdropFilter = "blur(12px)";
+        header.style.webkitBackdropFilter = "blur(12px)";
+        header.style.borderBottom = "1px solid rgba(19, 22, 28, 0.14)";
+      } else {
+        header.style.backgroundColor = "transparent";
+        header.style.backdropFilter = "none";
+        header.style.webkitBackdropFilter = "none";
+        header.style.borderBottom = "1px solid transparent";
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Mobile menu toggle
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const bar1 = document.getElementById("bar-1");
+  const bar2 = document.getElementById("bar-2");
+  const bar3 = document.getElementById("bar-3");
+
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.contains("flex");
+      if (isOpen) {
+        menu.classList.remove("flex");
+        menu.classList.add("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+        if (bar1) bar1.style.transform = "none";
+        if (bar2) bar2.style.opacity = "1";
+        if (bar3) bar3.style.transform = "none";
+      } else {
+        menu.classList.remove("hidden");
+        menu.classList.add("flex");
+        toggle.setAttribute("aria-expanded", "true");
+        if (bar1) bar1.style.transform = "rotate(45deg) translate(2px, 2px)";
+        if (bar2) bar2.style.opacity = "0";
+        if (bar3) bar3.style.transform = "rotate(-45deg) translate(2px, -2px)";
+      }
+    });
+  }
+</script>

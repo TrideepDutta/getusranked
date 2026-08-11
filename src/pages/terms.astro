@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/app.css";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+  getBreadcrumbSchema,
+  SITE_URL,
+} from "../utils/schema";
+
+const pageTitle = "Terms & Conditions — GetUsRanked";
+const pageDesc = "Terms and conditions for GetUsRanked SEO agency services. Read our service agreement, obligations, and policies.";
+
+const termsSchema = createGraphSchema([
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getWebPageSchema({
+    name: pageTitle,
+    description: pageDesc,
+    url: `${SITE_URL}/terms`,
+  }),
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Terms & Conditions", url: "/terms" },
+  ]),
+]);
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} schema={termsSchema}>
+
+  <Header />
+  <main class="flex-1">
+
+    <section class="section-pad bg-canvas">
+      <div class="container-content max-w-3xl">
+        <p class="eyebrow mb-3">Legal</p>
+        <h1 class="mb-4">Terms & Conditions</h1>
+        <p class="text-ink-soft text-sm mb-10">Last updated: August 2026</p>
+
+        <div class="flex flex-col gap-10">
+
+          <!-- 1. Definitions -->
+          <div>
+            <h2 class="text-lg mb-3">1. Definitions</h2>
+            <p class="text-ink-soft leading-relaxed">
+              "GetUsRanked," "we," "us," and "our" refer to the GetUsRanked SEO agency. "Client," "you," and "your" refer to any individual or business that engages our services. "Services" refer to the SEO and digital marketing services described on this website and in any service agreement between the parties.
+            </p>
+          </div>
+
+          <!-- 2. Services -->
+          <div>
+            <h2 class="text-lg mb-3">2. Services Provided</h2>
+            <p class="text-ink-soft leading-relaxed mb-3">
+              GetUsRanked provides search engine optimization services including, but not limited to, technical audits, on-page optimization, content strategy, link building, local SEO, and analytics reporting. The specific scope of services will be outlined in a separate service agreement or proposal provided to each client.
+            </p>
+            <p class="text-ink-soft leading-relaxed">
+              SEO results depend on many factors outside our control, including search engine algorithm changes, competitor activity, and website changes made by the client. We do not guarantee specific ranking positions or traffic volumes.
+            </p>
+          </div>
+
+          <!-- 3. Client Obligations -->
+          <div>
+            <h2 class="text-lg mb-3">3. Client Obligations</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Clients agree to provide timely access to their website, hosting, analytics platforms, and any other tools necessary for us to perform the agreed services. Clients are responsible for the accuracy of information provided to us and for reviewing and approving changes to their website before they go live when such approval is part of the agreed workflow.
+            </p>
+          </div>
+
+          <!-- 4. Payment Terms -->
+          <div>
+            <h2 class="text-lg mb-3">4. Payment Terms</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Payment terms, including pricing, billing frequency, and payment methods, will be specified in the service agreement. Invoices are due within 14 days of issue unless otherwise agreed. Late payments may result in suspension of services until the outstanding balance is cleared.
+            </p>
+          </div>
+
+          <!-- 5. Intellectual Property -->
+          <div>
+            <h2 class="text-lg mb-3">5. Intellectual Property</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Content created by GetUsRanked for the client (including written content, reports, and recommendations) becomes the client's property upon full payment. Our proprietary tools, processes, methodologies, and templates remain our intellectual property. The client grants us permission to use their brand name and a brief description of services provided in our portfolio, unless they opt out in writing.
+            </p>
+          </div>
+
+          <!-- 6. Confidentiality -->
+          <div>
+            <h2 class="text-lg mb-3">6. Confidentiality</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Both parties agree to keep confidential any proprietary or sensitive information shared during the engagement. This includes business strategies, analytics data, login credentials, and any other information not publicly available. This obligation survives the termination of the service agreement.
+            </p>
+          </div>
+
+          <!-- 7. Limitation of Liability -->
+          <div>
+            <h2 class="text-lg mb-3">7. Limitation of Liability</h2>
+            <p class="text-ink-soft leading-relaxed">
+              GetUsRanked shall not be held liable for any indirect, incidental, or consequential damages arising from the use of our services, including but not limited to loss of revenue, data, or business opportunities. Our total liability for any claim related to our services shall not exceed the total fees paid by the client in the three months preceding the claim.
+            </p>
+          </div>
+
+          <!-- 8. Termination -->
+          <div>
+            <h2 class="text-lg mb-3">8. Termination</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Either party may terminate the service agreement by providing 30 days' written notice after the minimum engagement period has been fulfilled. Early termination before the minimum engagement period may incur a fee as outlined in the service agreement. Upon termination, we will provide the client with all completed work and a final status report.
+            </p>
+          </div>
+
+          <!-- 9. Governing Law -->
+          <div>
+            <h2 class="text-lg mb-3">9. Governing Law</h2>
+            <p class="text-ink-soft leading-relaxed">
+              These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising from these terms or the services provided shall be resolved through good-faith negotiation first, followed by binding arbitration if necessary.
+            </p>
+          </div>
+
+          <!-- 10. Changes -->
+          <div>
+            <h2 class="text-lg mb-3">10. Changes to These Terms</h2>
+            <p class="text-ink-soft leading-relaxed">
+              We reserve the right to update these terms at any time. Changes will be posted on this page with an updated revision date. Continued use of our services after changes are posted constitutes acceptance of the revised terms.
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div class="border-t border-line pt-8 mt-4">
+            <h2 class="text-lg mb-3">Questions?</h2>
+            <p class="text-ink-soft leading-relaxed">
+              If you have questions about these terms, contact us at
+              <a href="mailto:hello@getusranked.com" class="text-blue">hello@getusranked.com</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>

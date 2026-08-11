@@ -1,0 +1,55 @@
+---
+import JsonLd from "../components/JsonLd.astro";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+  SITE_DESCRIPTION,
+} from "../utils/schema";
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  schema?: Record<string, any>;
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  canonicalUrl = Astro.url.href,
+  schema,
+} = Astro.props;
+
+const pageSchema =
+  schema ||
+  createGraphSchema([
+    getOrganizationSchema(),
+    getWebsiteSchema(),
+    getWebPageSchema({
+      name: title,
+      description: description,
+      url: canonicalUrl,
+    }),
+  ]);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+    <JsonLd schema={pageSchema} />
+  </head>
+  <body class="bg-canvas text-ink min-h-screen flex flex-col">
+    <slot />
+  </body>
+</html>
+

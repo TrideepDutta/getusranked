@@ -1,0 +1,279 @@
+/* ─── Google Fonts ─── */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+@import "tailwindcss";
+
+/* ─── Design Tokens ─── */
+@theme {
+  /* Colors */
+  --color-canvas: #EEF1EF;
+  --color-canvas-deep: #E2E7E2;
+  --color-card: #F7F9F6;
+  --color-ink: #13161C;
+  --color-ink-soft: #565C5A;
+  --color-blue: #2451D6;
+  --color-blue-deep: #1B3AA0;
+  --color-gold: #C9A227;
+  --color-gold-soft: #DFC067;
+  --color-up: #2F8F5C;
+  --color-line: rgba(19, 22, 28, 0.14);
+  --color-line-strong: rgba(19, 22, 28, 0.30);
+
+  /* Typography */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-numeral: "Orbitron", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+  --spacing-section-mobile: 3rem;
+
+  /* Layout */
+  --container-content: 1180px;
+
+  /* Radius — PRD: 2-3px everywhere, no pills */
+  --radius-sm: 2px;
+  --radius-base: 3px;
+
+  /* Breakpoints */
+  --breakpoint-sm: 720px;
+  --breakpoint-md: 860px;
+  --breakpoint-lg: 940px;
+  --breakpoint-xl: 1080px;
+}
+
+/* ─── Base Styles ─── */
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background-color: var(--color-canvas);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  }
+
+  h3 {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+  }
+
+  a {
+    color: var(--color-blue);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Focus visible for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─── Scroll Reveal Animations ─── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+.stagger-5 { transition-delay: 0.40s; }
+.stagger-6 { transition-delay: 0.48s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── Component Classes ─── */
+@layer components {
+  /* Buttons */
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-base);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background-color: var(--color-blue);
+    color: #fff;
+    border-color: var(--color-blue);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-blue-deep);
+    border-color: var(--color-blue-deep);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  .btn-ghost-light {
+    background-color: transparent;
+    color: var(--color-canvas);
+    border-color: var(--color-canvas);
+  }
+
+  .btn-ghost-light:hover {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  /* Eyebrow / mono label */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-ink-soft);
+  }
+
+  .eyebrow-light {
+    color: var(--color-gold-soft);
+  }
+
+  /* Badge */
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-line-strong);
+    display: inline-block;
+    line-height: 1;
+  }
+
+  /* Content container */
+  .container-content {
+    max-width: var(--container-content);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  /* Section spacing */
+  .section-pad {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+
+  @media (max-width: 860px) {
+    .section-pad {
+      padding-top: var(--spacing-section-mobile);
+      padding-bottom: var(--spacing-section-mobile);
+    }
+  }
+
+  /* Numeral (Orbitron) */
+  .numeral {
+    font-family: var(--font-numeral);
+    font-weight: 700;
+    line-height: 1;
+  }
+}

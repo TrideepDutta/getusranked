@@ -1,17 +1,443 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/app.css";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+  getFaqSchema,
+  getHowToSchema,
+  SITE_URL,
+} from "../utils/schema";
 
+const howWeThink = [
+  {
+    title: "Design that ranks, not just looks good",
+    desc: "A beautiful site nobody finds is a beautiful waste of money. Every build starts with SEO and AI-search visibility as a requirement, not an afterthought.",
+  },
+  {
+    title: "Direct access, not account managers",
+    desc: "You work with the person actually building your site. No hand-offs, no junior teams, no layers between you and the work.",
+  },
+  {
+    title: "Built for how people search now",
+    desc: "Google isn't the only front door anymore. We set your site up for AI answer engines too — ChatGPT, Perplexity — so your business shows up wherever people are actually asking.",
+  },
+];
+
+const processSteps = [
+  {
+    num: "01",
+    label: "Audit & Strategy",
+    title: "Audit & Strategy",
+    desc: "We start by understanding your customers, your competitors, and what's actually broken, before a single page gets designed.",
+  },
+  {
+    num: "02",
+    label: "Design & Build",
+    title: "Design & Build",
+    desc: "Your site gets designed and built, WordPress or Shopify, with SEO structure and technical foundations built in from the first line of code.",
+  },
+  {
+    num: "03",
+    label: "Launch & Optimize",
+    title: "Launch & Optimize",
+    desc: "Technical SEO, on-page optimization, and AI-search setup happen before launch. Not as a \"phase two\" you get upsold into later.",
+  },
+  {
+    num: "04",
+    label: "Grow",
+    title: "Grow",
+    desc: "Once you're live, an optional monthly retainer keeps your rankings moving and keeps you visible as search itself keeps changing.",
+  },
+];
+
+const whyUsPillars = [
+  {
+    title: "Founder-led, every project",
+    desc: "One person, full attention. Not spread across forty accounts.",
+  },
+  {
+    title: "Built in the open",
+    desc: "Our own site's SEO growth is tracked and visible — not a claim, a live example.",
+  },
+  {
+    title: "Priced for the work, not the overhead",
+    desc: "No office lease or account-management layer baked into your invoice. You're paying for the build, not the agency's rent.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What platforms do you build websites on?",
+    a: "We specialize in WordPress and Shopify. Whether you need a high-converting content or service site on WordPress, or a scalable e-commerce store on Shopify, we build with clean code, fast load speeds, and built-in search visibility.",
+  },
+  {
+    q: "What does \"built for AI search\" actually mean?",
+    a: "Search is changing beyond traditional Google queries. We structure your site's content, schema markup, and technical foundations so AI answer engines (like ChatGPT, Perplexity, and Claude) can crawl, process, and cite your site when potential clients ask relevant questions.",
+  },
+  {
+    q: "How long does a typical website build take?",
+    a: "Most standard builds take between 2 to 5 weeks from initial strategy to launch, depending on scope and content readiness. E-commerce stores or custom web applications take around 6 to 9 weeks.",
+  },
+  {
+    q: "Will I work with an account manager or the actual builder?",
+    a: "You work directly with the founder building your site. No junior teams, no account managers relaying messages, and no miscommunication layers between you and the execution.",
+  },
+  {
+    q: "Do you provide ongoing SEO and maintenance after launch?",
+    a: "Yes! Once your site is live, an optional monthly retainer keeps your rankings moving, handles technical maintenance, and keeps you visible as search algorithms and AI engines evolve.",
+  },
+  {
+    q: "What if I need custom features beyond a standard website?",
+    a: "We build custom web apps, client dashboards, booking and scheduling systems, and backend integrations. Reach out through our contact form and we'll scope your project on a call first.",
+  },
+];
+
+const homeSchema = createGraphSchema([
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getWebPageSchema({
+    name: "GetUsRanked — Websites Built to Be Found (People & AI)",
+    description: "WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
+    url: `${SITE_URL}/`,
+  }),
+  getFaqSchema(faqs),
+  getHowToSchema(processSteps),
+]);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="GetUsRanked — Websites Built to Be Found (People & AI)" schema={homeSchema}>
+
+  <Header />
+  <main class="flex-1">
+
+    <!-- ═══════ HERO ═══════ -->
+    <section id="hero" class="section-pad bg-canvas overflow-hidden">
+      <div class="container-content">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center">
+          <!-- Left: Copy -->
+          <div class="reveal">
+            <p class="eyebrow mb-4">Web Design & SEO Agency</p>
+            <h1 class="mb-6">
+              We build sites that<br />actually get found.
+            </h1>
+            <p class="text-ink-soft text-lg max-w-lg mb-8 leading-relaxed">
+              WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.
+            </p>
+            <div class="flex flex-wrap gap-4 mb-10">
+              <a href="/about-us" class="btn btn-primary">About Us & Process</a>
+              <a href="/contact" class="btn btn-ghost">Get a Free Site Review</a>
+            </div>
+            <!-- Trust strip -->
+            <div class="flex flex-wrap gap-6 pt-6 border-t border-line">
+              <div>
+                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Foundations</p>
+                <p class="font-display font-semibold text-sm">SEO + AI Search</p>
+              </div>
+              <div>
+                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Access</p>
+                <p class="font-display font-semibold text-sm">Direct to Founder</p>
+              </div>
+              <div>
+                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Platforms</p>
+                <p class="font-display font-semibold text-sm">WordPress & Shopify</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Rank Card -->
+          <div class="flex justify-center xl:justify-end reveal stagger-2">
+            <div class="relative" style="transform: rotate(-2deg);">
+              <div class="bg-card border border-line-strong rounded-[3px] p-8 w-72 text-center">
+                <p class="font-mono text-xs uppercase tracking-widest text-ink-soft mb-6">Search & AI Visibility</p>
+                <div class="flex items-center justify-center gap-4">
+                  <span class="numeral text-6xl text-ink-soft/40">47</span>
+                  <svg class="w-6 h-6 text-up" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                  <span class="numeral text-6xl text-blue">1</span>
+                </div>
+                <p class="mt-6 text-up font-mono text-xs uppercase tracking-wider font-medium">
+                  ↑ Position Improved
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ HOW WE THINK ═══════ -->
+    <section id="how-we-think" class="section-pad bg-canvas-deep">
+      <div class="container-content">
+        <p class="eyebrow mb-3 reveal">How We Think</p>
+        <h2 class="mb-10 max-w-2xl reveal">Design that ranks, not just looks good</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {howWeThink.map((item, i) => (
+            <div class={`bg-card border border-line rounded-[3px] p-6 reveal stagger-${i + 1}`}>
+              <h3 class="font-display text-lg font-bold mb-3">{item.title}</h3>
+              <p class="text-ink-soft text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ HOW WE WORK ═══════ -->
+    <section id="process" class="section-pad bg-canvas">
+      <div class="container-content">
+        <p class="eyebrow mb-3 reveal">How We Work</p>
+        <h2 class="mb-12 max-w-2xl reveal">Four steps. Built right from day one.</h2>
+        <div class="flex flex-col gap-0">
+          {processSteps.map((step, i) => (
+            <div class={`grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-x-8 gap-y-2 py-8 border-t border-line items-start reveal stagger-${i + 1}`}>
+              <div class="flex items-center gap-3 sm:w-48">
+                <span class="numeral text-3xl text-ink/15">{step.num}</span>
+                <span class="font-mono text-xs uppercase tracking-widest text-ink-soft">{step.label}</span>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-bold mb-2">{step.title}</h3>
+                <p class="text-ink-soft text-sm leading-relaxed max-w-xl">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ WHY THIS, NOT A BIGGER AGENCY ═══════ -->
+    <section id="why-us" class="section-pad bg-canvas-deep">
+      <div class="container-content">
+        <p class="eyebrow mb-3 reveal">Why This, Not a Bigger Agency</p>
+        <h2 class="mb-10 max-w-2xl reveal">Honest work, direct focus, no overhead</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {whyUsPillars.map((pillar, i) => (
+            <div class={`bg-card border border-line rounded-[3px] p-6 reveal stagger-${i + 1}`}>
+              <h3 class="font-display text-lg font-bold mb-3">{pillar.title}</h3>
+              <p class="text-ink-soft text-sm leading-relaxed">{pillar.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ WHY TRUST A NEW AGENCY ═══════ -->
+    <section id="credibility" class="section-pad bg-ink text-canvas">
+      <div class="container-content">
+        <!-- Top Split Grid (Eliminating Empty Space) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-14">
+          <!-- Left: Copy -->
+          <div class="lg:col-span-7 reveal">
+            <p class="eyebrow eyebrow-light mb-3">Why Trust a New Agency</p>
+            <h2 class="text-canvas mb-6">We're new, and we're not going to pretend otherwise.</h2>
+            <p class="text-canvas/75 text-base lg:text-lg leading-relaxed max-w-2xl">
+              Instead of faking testimonials, we point you to our own site, live and rankable, as proof of how we work. Every client right now gets more of our actual attention than they'd get once we're bigger. That won't stay true forever, so it's worth taking advantage of now.
+            </p>
+          </div>
+
+          <!-- Right: Growth Metric Card -->
+          <div class="lg:col-span-5 reveal-scale">
+            <div class="bg-canvas/5 border border-canvas/10 rounded-[3px] p-6 lg:p-7 shadow-xl">
+              <div class="flex items-center justify-between mb-5 pb-3 border-b border-canvas/10">
+                <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium">Our Own Growth</p>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[2px] bg-up/10 text-up border border-up/20 font-mono text-[10px] uppercase tracking-wider font-semibold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
+                  Live & Rankable
+                </span>
+              </div>
+
+              <!-- Bar Chart Visual -->
+              <div class="flex items-end justify-between gap-2.5 h-32 pt-4 pb-2">
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold/25 rounded-t-[2px] transition-all hover:bg-gold/40" style="height: 20%;"></div>
+                  <span class="font-mono text-[10px] text-canvas/40">Q1</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold/35 rounded-t-[2px] transition-all hover:bg-gold/50" style="height: 35%;"></div>
+                  <span class="font-mono text-[10px] text-canvas/40">Q2</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold/50 rounded-t-[2px] transition-all hover:bg-gold/65" style="height: 52%;"></div>
+                  <span class="font-mono text-[10px] text-canvas/40">Q3</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold/65 rounded-t-[2px] transition-all hover:bg-gold/80" style="height: 68%;"></div>
+                  <span class="font-mono text-[10px] text-canvas/40">Q4</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold/85 rounded-t-[2px] transition-all hover:bg-gold" style="height: 84%;"></div>
+                  <span class="font-mono text-[10px] text-canvas/40">M5</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                  <div class="w-full bg-gold rounded-t-[2px] shadow-[0_0_15px_rgba(201,162,39,0.4)]" style="height: 100%;"></div>
+                  <span class="font-mono text-[10px] font-bold text-gold">Now</span>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-canvas/10 flex items-center justify-between text-xs font-mono">
+                <p class="text-up uppercase tracking-wider font-semibold">
+                  ↑ Built in the open
+                </p>
+                <span class="text-canvas/50 text-[11px]">100% Transparency</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust badges (Full width 3 columns) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-canvas/10">
+          <div class="border border-canvas/10 bg-canvas/[0.02] rounded-[3px] p-6 hover:border-canvas/20 transition-colors reveal stagger-1">
+            <p class="font-display font-bold text-canvas text-base mb-2">Direct Founder Access</p>
+            <p class="text-canvas/60 text-sm leading-relaxed">
+              You work directly with the person building your site — no layers, no junior teams.
+            </p>
+          </div>
+          <div class="border border-canvas/10 bg-canvas/[0.02] rounded-[3px] p-6 hover:border-canvas/20 transition-colors reveal stagger-2">
+            <p class="font-display font-bold text-canvas text-base mb-2">SEO & AI Baked In</p>
+            <p class="text-canvas/60 text-sm leading-relaxed">
+              Google & AI search (ChatGPT, Perplexity) readiness configured before launch.
+            </p>
+          </div>
+          <div class="border border-canvas/10 bg-canvas/[0.02] rounded-[3px] p-6 hover:border-canvas/20 transition-colors reveal stagger-3">
+            <p class="font-display font-bold text-canvas text-base mb-2">Priced For The Work</p>
+            <p class="text-canvas/60 text-sm leading-relaxed">
+              No agency overhead or lease costs passed on to you. You pay for execution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ FREQUENTLY ASKED QUESTIONS ═══════ -->
+    <section id="faq" class="section-pad bg-canvas">
+      <div class="container-content max-w-3xl">
+        <p class="eyebrow mb-3 reveal">FAQ</p>
+        <h2 class="mb-10 reveal">Frequently Asked Questions</h2>
+        <div class="flex flex-col gap-4">
+          {faqs.map((faq, i) => (
+            <details class={`bg-card border border-line rounded-[3px] p-6 group reveal stagger-${(i % 3) + 1} cursor-pointer`}>
+              <summary class="font-display font-bold text-lg flex justify-between items-center select-none list-none [&::-webkit-details-marker]:hidden">
+                <span>{faq.q}</span>
+                <span class="text-blue font-mono text-xl transition-transform duration-200 group-open:rotate-45 ml-4 flex-shrink-0">+</span>
+              </summary>
+              <p class="text-ink-soft text-sm leading-relaxed mt-4 pt-4 border-t border-line">
+                {faq.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CLOSING CTA & CONTACT ═══════ -->
+    <section id="contact" class="section-pad bg-blue-deep text-canvas">
+      <div class="container-content max-w-2xl">
+        <p class="eyebrow eyebrow-light mb-3 reveal">Closing CTA</p>
+        <h2 class="text-canvas mb-4 reveal">Let's build something that actually gets found.</h2>
+        <p class="text-canvas/70 mb-10 leading-relaxed reveal">
+          Fill out the form below for a free site review. No commitment, no pressure — just an honest look at your current site and search potential.
+        </p>
+        <form
+          id="contact-form"
+          class="flex flex-col gap-6 reveal"
+          action="mailto:hello@getusranked.com"
+          method="POST"
+          enctype="text/plain"
+        >
+          <div>
+            <label for="name" class="font-mono text-xs uppercase tracking-wider text-canvas/70 block mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full bg-transparent border-b border-canvas/30 text-canvas py-2 text-sm outline-none transition-colors duration-200 focus:border-gold-soft placeholder:text-canvas/30"
+              placeholder="Your name"
+            />
+          </div>
+          <div>
+            <label for="company" class="font-mono text-xs uppercase tracking-wider text-canvas/70 block mb-2">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              required
+              class="w-full bg-transparent border-b border-canvas/30 text-canvas py-2 text-sm outline-none transition-colors duration-200 focus:border-gold-soft placeholder:text-canvas/30"
+              placeholder="Your company name"
+            />
+          </div>
+          <div>
+            <label for="website" class="font-mono text-xs uppercase tracking-wider text-canvas/70 block mb-2">Website or Current Link</label>
+            <input
+              type="url"
+              id="website"
+              name="website"
+              class="w-full bg-transparent border-b border-canvas/30 text-canvas py-2 text-sm outline-none transition-colors duration-200 focus:border-gold-soft placeholder:text-canvas/30"
+              placeholder="https://yourbusiness.com"
+            />
+          </div>
+          <div>
+            <label for="business" class="font-mono text-xs uppercase tracking-wider text-canvas/70 block mb-2">What does your business do?</label>
+            <textarea
+              id="business"
+              name="business"
+              rows="3"
+              class="w-full bg-transparent border-b border-canvas/30 text-canvas py-2 text-sm outline-none transition-colors duration-200 focus:border-gold-soft placeholder:text-canvas/30 resize-none"
+              placeholder="A brief description of your business and goals"
+            ></textarea>
+          </div>
+          <div>
+            <label for="email" class="font-mono text-xs uppercase tracking-wider text-canvas/70 block mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-transparent border-b border-canvas/30 text-canvas py-2 text-sm outline-none transition-colors duration-200 focus:border-gold-soft placeholder:text-canvas/30"
+              placeholder="you@company.com"
+            />
+          </div>
+          <button type="submit" class="btn btn-ghost-light text-xs mt-2 self-start">
+            Get a Free Site Review
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Scroll-reveal observer — triggers 'revealed' class when elements enter viewport
+  const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
+
+  if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    // If reduced motion, make everything visible immediately
+    revealElements.forEach((el) => {
+      el.classList.add('revealed');
+    });
+  }
+</script>
+
