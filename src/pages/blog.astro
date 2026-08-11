@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -12,53 +13,52 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
-const posts = [
-  {
-    category: "Technical SEO",
-    title: "Why Your Website Isn't Ranking — And What to Fix First",
-    excerpt: "Most ranking problems come from a handful of technical issues that are invisible to the business owner. Here's where to look and what to prioritize.",
-    date: "Coming Soon",
-    readTime: "8 min read",
-  },
-  {
-    category: "Local SEO",
-    title: "Local SEO in 2026: What Actually Moves the Needle",
-    excerpt: "Google Business Profile optimization, local citations, and review strategy — the things that still drive local pack rankings, stripped of the noise.",
-    date: "Coming Soon",
-    readTime: "6 min read",
-  },
-  {
-    category: "Process",
-    title: "Technical Audits Demystified: What We Check and Why",
-    excerpt: "A walk-through of our audit process — crawlability, Core Web Vitals, indexing, and content gaps — so you know exactly what you're getting.",
-    date: "Coming Soon",
-    readTime: "10 min read",
-  },
-  {
-    category: "Content Strategy",
-    title: "Content That Ranks: Beyond Keyword Stuffing",
-    excerpt: "Search intent, topic clusters, and content depth — the principles behind content that earns rankings instead of chasing them.",
-    date: "Coming Soon",
-    readTime: "7 min read",
-  },
-  {
-    category: "Reporting",
-    title: "How We Track and Report Your SEO Progress",
-    excerpt: "Ranking movement, traffic, conversions — what goes into our monthly reports and why we prioritize clarity over volume.",
-    date: "Coming Soon",
-    readTime: "5 min read",
-  },
-  {
-    category: "Strategy",
-    title: "The Real Timeline for SEO Results",
-    excerpt: "SEO isn't overnight. Here's an honest breakdown of what to expect in months 1–3, 3–6, and beyond — and why the first months matter most.",
-    date: "Coming Soon",
-    readTime: "6 min read",
-  },
-];
+let posts: Array<{
+  id: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readTime: string;
+}> = [];
 
-const pageTitle = "Blog — GetUsRanked | SEO Insights & Strategy";
-const pageDesc = "SEO insights, strategy breakdowns, and practical guides from the GetUsRanked team. Learn what actually moves search rankings.";
+try {
+  const collection = await getCollection("blog");
+  if (collection && collection.length > 0) {
+    posts = collection
+      .filter((post) => !post.data?.draft)
+      .map((post) => ({
+        id: post.id || (post as any).slug,
+        title: post.data.title,
+        excerpt: post.data.excerpt,
+        category: post.data.category,
+        date: post.data.date,
+        readTime: post.data.readTime,
+      }));
+  }
+} catch (e) {
+  // Ignore collection fetch error and fallback below
+}
+
+// Fallback to import.meta.glob if content collection is empty during dev server cache sync
+if (posts.length === 0) {
+  const mdModules = import.meta.glob("../content/blog/*.md", { eager: true });
+  posts = Object.entries(mdModules).map(([path, mod]: [string, any]) => {
+    const slug = path.split("/").pop()?.replace(".md", "") || "";
+    const fm = mod.frontmatter || {};
+    return {
+      id: slug,
+      title: fm.title || "",
+      excerpt: fm.excerpt || "",
+      category: fm.category || "SEO",
+      date: fm.date || "",
+      readTime: fm.readTime || "",
+    };
+  });
+}
+
+const pageTitle = "GetUsRanked — SEO & Search Optimization Insights Blog";
+const pageDesc = "GetUsRanked blog featuring expert SEO insights, local search tactics, e-commerce growth strategies, B2B lead generation guides, and AI search optimization techniques.";
 
 const blogSchema = createGraphSchema([
   getOrganizationSchema(),
@@ -84,10 +84,10 @@ const blogSchema = createGraphSchema([
     <!-- Hero -->
     <section class="section-pad bg-canvas">
       <div class="container-content">
-        <p class="eyebrow mb-3">Blog</p>
-        <h1 class="mb-4 max-w-xl">Insights & Strategy</h1>
-        <p class="text-ink-soft text-lg max-w-xl leading-relaxed">
-          Practical SEO knowledge — what works, what doesn't, and how we approach the work we do for our clients. No fluff, no jargon.
+        <p class="eyebrow mb-3">GetUsRanked Blog</p>
+        <h1 class="mb-4 max-w-2xl">Search Visibility & Growth Insights</h1>
+        <p class="text-ink-soft text-lg max-w-2xl leading-relaxed">
+          In-depth SEO playbooks, local search strategies, e-commerce growth tactics, and AI search optimization (AEO/GEO) written by our senior SEO agency specialists.
         </p>
       </div>
     </section>
@@ -97,28 +97,36 @@ const blogSchema = createGraphSchema([
       <div class="container-content">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {posts.map(post => (
-            <article class="bg-card border border-line rounded-[3px] p-6 flex flex-col">
+            <article class="bg-card border border-line rounded-[3px] p-6 flex flex-col hover:border-blue/50 transition-colors group">
               <div class="flex items-center justify-between mb-4">
-                <span class="badge text-ink-soft">{post.category}</span>
+                <span class="badge text-blue border-blue/30">{post.category}</span>
                 <span class="font-mono text-xs text-ink-soft/60">{post.readTime}</span>
               </div>
-              <h3 class="font-display text-base font-bold mb-3 leading-snug">{post.title}</h3>
+              <h2 class="font-display text-lg font-bold mb-3 leading-snug group-hover:text-blue transition-colors">
+                <a href={`/blog/${post.id}`} class="text-ink hover:text-blue no-underline">
+                  {post.title}
+                </a>
+              </h2>
               <p class="text-ink-soft text-sm leading-relaxed flex-1 mb-6">{post.excerpt}</p>
               <div class="flex items-center justify-between pt-4 border-t border-line">
-                <span class="font-mono text-xs text-ink-soft/50">{post.date}</span>
-                <span class="font-mono text-xs text-blue uppercase tracking-wider">Coming Soon</span>
+                <span class="font-mono text-xs text-ink-soft/60">{post.date}</span>
+                <a href={`/blog/${post.id}`} class="font-mono text-xs text-blue uppercase tracking-wider font-semibold inline-flex items-center gap-1 hover:underline">
+                  Read Article →
+                </a>
               </div>
             </article>
           ))}
         </div>
 
-        <!-- Phase 2 note -->
-        <div class="mt-12 text-center">
-          <p class="text-ink-soft text-sm max-w-lg mx-auto leading-relaxed">
-            Our blog is launching soon. These articles are in progress — subscribe to be notified when they go live.
+        <!-- Consultation Banner -->
+        <div class="mt-16 p-8 bg-card border border-line rounded-[3px] text-center max-w-3xl mx-auto">
+          <h3 class="font-display text-xl font-bold mb-3">Looking for a Performance-Driven SEO Agency?</h3>
+          <p class="text-ink-soft text-sm leading-relaxed mb-6">
+            We build high-converting WordPress and Shopify websites paired with modern technical SEO and AI search optimization.
           </p>
-          <div class="mt-6 flex justify-center gap-4 flex-wrap">
-            <a href="/#contact" class="btn btn-primary text-xs">Get Notified</a>
+          <div class="flex justify-center gap-4 flex-wrap">
+            <a href="/#contact" class="btn btn-primary text-xs">Request Free SEO Audit</a>
+            <a href="/about-us" class="btn btn-ghost text-xs">About Our Agency</a>
           </div>
         </div>
       </div>

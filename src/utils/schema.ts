@@ -19,7 +19,7 @@ export interface ProcessStepItem {
 export const SITE_URL = "https://getusranked.com";
 export const SITE_NAME = "GetUsRanked";
 export const SITE_DESCRIPTION =
-  "Websites built to be found — by people, and by AI. WordPress and Shopify sites with SEO and AI-search visibility baked in from day one.";
+  "GetUsRanked builds WordPress & Shopify websites engineered to rank — for search engines and AI engines like ChatGPT & Perplexity from day one.";
 
 /**
  * Returns the central Organization / ProfessionalService Schema.org node
@@ -41,6 +41,8 @@ export function getOrganizationSchema() {
       name: "Worldwide",
     },
     knowsAbout: [
+      "GetUsRanked Search Visibility",
+      "GetUsRanked SEO Services",
       "Search Engine Optimization (SEO)",
       "Generative Engine Optimization (GEO)",
       "Answer Engine Optimization (AEO)",
@@ -221,6 +223,47 @@ export function getWebPageSchema(options: {
 }
 
 /**
+ * Returns a BlogPosting Schema.org node for individual blog articles
+ */
+export function getBlogPostingSchema(options: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  authorName?: string;
+  category?: string;
+}) {
+  const fullUrl = options.url.startsWith("http")
+    ? options.url
+    : `${SITE_URL}${options.url}`;
+
+  return {
+    "@type": "BlogPosting",
+    "@id": `${fullUrl}#article`,
+    isPartOf: {
+      "@type": "WebPage",
+      "@id": `${fullUrl}#webpage`,
+    },
+    headline: options.title,
+    description: options.description,
+    url: fullUrl,
+    datePublished: options.datePublished,
+    dateModified: options.datePublished,
+    mainEntityOfPage: fullUrl,
+    articleSection: options.category || "SEO",
+    author: {
+      "@type": "Organization",
+      name: options.authorName || SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@id": `${SITE_URL}/#organization`,
+    },
+    inLanguage: "en-US",
+  };
+}
+
+/**
  * Creates a combined Schema.org @graph container
  */
 export function createGraphSchema(nodes: Record<string, any>[]) {
@@ -229,3 +272,4 @@ export function createGraphSchema(nodes: Record<string, any>[]) {
     "@graph": nodes,
   };
 }
+

@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/app.css";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+} from "../utils/schema";
+
+const pageSchema = createGraphSchema([
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getWebPageSchema({
+    name: "GetUsRanked — 500 Internal Server Error",
+    description: "An unexpected server error occurred on GetUsRanked.",
+    url: "/500",
+  }),
+]);
+---
+
+<BaseLayout
+  title="GetUsRanked — 500 Internal Server Error"
+  description="An unexpected server error occurred. Please try refreshing or return to the homepage."
+  schema={pageSchema}
+>
+  <Header />
+
+  <main class="flex-grow flex flex-col justify-center section-pad">
+    <div class="container-content">
+      <div class="max-w-3xl mx-auto text-center reveal-scale">
+        <!-- Status Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-ink/5 border border-line rounded mb-6 font-mono text-xs text-ink-soft uppercase tracking-widest">
+          <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+          HTTP Status 500 &mdash; Internal Server Error
+        </div>
+
+        <!-- Big Orbitron Numeral -->
+        <h1 class="numeral text-7xl sm:text-8xl md:text-9xl text-ink tracking-tight mb-4 select-none">
+          5<span class="text-gold">0</span>0
+        </h1>
+
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold font-display text-ink mb-4">
+          Unexpected system error.
+        </h2>
+
+        <p class="text-ink-soft text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+          Something went wrong on our end while processing your request. Please refresh the page or try again in a few moments.
+        </p>
+
+        <!-- Action buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <button id="reload-btn" class="btn btn-primary cursor-pointer">
+            &#x21bb; Reload Page
+          </button>
+          <a href="/" class="btn btn-ghost">
+            &larr; Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const reloadBtn = document.getElementById("reload-btn");
+  if (reloadBtn) {
+    reloadBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll(".reveal, .reveal-scale").forEach((el) => observer.observe(el));
+</script>

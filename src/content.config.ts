@@ -20,7 +20,11 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     author: z.string().default("GetUsRanked Team"),
     tags: z.array(z.string()).optional(),
+    metaTitle: z.string().optional(),
+    metaDescription: z.string().optional(),
   }),
 });
 
 export const collections = { blog };
+
+

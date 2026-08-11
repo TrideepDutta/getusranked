@@ -72,12 +72,36 @@ const whyUsPillars = [
 
 const faqs = [
   {
-    q: "What platforms do you build websites on?",
-    a: "We specialize in WordPress and Shopify. Whether you need a high-converting content or service site on WordPress, or a scalable e-commerce store on Shopify, we build with clean code, fast load speeds, and built-in search visibility.",
+    q: "What is search engine optimization?",
+    a: "Search Engine Optimization (SEO) is the practice of optimizing a website's technical architecture, content quality, semantic structure, and domain authority to achieve higher rankings in search engine results pages (SERPs) and AI answer engines. Effective SEO increases organic traffic, attracts high-intent prospects, and builds sustainable online brand visibility.",
+  },
+  {
+    q: "How does search engine optimization work",
+    a: "Search Engine Optimization works through three foundational steps: Crawling, Indexing, and Ranking. Search engines and AI crawlers scan your website pages, analyze technical signals and content semantics, and store the information in a global index. When users search or prompt AI engines, sophisticated algorithms evaluate hundreds of factors—such as content relevance, user experience, site authority, and structured schema—to determine which pages to rank or cite as top recommendations.",
+  },
+  {
+    q: "How to improve search engine optimization",
+    a: "Improving search engine optimization requires a strategic multi-faceted approach: 1) Enhance Technical SEO by optimizing page speed, mobile UX, and crawlability. 2) Publish High-Intent Content structured with clear headings and JSON-LD schema for search and AI engine readability. 3) Optimize On-Page Elements including title tags, meta descriptions, and semantic internal links. 4) Build Domain Authority through high-quality backlinks and verified brand entity signals.",
+  },
+  {
+    q: "How can an SEO agency help to build your business",
+    a: "An SEO agency builds your business by turning your website into an automated customer acquisition engine. By capturing high-intent search traffic across Google, Bing, and AI search tools, an SEO agency increases qualified inbound leads, boosts brand credibility, lowers your long-term cost per acquisition (CAC), and delivers compounding organic returns that far outlast paid advertising.",
+  },
+  {
+    q: "How do I choose an SEO agency for AEO visibility?",
+    a: "To choose an SEO agency for Answer Engine Optimization (AEO), look for a partner specializing in entity-based SEO, JSON-LD structured data, topical authority, and direct conversational answer modeling. Traditional SEO alone is no longer enough—a capable AEO agency ensures your brand is indexed and cited directly by AI search engines like ChatGPT, Perplexity, Claude, and Google Gemini.",
+  },
+  {
+    q: "What to expect from an SEO agency",
+    a: "From a professional SEO agency, you should expect a comprehensive site audit, custom keyword and intent research, technical speed and schema optimization, transparent performance tracking, and clear revenue-focused reporting. A top-tier agency focuses on driving qualified organic leads and search dominance across both Google SERPs and modern AI answer engines.",
   },
   {
     q: "What does \"built for AI search\" actually mean?",
     a: "Search is changing beyond traditional Google queries. We structure your site's content, schema markup, and technical foundations so AI answer engines (like ChatGPT, Perplexity, and Claude) can crawl, process, and cite your site when potential clients ask relevant questions.",
+  },
+  {
+    q: "What platforms do you build websites on?",
+    a: "We specialize in WordPress and Shopify. Whether you need a high-converting content or service site on WordPress, or a scalable e-commerce store on Shopify, we build with clean code, fast load speeds, and built-in search visibility.",
   },
   {
     q: "How long does a typical website build take?",
@@ -101,8 +125,8 @@ const homeSchema = createGraphSchema([
   getOrganizationSchema(),
   getWebsiteSchema(),
   getWebPageSchema({
-    name: "GetUsRanked — Websites Built to Be Found (People & AI)",
-    description: "WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
+    name: "GetUsRanked — Websites Built to Rank for Search & AI",
+    description: "GetUsRanked builds WordPress and Shopify sites with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
     url: `${SITE_URL}/`,
   }),
   getFaqSchema(faqs),
@@ -110,7 +134,7 @@ const homeSchema = createGraphSchema([
 ]);
 ---
 
-<BaseLayout title="GetUsRanked — Websites Built to Be Found (People & AI)" schema={homeSchema}>
+<BaseLayout title="GetUsRanked — Web Design & Search Engine / AI Optimization Agency" schema={homeSchema}>
 
   <Header />
   <main class="flex-1">
@@ -121,7 +145,7 @@ const homeSchema = createGraphSchema([
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center">
           <!-- Left: Copy -->
           <div class="reveal">
-            <p class="eyebrow mb-4">Web Design & SEO Agency</p>
+            <p class="eyebrow mb-4">GetUsRanked Agency</p>
             <h1 class="mb-6">
               We build sites that<br />actually get found.
             </h1>

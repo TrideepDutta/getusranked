@@ -6,12 +6,16 @@ import {
   getWebsiteSchema,
   getWebPageSchema,
   SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
 } from "../utils/schema";
 
 interface Props {
   title: string;
   description?: string;
   canonicalUrl?: string;
+  ogType?: string;
+  ogImage?: string;
   schema?: Record<string, any>;
 }
 
@@ -19,6 +23,8 @@ const {
   title,
   description = SITE_DESCRIPTION,
   canonicalUrl = Astro.url.href,
+  ogType = "website",
+  ogImage = `${SITE_URL}/favicon.svg`,
   schema,
 } = Astro.props;
 
@@ -43,8 +49,25 @@ const pageSchema =
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="keywords" content="GetUsRanked, Get Us Ranked, GetUsRanked SEO, GetUsRanked Agency, GetUsRanked Web Design, Search Engine Optimization, Generative Engine Optimization, AI Search" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{title}</title>
     <JsonLd schema={pageSchema} />
   </head>
@@ -52,4 +75,3 @@ const pageSchema =
     <slot />
   </body>
 </html>
-

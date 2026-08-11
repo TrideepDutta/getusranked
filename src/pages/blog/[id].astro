@@ -1,0 +1,167 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import "../../styles/app.css";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getBlogPostingSchema,
+  getBreadcrumbSchema,
+  SITE_URL,
+} from "../../utils/schema";
+
+export async function getStaticPaths() {
+  let posts: any[] = [];
+  try {
+    const collection = await getCollection("blog");
+    if (collection && collection.length > 0) {
+      posts = collection;
+    }
+  } catch (e) {}
+
+  if (posts.length > 0) {
+    return posts.map((post) => ({
+      params: { id: post.id || post.slug },
+      props: { post, isCollection: true },
+    }));
+  }
+
+  // Fallback to import.meta.glob for instant route resolution during dev server sync
+  const mdModules = import.meta.glob("../../content/blog/*.md", { eager: true });
+  return Object.entries(mdModules).map(([path, mod]: [string, any]) => {
+    const slug = path.split("/").pop()?.replace(".md", "") || "";
+    return {
+      params: { id: slug },
+      props: {
+        post: {
+          id: slug,
+          data: mod.frontmatter || {},
+          ContentComponent: mod.Content || mod.default,
+        },
+        isCollection: false,
+      },
+    };
+  });
+}
+
+const { post, isCollection } = Astro.props;
+
+let ContentComp: any = null;
+if (isCollection) {
+  try {
+    const rendered = await render(post);
+    ContentComp = rendered.Content;
+  } catch (e) {
+    ContentComp = post.ContentComponent;
+  }
+} else {
+  ContentComp = post.ContentComponent;
+}
+
+const pageTitle = post.data.metaTitle || `GetUsRanked — ${post.data.title}`;
+const pageDesc = post.data.metaDescription || post.data.excerpt;
+const articleUrl = `${SITE_URL}/blog/${post.id}`;
+
+const articleSchema = createGraphSchema([
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getBlogPostingSchema({
+    title: post.data.title,
+    description: post.data.excerpt,
+    url: articleUrl,
+    datePublished: post.data.date,
+    authorName: post.data.author,
+    category: post.data.category,
+  }),
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.data.title, url: `/blog/${post.id}` },
+  ]),
+]);
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} canonicalUrl={articleUrl} ogType="article" schema={articleSchema}>
+  <Header />
+
+  <main class="flex-1 bg-canvas">
+    <!-- Breadcrumb & Header -->
+    <section class="pt-10 pb-6 border-b border-line bg-canvas">
+      <div class="container-content max-w-4xl mx-auto">
+        <nav aria-label="Breadcrumb" class="mb-6">
+          <ol class="flex flex-wrap items-center gap-2 text-xs font-mono text-ink-soft">
+            <li><a href="/" class="hover:text-blue">Home</a></li>
+            <li>/</li>
+            <li><a href="/blog" class="hover:text-blue">Blog</a></li>
+            <li>/</li>
+            <span class="text-ink truncate max-w-[200px] sm:max-w-xs">{post.data.title}</span>
+          </ol>
+        </nav>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="badge bg-card text-blue border-blue/30">{post.data.category}</span>
+          <span class="font-mono text-xs text-ink-soft/70">{post.data.readTime}</span>
+          <span class="font-mono text-xs text-ink-soft/50">•</span>
+          <span class="font-mono text-xs text-ink-soft/70">{post.data.date}</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight mb-6">
+          {post.data.title}
+        </h1>
+
+        <p class="text-lg text-ink-soft leading-relaxed mb-6 font-medium">
+          {post.data.excerpt}
+        </p>
+
+        <div class="flex items-center gap-3 pt-4 border-t border-line text-xs font-mono text-ink-soft">
+          <span>Written by <strong class="text-ink font-semibold">{post.data.author}</strong></span>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <>
+              <span>•</span>
+              <div class="flex flex-wrap gap-1">
+                {post.data.tags.map((tag: string) => (
+                  <span class="bg-canvas-deep px-2 py-0.5 rounded text-[11px]">#{tag}</span>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content & Sidebar CTA -->
+    <section class="section-pad bg-canvas-deep">
+      <div class="container-content max-w-4xl mx-auto">
+        <div class="bg-card border border-line rounded-[3px] p-6 sm:p-10 lg:p-12 shadow-sm mb-12">
+          <article class="prose-blog">
+            {ContentComp && <ContentComp />}
+          </article>
+
+          <!-- CTA Banner inside article footer -->
+          <div class="mt-12 p-8 bg-canvas border border-line rounded-[3px] text-center">
+            <h3 class="text-xl font-display font-bold mb-3">Ready to Scale Your Search Rankings & Organic Traffic?</h3>
+            <p class="text-ink-soft text-sm max-w-lg mx-auto mb-6 leading-relaxed">
+              GetUsRanked helps businesses build websites that rank at the top of Google and AI search engines like ChatGPT and Perplexity.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="/#contact" class="btn btn-primary">Book an SEO Strategy Call</a>
+              <a href="/about-us" class="btn btn-ghost">Learn About Our Process</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Blog Button -->
+        <div class="text-center">
+          <a href="/blog" class="btn btn-ghost text-xs inline-flex items-center gap-2">
+            ← Back to All Articles
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
