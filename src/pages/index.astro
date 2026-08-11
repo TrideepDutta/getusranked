@@ -489,7 +489,7 @@ const homeSchema = createGraphSchema([
   const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
   const statusDiv = document.getElementById('contact-form-status');
   const submitBtn = document.getElementById('contact-form-submit') as HTMLButtonElement | null;
-  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || '';
+  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbw2-AWb7ZKKHa8_bHntpg_vVImCgOAJYXumvP1ZJsQaIIvJ0mb4ieVdW3Dgb2YNh9YV/exec';
 
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
