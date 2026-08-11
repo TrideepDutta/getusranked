@@ -32,9 +32,11 @@
   /* Layout */
   --container-content: 1180px;
 
-  /* Radius — PRD: 2-3px everywhere, no pills */
-  --radius-sm: 2px;
-  --radius-base: 3px;
+  /* Radius — Curved edges throughout website */
+  --radius-sm: 9999px;
+  --radius-base: 9999px;
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
 
   /* Breakpoints */
   --breakpoint-sm: 720px;
@@ -164,7 +166,7 @@
 
 /* ─── Component Classes ─── */
 @layer components {
-  /* Buttons */
+  /* Glassmorphic Buttons */
   .btn {
     font-family: var(--font-mono);
     font-size: 0.78rem;
@@ -175,49 +177,128 @@
     border-radius: var(--radius-base);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
     line-height: 1;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    position: relative;
+    overflow: hidden;
   }
 
   .btn:hover {
     text-decoration: none;
   }
 
+  /* Primary Glass Button */
   .btn-primary {
-    background-color: var(--color-blue);
-    color: #fff;
-    border-color: var(--color-blue);
+    background: linear-gradient(135deg, rgba(36, 81, 214, 0.88), rgba(27, 58, 160, 0.82));
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 
+      inset 0 1px 1px rgba(255, 255, 255, 0.45),
+      0 4px 16px rgba(36, 81, 214, 0.28);
   }
 
   .btn-primary:hover {
-    background-color: var(--color-blue-deep);
-    border-color: var(--color-blue-deep);
+    background: linear-gradient(135deg, rgba(36, 81, 214, 0.98), rgba(27, 58, 160, 0.92));
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 
+      inset 0 1px 2px rgba(255, 255, 255, 0.7),
+      0 6px 22px rgba(36, 81, 214, 0.45);
+    transform: translateY(-1px);
   }
 
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 
+      inset 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 2px 8px rgba(36, 81, 214, 0.3);
+  }
+
+  /* Ghost Glass Button (Light mode / canvas sections) */
   .btn-ghost {
-    background-color: transparent;
+    background: rgba(255, 255, 255, 0.55);
     color: var(--color-ink);
-    border-color: var(--color-ink);
+    border-color: rgba(19, 22, 28, 0.18);
+    box-shadow: 
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.85),
+      0 4px 14px rgba(0, 0, 0, 0.04);
   }
 
   .btn-ghost:hover {
-    background-color: var(--color-ink);
-    color: var(--color-canvas);
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--color-blue);
+    border-color: rgba(36, 81, 214, 0.45);
+    box-shadow: 
+      inset 0 1px 1.5px rgba(255, 255, 255, 1),
+      0 6px 18px rgba(36, 81, 214, 0.16);
+    transform: translateY(-1px);
   }
 
+  .btn-ghost:active {
+    transform: translateY(0);
+  }
+
+  /* Ghost Light Glass Button (Dark mode / ink sections) */
   .btn-ghost-light {
-    background-color: transparent;
+    background: rgba(255, 255, 255, 0.12);
     color: var(--color-canvas);
-    border-color: var(--color-canvas);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 
+      inset 0 1px 1px rgba(255, 255, 255, 0.3),
+      0 4px 14px rgba(0, 0, 0, 0.15);
   }
 
   .btn-ghost-light:hover {
-    background-color: var(--color-canvas);
-    color: var(--color-ink);
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 
+      inset 0 1px 2px rgba(255, 255, 255, 0.5),
+      0 6px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost-light:active {
+    transform: translateY(0);
+  }
+
+  /* Glass Header Bar */
+  .glass-header {
+    background: rgba(238, 241, 239, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 
+      0 6px 24px rgba(0, 0, 0, 0.05),
+      inset 0 1px 1px rgba(255, 255, 255, 0.85);
+    border-radius: 9999px;
+  }
+
+  .glass-header-scrolled {
+    background: rgba(238, 241, 239, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(19, 22, 28, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border-radius: 9999px;
+  }
+
+  /* Glass Card & Badge Utilities */
+  .glass-card {
+    background: rgba(247, 249, 246, 0.65);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 
+      inset 0 1px 1px rgba(255, 255, 255, 0.8),
+      0 6px 20px rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-card);
   }
 
   /* Eyebrow / mono label */
@@ -246,6 +327,8 @@
     border: 1px solid var(--color-line-strong);
     display: inline-block;
     line-height: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   /* Content container */
@@ -359,22 +442,22 @@
     color: var(--color-ink);
   }
 
-  /* Solid Code Block Styling for Astro & Markdown */
+  /* Clean Normal Text Code Block Styling for Blog Articles */
   .prose-blog pre,
   .prose-blog pre.astro-code {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    line-height: 1.6;
-    background-color: #13161C !important;
-    color: #E2E7E2 !important;
-    padding: 1.25rem 1.5rem !important;
-    border-radius: var(--radius-base) !important;
-    border: 1px solid var(--color-line-strong) !important;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    background-color: var(--color-canvas) !important;
+    color: var(--color-ink) !important;
+    padding: 1rem 1.25rem !important;
+    border-radius: var(--radius-card) !important;
+    border: 1px solid var(--color-line) !important;
     overflow-x: auto;
-    margin-top: 1.75rem;
-    margin-bottom: 1.75rem;
-    white-space: pre;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    white-space: pre-wrap;
+    box-shadow: none !important;
   }
 
   .prose-blog pre code,
@@ -382,10 +465,11 @@
   .prose-blog pre.astro-code code,
   .prose-blog pre.astro-code span {
     background-color: transparent !important;
+    color: inherit !important;
     padding: 0 !important;
     border-radius: 0 !important;
     border: none !important;
-    font-family: var(--font-mono);
+    font-family: inherit !important;
   }
 
   .prose-blog pre code {

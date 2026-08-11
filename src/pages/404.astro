@@ -39,7 +39,7 @@ const pageSchema = createGraphSchema([
     <div class="container-content">
       <div class="max-w-3xl mx-auto text-center reveal-scale">
         <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-ink/5 border border-line rounded mb-6 font-mono text-xs text-ink-soft uppercase tracking-widest">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-ink/5 border border-line rounded-full mb-6 font-mono text-xs text-ink-soft uppercase tracking-widest">
           <span class="w-2 h-2 rounded-full bg-blue animate-pulse"></span>
           HTTP Status 404 &mdash; Page Not Found
         </div>
@@ -71,7 +71,7 @@ const pageSchema = createGraphSchema([
             {popularLinks.map(link => (
               <a
                 href={link.href}
-                class="block p-5 bg-card hover:bg-canvas-deep border border-line hover:border-blue/40 rounded transition-all duration-200 no-underline group"
+                class="block p-5 bg-card hover:bg-canvas-deep border border-line hover:border-blue/40 rounded-2xl transition-all duration-200 no-underline group"
               >
                 <div class="font-display font-semibold text-ink group-hover:text-blue transition-colors flex items-center justify-between">
                   <span>{link.label}</span>

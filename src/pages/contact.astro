@@ -88,10 +88,10 @@ const contactSchema = createGraphSchema([
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              class={`bg-card border border-line rounded-[3px] p-6 no-underline hover:border-blue transition-all duration-200 group reveal stagger-${i + 1}`}
+              class={`bg-card border border-line rounded-2xl p-6 no-underline hover:border-blue transition-all duration-200 group reveal stagger-${i + 1}`}
             >
               <div class="flex items-center gap-3 mb-4">
-                <div class:list={["p-2.5 bg-canvas rounded-[3px] border border-line transition-transform group-hover:scale-110 duration-200", social.iconColor]} Fragment set:html={social.svg} />
+                <div class:list={["p-2.5 bg-canvas rounded-xl border border-line transition-transform group-hover:scale-110 duration-200", social.iconColor]} Fragment set:html={social.svg} />
                 <div>
                   <h3 class="font-display text-lg font-bold text-ink group-hover:text-blue transition-colors">
                     {social.platform}
@@ -125,7 +125,7 @@ const contactSchema = createGraphSchema([
             </p>
 
             <div class="space-y-6">
-              <div class="bg-card border border-line rounded-[3px] p-5">
+              <div class="bg-card border border-line rounded-2xl p-5">
                 <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Email</p>
                 <a
                   href="mailto:hello@getusranked.com"
@@ -135,7 +135,7 @@ const contactSchema = createGraphSchema([
                 </a>
               </div>
 
-              <div class="bg-card border border-line rounded-[3px] p-5">
+              <div class="bg-card border border-line rounded-2xl p-5">
                 <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Availability</p>
                 <p class="font-display font-bold text-ink text-base">Monday – Friday</p>
                 <p class="text-xs text-ink-soft mt-1">9:00 AM – 6:00 PM EST</p>
@@ -144,7 +144,7 @@ const contactSchema = createGraphSchema([
           </div>
 
           <!-- Right Form Column -->
-          <div class="lg:col-span-7 bg-card border border-line rounded-[3px] p-8 reveal stagger-1">
+          <div class="lg:col-span-7 bg-card border border-line rounded-2xl p-8 reveal stagger-1">
             <h3 class="font-display text-xl font-bold mb-2">Send us a message</h3>
             <p class="text-ink-soft text-sm mb-6">Fill out the form below and we'll get back to you with an audit or response promptly.</p>
 
@@ -163,7 +163,7 @@ const contactSchema = createGraphSchema([
                     id="contact-name"
                     name="name"
                     required
-                    class="w-full bg-canvas border-b border-line-strong text-ink py-2 px-3 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-[2px]"
+                    class="w-full bg-canvas border-b border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-xl"
                     placeholder="Your name"
                   />
                 </div>
@@ -174,7 +174,7 @@ const contactSchema = createGraphSchema([
                     id="contact-email"
                     name="email"
                     required
-                    class="w-full bg-canvas border-b border-line-strong text-ink py-2 px-3 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-[2px]"
+                    class="w-full bg-canvas border-b border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-xl"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -187,7 +187,7 @@ const contactSchema = createGraphSchema([
                     type="text"
                     id="contact-company"
                     name="company"
-                    class="w-full bg-canvas border-b border-line-strong text-ink py-2 px-3 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-[2px]"
+                    class="w-full bg-canvas border-b border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-xl"
                     placeholder="Company name"
                   />
                 </div>
@@ -197,7 +197,7 @@ const contactSchema = createGraphSchema([
                     type="url"
                     id="contact-website"
                     name="website"
-                    class="w-full bg-canvas border-b border-line-strong text-ink py-2 px-3 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-[2px]"
+                    class="w-full bg-canvas border-b border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 rounded-xl"
                     placeholder="https://yourbusiness.com"
                   />
                 </div>
@@ -210,7 +210,7 @@ const contactSchema = createGraphSchema([
                   name="message"
                   rows="4"
                   required
-                  class="w-full bg-canvas border-b border-line-strong text-ink py-2 px-3 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 resize-none rounded-[2px]"
+                  class="w-full bg-canvas border-b border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue placeholder:text-ink-soft/50 resize-none rounded-xl"
                   placeholder="Tell us about your project, goals, or current search performance..."
                 ></textarea>
               </div>

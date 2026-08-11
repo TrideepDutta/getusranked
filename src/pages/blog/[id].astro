@@ -123,7 +123,7 @@ const articleSchema = createGraphSchema([
               <span>•</span>
               <div class="flex flex-wrap gap-1">
                 {post.data.tags.map((tag: string) => (
-                  <span class="bg-canvas-deep px-2 py-0.5 rounded text-[11px]">#{tag}</span>
+                  <span class="bg-canvas-deep px-2.5 py-0.5 rounded-full text-[11px]">#{tag}</span>
                 ))}
               </div>
             </>
@@ -135,13 +135,13 @@ const articleSchema = createGraphSchema([
     <!-- Article Content & Sidebar CTA -->
     <section class="section-pad bg-canvas-deep">
       <div class="container-content max-w-4xl mx-auto">
-        <div class="bg-card border border-line rounded-[3px] p-6 sm:p-10 lg:p-12 shadow-sm mb-12">
+        <div class="bg-card border border-line rounded-2xl p-6 sm:p-10 lg:p-12 shadow-sm mb-12">
           <article class="prose-blog">
             {ContentComp && <ContentComp />}
           </article>
 
           <!-- CTA Banner inside article footer -->
-          <div class="mt-12 p-8 bg-canvas border border-line rounded-[3px] text-center">
+          <div class="mt-12 p-8 bg-canvas border border-line rounded-2xl text-center">
             <h3 class="text-xl font-display font-bold mb-3">Ready to Scale Your Search Rankings & Organic Traffic?</h3>
             <p class="text-ink-soft text-sm max-w-lg mx-auto mb-6 leading-relaxed">
               GetUsRanked helps businesses build websites that rank at the top of Google and AI search engines like ChatGPT and Perplexity.

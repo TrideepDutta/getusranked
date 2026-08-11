@@ -34,16 +34,11 @@ In this technical breakdown, we examine how an experienced **SEO agency** audits
 
 Shopify is an exceptionally secure and reliable hosted e-commerce platform. However, its standardized Liquid theme engine introduces specific technical SEO challenges:
 
-```
-+-----------------------------------------------------------------------+
-|                 Common Shopify Technical SEO Bottlenecks              |
-+-----------------------------------------------------------------------+
-|  1. Duplicate Product URLs  --> /collections/name/products/item       |
-|  2. Vendor & Tag Index Bloat --> /collections/vendors?q=...           |
-|  3. App Script Bloat        --> Render-blocking JS from uninstalled apps|
-|  4. Hardcoded Header Tags   --> Multiple H1 tags in Liquid templates  |
-+-----------------------------------------------------------------------+
-```
+> **Common Shopify Technical SEO Bottlenecks:**
+> 1. **Duplicate Product URLs:** `/collections/name/products/item` vs primary `/products/item`
+> 2. **Vendor & Tag Index Bloat:** `/collections/vendors?q=...`
+> 3. **App Script Bloat:** Render-blocking JS from uninstalled apps
+> 4. **Hardcoded Header Tags:** Multiple H1 tags in Liquid templates
 
 ---
 
@@ -57,17 +52,7 @@ However, the primary canonical version of the product resides at:
 
 While Shopify includes a canonical tag pointing to the primary URL, internal site links still pass page authority to the `/collections/` variant. This splits internal link equity and confuses search crawlers.
 
-A specialized **ecommerce seo agency** modifies your Shopify Liquid theme files (`main-product.liquid` or `product-card.liquid` snippet) to force all internal links to point directly to the primary `/products/` URL structure:
-
-```liquid
-{% comment %} Before Agency Fix: {% endcomment %}
-<a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-
-{% comment %} After Agency Fix (Direct Canonical Link): {% endcomment %}
-<a href="{{ product.url }}">{{ product.title }}</a>
-```
-
-This simple code modification consolidates internal page rank, boosting core product rankings across search engines.
+A specialized **ecommerce seo agency** modifies your Shopify Liquid theme files (`main-product.liquid` or `product-card.liquid` snippet) to force all internal links to point directly to the primary `/products/` URL structure (changing `{{ product.url | within: collection }}` to `{{ product.url }}`). This simple code modification consolidates internal page rank, boosting core product rankings across search engines.
 
 ---
 
@@ -85,16 +70,11 @@ These pages often contain thin product lists with duplicate meta titles. An expe
 
 WooCommerce offers complete code customization on WordPress. However, self-hosted flexibility means stores often suffer from server performance degradation and database bloat:
 
-```
-+-----------------------------------------------------------------------+
-|               Common WooCommerce Technical SEO Bottlenecks            |
-+-----------------------------------------------------------------------+
-|  1. High TTFB (Server Slowdown) --> Uncached PHP database queries     |
-|  2. Plugin Conflicts            --> 30+ plugins creating JS bloat     |
-|  3. Attribute Parameter Crawl   --> /shop/?filter_color=black         |
-|  4. Unoptimized Image Media     --> Uncompressed PNGs slowing LCP     |
-+-----------------------------------------------------------------------+
-```
+> **Common WooCommerce Technical SEO Bottlenecks:**
+> 1. **High TTFB (Server Slowdown):** Uncached PHP database queries
+> 2. **Plugin Conflicts:** 30+ plugins creating JS bloat
+> 3. **Attribute Parameter Crawl:** `/shop/?filter_color=black`
+> 4. **Unoptimized Image Media:** Uncompressed PNGs slowing LCP
 
 ---
 
@@ -121,12 +101,9 @@ A skilled agency uses asset management scripts or custom functions to prevent no
 
 Core Web Vitals are official Google ranking factors measuring page speed, responsiveness, and visual stability:
 
-```
-[ Core Web Vitals Metrics ]
-  ├── LCP (Largest Contentful Paint) --> Target: < 2.5s  (Hero Image Loading)
-  ├── INP (Interaction to Next Paint)--> Target: < 200ms (Filter & Cart Clicks)
-  └── CLS (Cumulative Layout Shift)  --> Target: < 0.1   (Visual Page Jumps)
-```
+* **LCP (Largest Contentful Paint):** Target < 2.5s (Hero Image Loading)
+* **INP (Interaction to Next Paint):** Target < 200ms (Filter & Cart Clicks)
+* **CLS (Cumulative Layout Shift):** Target < 0.1 (Visual Page Jumps)
 
 ### Action Plan Executed by an E-Commerce SEO Agency:
 

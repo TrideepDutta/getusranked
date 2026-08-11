@@ -32,17 +32,11 @@ In this guide, we provide an honest financial and operational breakdown comparin
 
 To evaluate whether your organization should build an internal team or hire an agency, you must first understand the technical disciplines required to compete in modern search engine results pages (SERPs):
 
-```
-+-------------------------------------------------------------------+
-|               The 5 Pillars of Technical SEO Execution            |
-+-------------------------------------------------------------------+
-|  1. Technical Web Dev   --> Core Web Vitals, Schema & Server SSR   |
-|  2. Search Strategy     --> Intent Mapping, Competitor Analysis    |
-|  3. Content Engineering --> E-E-A-T, GEO Optimization & Copywriting|
-|  4. Digital PR & Links  --> High-Authority Outreach & Media Comms  |
-|  5. Data & Analytics    --> Looker Studio, GSC & Pipeline Attribution|
-+-------------------------------------------------------------------+
-```
+* **1. Technical Web Dev:** Core Web Vitals, Schema & Server SSR
+* **2. Search Strategy:** Intent Mapping, Competitor Analysis
+* **3. Content Engineering:** E-E-A-T, GEO Optimization & Copywriting
+* **4. Digital PR & Links:** High-Authority Outreach & Media Communications
+* **5. Data & Analytics:** Looker Studio, Google Search Console & Pipeline Attribution
 
 When a business relies on a single internal "SEO Specialist," that individual is forced to split their attention across all five complex areas, leading to shallow execution and slow momentum.
 
@@ -53,43 +47,20 @@ When a business relies on a single internal "SEO Specialist," that individual is
 Let's examine the real financial investment of building a competent internal SEO team versus hiring the **best SEO agency**:
 
 ### Financial Option A: Building an Internal SEO Team (Annual Costs)
-
-```
-In-House Team Member Salaries (US Averages):
-- Senior SEO Strategist:        $95,000 / yr
-- Technical Web Developer:     $115,000 / yr
-- Content Writer / Copywriter:  $65,000 / yr
-- Employee Benefits & Taxes:   $45,000 / yr
-- Enterprise SEO Software:      $12,000 / yr
--------------------------------------------------
-TOTAL ANNUAL IN-HOUSE COST:    $332,000 / year
-```
+* **Senior SEO Strategist:** $95,000 / year
+* **Technical Web Developer:** $115,000 / year
+* **Content Writer / Copywriter:** $65,000 / year
+* **Employee Benefits & Taxes:** $45,000 / year
+* **Enterprise SEO Software Subscriptions:** $12,000 / year
+* **TOTAL ANNUAL IN-HOUSE COST:** **$332,000 / year**
 
 ### Financial Option B: Hiring a Top SEO Agency (Annual Costs)
+* **Average Monthly Retainer:** $2,500 – $6,000 / month
+* **Annual Investment Range:** **$30,000 – $72,000 / year**
+* **Enterprise Software Included:** $0 (Provided directly by Agency)
+* **Specialized Team Included:** Access to Developers, Strategists, Copywriters, & PR Leads
 
-```
-Best SEO Agency Retainer (Growth Package):
-- Average Monthly Retainer:    $2,500 - $6,000 / mo
-- Annual Investment Range:     $30,000 - $72,000 / year
-- Enterprise Software Included: $0 (Provided by Agency)
-- Specialized Team Included:    Devs, Strategists, Writers, PR Leads
--------------------------------------------------
-TOTAL ANNUAL AGENCY COST:      $30,000 - $72,000 / year
-```
-
-```
-Cost Comparison ($ USD / Year)
-$350k +---------------------------------------------------------+
-      |  $332,000                                               |
-$300k |  [ Full In-House Team Cost ]                            |
-      |                                                         |
-$200k |                                                         |
-      |                                                         |
-$100k |                                     $30,000 - $72,000   |
-      |                                     [ Top Agency Cost ] |
-   $0 +---------------------------------------------------------+
-                        In-House vs Agency
-```
+* **Total Cost Difference:** Building an in-house team costs upwards of **$332,000/year**, whereas a top agency retainer ranges between **$30,000 – $72,000/year**.
 
 Partnering with an experienced **SEO agency** yields immediate access to a full cross-functional growth team at less than 25% of the total cost of building equivalent internal headcount.
 
@@ -119,16 +90,8 @@ Partnering with an experienced **SEO agency** yields immediate access to a full 
 * You need fast access to technical web developers who can modify site code immediately.
 * You want to scale organic lead generation and revenue without inflating employee overhead.
 
-```
-                    [ Evaluate Business Scale ]
-                                 |
-        +------------------------+------------------------+
-        |                                                 |
-[ Enterprise ($10M+ Budget) ]                  [ Mid-Market / Growing Brand ]
-        |                                                 |
-        v                                                 v
-[ Build Full In-House Team ]                    [ Hire the Best SEO Agency ]
-```
+* **Enterprise ($10M+ Budget):** Build Full In-House Team
+* **Mid-Market / Growing Brand:** Hire the Best SEO Agency
 
 ---
 

@@ -97,7 +97,7 @@ const blogSchema = createGraphSchema([
       <div class="container-content">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {posts.map(post => (
-            <article class="bg-card border border-line rounded-[3px] p-6 flex flex-col hover:border-blue/50 transition-colors group">
+            <article class="bg-card border border-line rounded-2xl p-6 flex flex-col hover:border-blue/50 transition-colors group">
               <div class="flex items-center justify-between mb-4">
                 <span class="badge text-blue border-blue/30">{post.category}</span>
                 <span class="font-mono text-xs text-ink-soft/60">{post.readTime}</span>
@@ -119,7 +119,7 @@ const blogSchema = createGraphSchema([
         </div>
 
         <!-- Consultation Banner -->
-        <div class="mt-16 p-8 bg-card border border-line rounded-[3px] text-center max-w-3xl mx-auto">
+        <div class="mt-16 p-8 bg-card border border-line rounded-2xl text-center max-w-3xl mx-auto">
           <h3 class="font-display text-xl font-bold mb-3">Looking for a Performance-Driven SEO Agency?</h3>
           <p class="text-ink-soft text-sm leading-relaxed mb-6">
             We build high-converting WordPress and Shopify websites paired with modern technical SEO and AI search optimization.

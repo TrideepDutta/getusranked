@@ -34,33 +34,14 @@ In this definitive guide, we explore the core principles of Generative Engine Op
 
 Generative Engine Optimization (GEO) represents the evolution of search engine optimization. While traditional SEO focuses on earning top positions in standard search engine result pages (SERPs), GEO focuses on influencing how Large Language Models generate synthesized answers to complex user prompts.
 
-```
-+-----------------------------------------------------------------------+
-|                    Traditional SEO vs. GEO Workflows                  |
-+-----------------------------------------------------------------------+
-|  Traditional SEO: User Types Keyword --> Google Lists 10 Blue Links   |
-|  GEO Optimization: User Asks Prompt --> AI Synthesizes 1 Direct Answer|
-|                                         (With Source Brand Citations) |
-+-----------------------------------------------------------------------+
-```
+* **Traditional SEO:** User Types Keyword → Google Lists 10 Blue Links
+* **GEO Optimization:** User Asks Prompt → AI Synthesizes 1 Direct Answer (With Source Brand Citations)
 
-```
-                     [ User Conversational Prompt ]
-                                   |
-                                   v
-             [ LLM Web Scraper & Retrieval Engine (RAG) ]
-                                   |
-         +-------------------------+-------------------------+
-         |                                                   |
-[ Scrapes Unstructured Blogs ]                 [ Scrapes GEO-Optimized Assets ]
-  (Hard to parse -> Skipped)                     (Tables, Schema, Stats -> Extracted)
-         |                                                   |
-         +-------------------------+-------------------------+
-                                   |
-                                   v
-                    [ AI Recommended Solution ]
-                    "According to [Your Brand]..."
-```
+**How LLM RAG Workflows Process Sites:**
+1. **User Conversational Prompt**
+2. **LLM Web Scraper & Retrieval Engine (RAG)**
+3. **Extraction Comparison:** Unstructured blogs are skipped, while GEO-Optimized assets (tables, schema, statistics) are extracted
+4. **AI Recommended Solution:** *"According to [Your Brand]..."*
 
 When an executive asks Perplexity AI or ChatGPT to recommend a software vendor, local service provider, or e-commerce product, GEO determines which brand receives the endorsement.
 
@@ -70,21 +51,15 @@ When an executive asks Perplexity AI or ChatGPT to recommend a software vendor, 
 
 According to groundbreaking research published by leading AI researchers (Princeton, Georgia Tech, Allen Institute for AI), specific content modifications drastically increase a website's visibility in generative AI models:
 
-```
-+-------------------------------------------------------------------+
-|               The 9 Pillars of Generative Engine Optimization     |
-+-------------------------------------------------------------------+
-|  1. Statistical Hardening   --> Adding verified numerical metrics |
-|  2. Authoritative Quotes    --> Direct quotes from industry pros  |
-|  3. Markdown & HTML Tables  --> Structuring comparisons cleanly   |
-|  4. Citation Inclusions     --> Linking to external authority sources|
-|  5. Entity Schema Graphs    --> Validating data with JSON-LD      |
-|  6. Direct Q&A Summaries    --> Concise 2-sentence answers        |
-|  7. Simplified Vocabulary   --> High readability scores           |
-|  8. Unique Case Study Data  --> Proprietary brand research        |
-|  9. Technical SSR Rendering --> Instant bot crawl accessibility   |
-+-------------------------------------------------------------------+
-```
+* **1. Statistical Hardening:** Adding verified numerical metrics
+* **2. Authoritative Quotes:** Direct quotes from industry pros
+* **3. Markdown & HTML Tables:** Structuring comparisons cleanly
+* **4. Citation Inclusions:** Linking to external authority sources
+* **5. Entity Schema Graphs:** Validating data with JSON-LD
+* **6. Direct Q&A Summaries:** Concise 2-sentence answers
+* **7. Simplified Vocabulary:** High readability scores
+* **8. Unique Case Study Data:** Proprietary brand research
+* **9. Technical SSR Rendering:** Instant bot crawl accessibility
 
 An experienced **ai seo agency** implements these 9 techniques across your site's core landing pages:
 
@@ -103,42 +78,16 @@ Presenting this data in clean HTML tables allows AI web scrapers to parse and ex
 ### Technique #2: Deep Linked Entity Graphs (Schema.org)
 AI models verify company credentials by cross-referencing structured data against external knowledge bases (Wikidata, Crunchbase, official social registries).
 
-A forward-thinking **SEO agency** builds multi-node `@graph` schema:
-
-```json
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://getusranked.com/#organization",
-      "name": "GetUsRanked",
-      "url": "https://getusranked.com",
-      "sameAs": [
-        "https://linkedin.com/company/getusranked",
-        "https://facebook.com/getusranked",
-        "https://instagram.com/getusranked"
-      ],
-      "knowsAbout": [
-        "Search Engine Optimization",
-        "Generative Engine Optimization",
-        "AI Search Visibility",
-        "Web Development"
-      ]
-    }
-  ]
-}
-```
+A forward-thinking **SEO agency** builds multi-node `@graph` schema combining Organization details, URL links, social profiles, and core expertise areas to validate domain credibility for LLMs.
 
 ---
 
 ### Technique #3: Direct Q&A Summary Modules
-AI models search for explicit definitions to answer natural language questions. By adding dedicated Q&A blocks to key service pages, an **ai seo agency** turns your site into an ideal source candidate:
+AI models search for explicit definitions to answer natural language questions. By adding dedicated Q&A blocks to key service pages, an **ai seo agency** turns your site into an ideal source candidate.
 
-```markdown
-### What is Answer Engine Optimization (AEO)?
+**Example Answer Block:**  
+*What is Answer Engine Optimization (AEO)?*  
 Answer Engine Optimization (AEO) is the practice of structuring website content into clear, direct answers so voice assistants and conversational AI engines can deliver quick, accurate responses to user queries.
-```
 
 ---
 
@@ -146,18 +95,12 @@ Answer Engine Optimization (AEO) is the practice of structuring website content 
 
 To understand why traditional SEO alone is insufficient, consider how modern AI search engines operate using **Retrieval-Augmented Generation (RAG)**:
 
-```
-[ Step 1: User Input ] 
-       │
-       ▼
-[ Step 2: Vector Search Retrieval ] ──> Scrapes Top Web Results (Search Index)
-       │
-       ▼
-[ Step 3: Semantic Reranking ]      ──> Evaluates Credibility, Schema, & GEO Data
-       │
-       ▼
-[ Step 4: LLM Answer Synthesis ]    ──> Generates Final Answer + Source Links
-```
+1. **User Input:** Processing natural language prompts
+2. **Vector Search Retrieval:** Scraping top web results from the search index
+3. **Semantic Reranking:** Evaluating credibility, schema, and GEO data points
+4. **LLM Answer Synthesis:** Generating final answer cards with source citations
+
+If your web page lacks clean Server-Side Rendering (SSR), structured data, or clear heading organization, the RAG retrieval engine drops your content during Step 3 (Semantic Reranking).
 
 If your web page lacks clean Server-Side Rendering (SSR), structured data, or clear heading organization, the RAG retrieval engine drops your content during Step 3 (Semantic Reranking).
 
