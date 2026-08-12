@@ -98,27 +98,12 @@ const homeSchema = createGraphSchema([
             <h1 class="mb-6">
               We build sites that<br />actually get found.
             </h1>
-            <p class="text-ink-soft text-lg max-w-lg mb-8 leading-relaxed">
+            <p class="text-ink-soft text-xl max-w-xl mb-10 leading-relaxed">
               WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.
             </p>
-            <div class="flex flex-wrap gap-4 mb-10">
+            <div class="flex flex-wrap gap-4">
               <a href="/about-us" class="btn btn-primary">About Us & Process</a>
               <a href="/contact" class="btn btn-ghost">Get a Free Site Review</a>
-            </div>
-            <!-- Trust strip -->
-            <div class="flex flex-wrap gap-6 pt-6 border-t border-line">
-              <div>
-                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Foundations</p>
-                <p class="font-display font-semibold text-sm">SEO + AI Search</p>
-              </div>
-              <div>
-                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Access</p>
-                <p class="font-display font-semibold text-sm">Direct to Founder</p>
-              </div>
-              <div>
-                <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-1">Platforms</p>
-                <p class="font-display font-semibold text-sm">WordPress & Shopify</p>
-              </div>
             </div>
           </div>
 
@@ -198,38 +183,15 @@ const homeSchema = createGraphSchema([
       </div>
     </section>
 
-    <!-- ═══════ WHAT YOU ACTUALLY GET (Packages Preview / Pricing Teaser) ═══════ -->
-    <section id="packages-preview" class="section-pad bg-canvas">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">What You Actually Get</p>
-        <h2 class="mb-10 max-w-2xl reveal">Three ways to work with us, priced clearly</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-1">
-            <h3 class="font-display text-lg font-bold mb-3">Plan 1 · Starter — $599</h3>
-            <p class="text-ink-soft text-sm leading-relaxed">A 5-page WordPress site, SEO-optimized for 10 keywords, AEO-ready from day one.</p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-2">
-            <h3 class="font-display text-lg font-bold mb-3">Plan 2 · Growth — $899</h3>
-            <p class="text-ink-soft text-sm leading-relaxed">Up to 10 pages, 20 keywords targeted, deeper SEO and AI-search setup.</p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-3">
-            <h3 class="font-display text-lg font-bold mb-3">Plan 3 · Custom — Scoped to your project</h3>
-            <p class="text-ink-soft text-sm leading-relaxed">Custom build, 40+ keywords, your own dashboard to manage content. Connect with us.</p>
-          </div>
-        </div>
-        <div class="mt-8 text-center reveal">
-          <a href="/pricing" class="btn btn-primary">See Full Pricing Details →</a>
-        </div>
-      </div>
-    </section>
+    <!-- Pricing teaser section removed 2026-08-12 -->
 
     <!-- ═══════ WHY TRUST A NEW AGENCY ═══════ -->
     <section id="credibility" class="section-pad bg-ink text-canvas">
       <div class="container-content">
-        <!-- Top Split Grid (Eliminating Empty Space) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-14">
+        <!-- Top Split Grid (Equal Height Matching Text Div) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-14">
           <!-- Left: Copy -->
-          <div class="lg:col-span-7 reveal">
+          <div class="lg:col-span-7 reveal flex flex-col justify-center">
             <p class="eyebrow eyebrow-light mb-3">Why Trust a New Agency</p>
             <h2 class="text-canvas mb-6">We're new, and we're not going to pretend otherwise.</h2>
             <p class="text-canvas/75 text-base lg:text-lg leading-relaxed max-w-2xl">
@@ -237,50 +199,150 @@ const homeSchema = createGraphSchema([
             </p>
           </div>
 
-          <!-- Right: Growth Metric Card -->
-          <div class="lg:col-span-5 reveal-scale">
-            <div class="bg-canvas/5 border border-canvas/10 rounded-2xl p-6 lg:p-7 shadow-xl">
-              <div class="flex items-center justify-between mb-5 pb-3 border-b border-canvas/10">
-                <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium">Our Own Growth</p>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-up/10 text-up border border-up/20 font-mono text-[10px] uppercase tracking-wider font-semibold">
-                  <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
-                  Live & Rankable
+          <!-- Right: Growth Metric & Keyword Rankings Card -->
+          <div class="lg:col-span-5 reveal-scale flex flex-col justify-center">
+            <div class="bg-canvas/5 border border-canvas/10 rounded-2xl p-4 lg:p-4.5 shadow-xl transition-all duration-300 flex flex-col justify-between">
+              
+              <!-- Card Header with Toggle -->
+              <div class="flex items-center justify-between mb-2 pb-2 border-b border-canvas/10 gap-2 shrink-0">
+                <div class="flex items-center gap-2">
+                  <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                    Ranked Keywords
+                  </p>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-up/10 text-up border border-up/20 font-mono text-[10px] uppercase tracking-wider font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
+                    Live
+                  </span>
+                </div>
+
+                <!-- Expand / Contract Toggle Button -->
+                <button
+                  id="rankings-toggle-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="rankings-content"
+                  class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-canvas/10 hover:bg-gold/20 text-canvas/80 hover:text-gold-soft border border-canvas/15 hover:border-gold/30 font-mono text-[10px] font-medium transition-all cursor-pointer group"
+                >
+                  <span id="rankings-toggle-label">Expand</span>
+                  <svg id="rankings-toggle-icon" class="w-3 h-3 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Contracted Summary Bar -->
+              <div id="rankings-summary" class="mb-2 py-1.5 px-2.5 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-between text-[11px] font-mono shrink-0">
+                <span class="text-gold-soft font-semibold flex items-center gap-1.5">
+                  <span class="text-up font-bold">5 / 5</span> Keywords at Rank #1
                 </span>
+                <span class="text-canvas/60 text-[10px]">100% Page 1 SERP</span>
               </div>
 
-              <!-- Bar Chart Visual -->
-              <div class="flex items-end justify-between gap-2.5 h-32 pt-4 pb-2">
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold/25 rounded-t-sm transition-all hover:bg-gold/40" style="height: 20%;"></div>
-                  <span class="font-mono text-[10px] text-canvas/40">Q1</span>
+              <!-- Scrollable Keyword Rankings Container (Compact) -->
+              <div
+                id="rankings-content"
+                class="space-y-1.5 overflow-y-auto max-h-[125px] lg:max-h-[135px] pr-1 custom-scrollbar flex-1 min-h-0 transition-all duration-500 relative my-0.5"
+              >
+                <!-- Keyword 1 -->
+                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                      SEO service in West Bengal
+                    </span>
+                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                      </svg>
+                      #1
+                    </span>
+                  </div>
+                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
+                  </div>
                 </div>
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold/35 rounded-t-sm transition-all hover:bg-gold/50" style="height: 35%;"></div>
-                  <span class="font-mono text-[10px] text-canvas/40">Q2</span>
+
+                <!-- Keyword 2 -->
+                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                      SEO agency in Kolkata
+                    </span>
+                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                      </svg>
+                      #1
+                    </span>
+                  </div>
+                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
+                  </div>
                 </div>
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold/50 rounded-t-sm transition-all hover:bg-gold/65" style="height: 52%;"></div>
-                  <span class="font-mono text-[10px] text-canvas/40">Q3</span>
+
+                <!-- Keyword 3 -->
+                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                      SEO agency in Baghajatin
+                    </span>
+                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                      </svg>
+                      #1
+                    </span>
+                  </div>
+                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
+                  </div>
                 </div>
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold/65 rounded-t-sm transition-all hover:bg-gold/80" style="height: 68%;"></div>
-                  <span class="font-mono text-[10px] text-canvas/40">Q4</span>
+
+                <!-- Keyword 4 -->
+                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                      best SEO agency for dental clinics
+                    </span>
+                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                      </svg>
+                      #1
+                    </span>
+                  </div>
+                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
+                  </div>
                 </div>
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold/85 rounded-t-sm transition-all hover:bg-gold" style="height: 84%;"></div>
-                  <span class="font-mono text-[10px] text-canvas/40">M5</span>
-                </div>
-                <div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
-                  <div class="w-full bg-gold rounded-t-sm shadow-[0_0_15px_rgba(201,162,39,0.4)]" style="height: 100%;"></div>
-                  <span class="font-mono text-[10px] font-bold text-gold">Now</span>
+
+                <!-- Keyword 5 -->
+                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                      top SEO agency in Kolkata
+                    </span>
+                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                      </svg>
+                      #1
+                    </span>
+                  </div>
+                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
+                  </div>
                 </div>
               </div>
 
-              <div class="mt-4 pt-3 border-t border-canvas/10 flex items-center justify-between text-xs font-mono">
-                <p class="text-up uppercase tracking-wider font-semibold">
-                  ↑ Built in the open
-                </p>
-                <span class="text-canvas/50 text-[11px]">100% Transparency</span>
+              <!-- Card Footer with Action Toggle -->
+              <div class="mt-2 pt-2 border-t border-canvas/10 flex items-center justify-between text-[11px] font-mono shrink-0">
+                <button id="rankings-footer-toggle" type="button" class="text-up hover:text-gold-soft uppercase tracking-wider font-semibold flex items-center gap-1 cursor-pointer transition-colors">
+                  <span id="rankings-footer-text">↑ Expand All Keywords</span>
+                </button>
+                <span class="text-canvas/50 text-[10px]">100% Transparency</span>
               </div>
             </div>
           </div>
@@ -446,6 +508,38 @@ const homeSchema = createGraphSchema([
       }
     });
   }
+
+  // Expand & Contract functionality for Ranked Keywords Card
+  const toggleBtn = document.getElementById('rankings-toggle-btn');
+  const footerToggle = document.getElementById('rankings-footer-toggle');
+  const toggleLabel = document.getElementById('rankings-toggle-label');
+  const toggleIcon = document.getElementById('rankings-toggle-icon');
+  const rankingsContent = document.getElementById('rankings-content');
+  const footerText = document.getElementById('rankings-footer-text');
+
+  let isExpanded = false;
+
+  function toggleRankingsCard() {
+    isExpanded = !isExpanded;
+    if (rankingsContent) {
+      if (isExpanded) {
+        rankingsContent.style.maxHeight = rankingsContent.scrollHeight + 'px';
+        if (toggleLabel) toggleLabel.textContent = 'Contract';
+        if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
+        if (footerText) footerText.textContent = '↑ Contract Keywords';
+        toggleBtn?.setAttribute('aria-expanded', 'true');
+      } else {
+        rankingsContent.style.maxHeight = '125px';
+        if (toggleLabel) toggleLabel.textContent = 'Expand';
+        if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
+        if (footerText) footerText.textContent = '↑ Expand All Keywords';
+        toggleBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+  }
+
+  if (toggleBtn) toggleBtn.addEventListener('click', toggleRankingsCard);
+  if (footerToggle) footerToggle.addEventListener('click', toggleRankingsCard);
 </script>
 
 

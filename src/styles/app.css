@@ -518,5 +518,25 @@
     border-top: 1px solid var(--color-line);
     margin: 3rem 0;
   }
+
+  /* Custom Scrollbar for Card Containers */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 162, 39, 0.4) rgba(238, 241, 239, 0.05);
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(238, 241, 239, 0.05);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.4);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 162, 39, 0.7);
+  }
 }
 
