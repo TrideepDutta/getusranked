@@ -13,15 +13,52 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
-// Blog posts removed 2026-08-12 — content will be authored and published via CRM once built.
-const posts: Array<{
+let posts: Array<{
   id: string;
   title: string;
   excerpt: string;
   category: string;
   date: string;
   readTime: string;
+  draft?: boolean;
 }> = [];
+
+try {
+  const collection = await getCollection("blog");
+  if (collection && collection.length > 0) {
+    posts = collection.map((item) => ({
+      id: item.id || (item as any).slug,
+      title: item.data.title,
+      excerpt: item.data.excerpt,
+      category: item.data.category,
+      date: item.data.date,
+      readTime: item.data.readTime,
+      draft: item.data.draft,
+    }));
+  }
+} catch (e) {}
+
+// Fallback to import.meta.glob for instant dev-server sync when new files are saved via CMS
+if (posts.length === 0) {
+  const mdModules = import.meta.glob("../content/blog/*.md", { eager: true });
+  posts = Object.entries(mdModules)
+    .filter(([path]) => !path.endsWith('.gitkeep'))
+    .map(([path, mod]: [string, any]) => {
+      const slug = path.split("/").pop()?.replace(".md", "") || "";
+      return {
+        id: slug,
+        title: mod.frontmatter?.title || slug,
+        excerpt: mod.frontmatter?.excerpt || "",
+        category: mod.frontmatter?.category || "Technical SEO",
+        date: mod.frontmatter?.date || "",
+        readTime: mod.frontmatter?.readTime || "5 min read",
+        draft: mod.frontmatter?.draft || false,
+      };
+    });
+}
+
+// Filter out draft posts if draft is true
+posts = posts.filter(p => !p.draft);
 
 const pageTitle = "GetUsRanked — SEO & Search Optimization Insights Blog";
 const pageDesc = "GetUsRanked blog featuring expert SEO insights, local search tactics, e-commerce growth strategies, B2B lead generation guides, and AI search optimization techniques.";
@@ -122,4 +159,3 @@ const blogSchema = createGraphSchema([
   </main>
   <Footer />
 </BaseLayout>
-
