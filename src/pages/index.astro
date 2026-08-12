@@ -2,14 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import JsonLd from "../components/JsonLd.astro";
 import "../styles/app.css";
 import {
   createGraphSchema,
   getOrganizationSchema,
   getWebsiteSchema,
   getWebPageSchema,
-  getFaqSchema,
   getHowToSchema,
   SITE_URL,
 } from "../utils/schema";
@@ -71,34 +69,7 @@ const whyUsPillars = [
   },
 ];
 
-const faqs = [
-  {
-    q: "Do you guarantee page-one rankings?",
-    a: "No, and if anyone tells you they can, don't believe them. SEO is a long-term investment, not a switch you flip. What we do guarantee is honest work, sustainable methods, and a clear report showing exactly what moved and why.",
-  },
-  {
-    q: "What's the difference between regular SEO and this \"AEO\" thing?",
-    a: "Regular SEO gets you found on Google. AEO (Answer Engine Optimization) gets your business cited when someone asks ChatGPT or Perplexity a question instead of typing it into Google. Both matter now, and most agencies are still only doing the first one.",
-  },
-  {
-    q: "Will I actually work with you, or get handed off to someone else?",
-    a: "You work directly with the founder building your site. No account managers, no junior team relaying messages. If something needs to change, you're talking to the person who can actually change it.",
-  },
-  {
-    q: "How long does a build take?",
-    a: "Starter builds take about 2-3 weeks. Growth plans run 4-5 weeks. Custom/full-stack builds are 7-10 weeks depending on scope. These are real estimates, not best-case numbers we hope to hit.",
-  },
-  {
-    q: "What happens after my site launches?",
-    a: "It's yours, fully. If you want ongoing SEO to keep your rankings moving as search evolves, we offer an optional monthly retainer, but there's no pressure and no lock-in. Plenty of clients launch and go run their business.",
-  },
-  {
-    q: "What if I need something custom, like a booking system or a dashboard?",
-    a: "That's exactly what our Custom plan and add-on scoping is for. Reach out, tell us what you need, and we'll scope it together before quoting anything. No project is too specific to ask about.",
-  },
-];
-
-const faqSchema = getFaqSchema(faqs);
+// FAQ section removed 2026-08-12 — content will be reintroduced via CRM-managed data once built. See homepage section order: How We Think → How We Work → Why This Not a Bigger Agency → Pricing Teaser → Why Trust a New Agency → Closing CTA.
 
 const homeSchema = createGraphSchema([
   getOrganizationSchema(),
@@ -108,7 +79,6 @@ const homeSchema = createGraphSchema([
     description: "GetUsRanked builds WordPress and Shopify sites with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
     url: `${SITE_URL}/`,
   }),
-  faqSchema,
   getHowToSchema(processSteps),
 ]);
 ---
@@ -228,6 +198,31 @@ const homeSchema = createGraphSchema([
       </div>
     </section>
 
+    <!-- ═══════ WHAT YOU ACTUALLY GET (Packages Preview / Pricing Teaser) ═══════ -->
+    <section id="packages-preview" class="section-pad bg-canvas">
+      <div class="container-content">
+        <p class="eyebrow mb-3 reveal">What You Actually Get</p>
+        <h2 class="mb-10 max-w-2xl reveal">Three ways to work with us, priced clearly</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-1">
+            <h3 class="font-display text-lg font-bold mb-3">Plan 1 · Starter — $599</h3>
+            <p class="text-ink-soft text-sm leading-relaxed">A 5-page WordPress site, SEO-optimized for 10 keywords, AEO-ready from day one.</p>
+          </div>
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-2">
+            <h3 class="font-display text-lg font-bold mb-3">Plan 2 · Growth — $899</h3>
+            <p class="text-ink-soft text-sm leading-relaxed">Up to 10 pages, 20 keywords targeted, deeper SEO and AI-search setup.</p>
+          </div>
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-3">
+            <h3 class="font-display text-lg font-bold mb-3">Plan 3 · Custom — Scoped to your project</h3>
+            <p class="text-ink-soft text-sm leading-relaxed">Custom build, 40+ keywords, your own dashboard to manage content. Connect with us.</p>
+          </div>
+        </div>
+        <div class="mt-8 text-center reveal">
+          <a href="/pricing" class="btn btn-primary">See Full Pricing Details →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════ WHY TRUST A NEW AGENCY ═══════ -->
     <section id="credibility" class="section-pad bg-ink text-canvas">
       <div class="container-content">
@@ -293,58 +288,7 @@ const homeSchema = createGraphSchema([
       </div>
     </section>
 
-    <!-- ═══════ WHAT YOU ACTUALLY GET (Packages Preview) ═══════ -->
-    <section id="packages-preview" class="section-pad bg-canvas-deep">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">What You Actually Get</p>
-        <h2 class="mb-10 max-w-2xl reveal">Three ways to work with us, priced clearly</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-1">
-            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 1</p>
-            <h3 class="font-display text-lg font-bold mb-1">Starter</h3>
-            <p class="numeral text-2xl text-blue mb-3">$599</p>
-            <p class="text-ink-soft text-sm leading-relaxed">A 5-page WordPress site, SEO-optimized for 10 keywords, AEO-ready from day one.</p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-2">
-            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 2</p>
-            <h3 class="font-display text-lg font-bold mb-1">Growth</h3>
-            <p class="numeral text-2xl text-blue mb-3">$899</p>
-            <p class="text-ink-soft text-sm leading-relaxed">Up to 10 pages, 20 keywords targeted, deeper SEO and AI-search setup.</p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-3">
-            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 3</p>
-            <h3 class="font-display text-lg font-bold mb-1">Custom</h3>
-            <p class="numeral text-2xl text-blue mb-3">Scoped to your project</p>
-            <p class="text-ink-soft text-sm leading-relaxed">Custom build, 40+ keywords, your own dashboard to manage content. Connect with us.</p>
-          </div>
-        </div>
-        <div class="mt-8 text-center reveal">
-          <a href="/packages" class="btn btn-primary">See Full Pricing Details →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════ FREQUENTLY ASKED QUESTIONS ═══════ -->
-    <section id="faq" class="section-pad bg-canvas">
-      <JsonLd schema={faqSchema} />
-      <div class="container-content max-w-3xl">
-        <p class="eyebrow mb-3 reveal">FAQ</p>
-        <h2 class="mb-10 reveal">Frequently Asked Questions</h2>
-        <div class="flex flex-col gap-4">
-          {faqs.map((faq, i) => (
-            <details class={`bg-card border border-line rounded-2xl p-6 group reveal stagger-${(i % 3) + 1} cursor-pointer`}>
-              <summary class="font-display font-bold text-lg flex justify-between items-center select-none list-none [&::-webkit-details-marker]:hidden">
-                <span>{faq.q}</span>
-                <span class="text-blue font-mono text-xl transition-transform duration-200 group-open:rotate-45 ml-4 flex-shrink-0">+</span>
-              </summary>
-              <p class="text-ink-soft text-sm leading-relaxed mt-4 pt-4 border-t border-line">
-                {faq.a}
-              </p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <!-- FAQ section removed 2026-08-12 — content will be reintroduced via CRM-managed data once built. See homepage section order: How We Think → How We Work → Why This Not a Bigger Agency → Pricing Teaser → Why Trust a New Agency → Closing CTA. -->
 
     <!-- ═══════ CLOSING CTA & CONTACT ═══════ -->
     <section id="contact" class="section-pad bg-[#E2E7E6] text-ink">

@@ -13,6 +13,8 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
+// Blog posts removed 2026-08-12 — content will be authored and published via CRM once built.
+
 let posts: Array<{
   id: string;
   title: string;
@@ -37,24 +39,7 @@ try {
       }));
   }
 } catch (e) {
-  // Ignore collection fetch error and fallback below
-}
-
-// Fallback to import.meta.glob if content collection is empty during dev server cache sync
-if (posts.length === 0) {
-  const mdModules = import.meta.glob("../content/blog/*.md", { eager: true });
-  posts = Object.entries(mdModules).map(([path, mod]: [string, any]) => {
-    const slug = path.split("/").pop()?.replace(".md", "") || "";
-    const fm = mod.frontmatter || {};
-    return {
-      id: slug,
-      title: fm.title || "",
-      excerpt: fm.excerpt || "",
-      category: fm.category || "SEO",
-      date: fm.date || "",
-      readTime: fm.readTime || "",
-    };
-  });
+  // Ignore collection fetch error
 }
 
 const pageTitle = "GetUsRanked — SEO & Search Optimization Insights Blog";
@@ -92,31 +77,52 @@ const blogSchema = createGraphSchema([
       </div>
     </section>
 
-    <!-- Posts Grid -->
+    <!-- Main Section (Posts / Empty State) -->
     <section class="section-pad bg-canvas-deep">
       <div class="container-content">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {posts.map(post => (
-            <article class="bg-card border border-line rounded-2xl p-6 flex flex-col hover:border-blue/50 transition-colors group">
-              <div class="flex items-center justify-between mb-4">
-                <span class="badge text-blue border-blue/30">{post.category}</span>
-                <span class="font-mono text-xs text-ink-soft/60">{post.readTime}</span>
-              </div>
-              <h2 class="font-display text-lg font-bold mb-3 leading-snug group-hover:text-blue transition-colors">
-                <a href={`/blog/${post.id}`} class="text-ink hover:text-blue no-underline">
-                  {post.title}
-                </a>
-              </h2>
-              <p class="text-ink-soft text-sm leading-relaxed flex-1 mb-6">{post.excerpt}</p>
-              <div class="flex items-center justify-between pt-4 border-t border-line">
-                <span class="font-mono text-xs text-ink-soft/60">{post.date}</span>
-                <a href={`/blog/${post.id}`} class="font-mono text-xs text-blue uppercase tracking-wider font-semibold inline-flex items-center gap-1 hover:underline">
-                  Read Article →
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+
+        {posts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {posts.map(post => (
+              <article class="bg-card border border-line rounded-2xl p-6 flex flex-col hover:border-blue/50 transition-colors group">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="badge text-blue border-blue/30">{post.category}</span>
+                  <span class="font-mono text-xs text-ink-soft/60">{post.readTime}</span>
+                </div>
+                <h2 class="font-display text-lg font-bold mb-3 leading-snug group-hover:text-blue transition-colors">
+                  <a href={`/blog/${post.id}`} class="text-ink hover:text-blue no-underline">
+                    {post.title}
+                  </a>
+                </h2>
+                <p class="text-ink-soft text-sm leading-relaxed flex-1 mb-6">{post.excerpt}</p>
+                <div class="flex items-center justify-between pt-4 border-t border-line">
+                  <span class="font-mono text-xs text-ink-soft/60">{post.date}</span>
+                  <a href={`/blog/${post.id}`} class="font-mono text-xs text-blue uppercase tracking-wider font-semibold inline-flex items-center gap-1 hover:underline">
+                    Read Article →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="bg-card border border-line rounded-2xl p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-sm">
+            <div class="w-12 h-12 rounded-full bg-blue/10 text-blue flex items-center justify-center mx-auto mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l5 5v11a2 2 0 01-2 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+            </div>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold mb-4 text-ink">New Content Coming Soon</h2>
+            <p class="text-ink-soft text-base leading-relaxed mb-8 max-w-xl mx-auto">
+              We're building out our SEO and AI-search insights, real case studies and practical guides, not filler. Check back soon, or get in touch if you have a question we can answer directly.
+            </p>
+            <div class="flex justify-center">
+              <a href="/contact" class="btn btn-primary">Get in Touch</a>
+            </div>
+          </div>
+        )}
 
         <!-- Consultation Banner -->
         <div class="mt-16 p-8 bg-card border border-line rounded-2xl text-center max-w-3xl mx-auto">
@@ -135,3 +141,4 @@ const blogSchema = createGraphSchema([
   </main>
   <Footer />
 </BaseLayout>
+
