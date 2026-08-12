@@ -14,8 +14,7 @@ import {
 } from "../utils/schema";
 
 // Blog posts removed 2026-08-12 — content will be authored and published via CRM once built.
-
-let posts: Array<{
+const posts: Array<{
   id: string;
   title: string;
   excerpt: string;
@@ -23,24 +22,6 @@ let posts: Array<{
   date: string;
   readTime: string;
 }> = [];
-
-try {
-  const collection = await getCollection("blog");
-  if (collection && collection.length > 0) {
-    posts = collection
-      .filter((post) => !post.data?.draft)
-      .map((post) => ({
-        id: post.id || (post as any).slug,
-        title: post.data.title,
-        excerpt: post.data.excerpt,
-        category: post.data.category,
-        date: post.data.date,
-        readTime: post.data.readTime,
-      }));
-  }
-} catch (e) {
-  // Ignore collection fetch error
-}
 
 const pageTitle = "GetUsRanked — SEO & Search Optimization Insights Blog";
 const pageDesc = "GetUsRanked blog featuring expert SEO insights, local search tactics, e-commerce growth strategies, B2B lead generation guides, and AI search optimization techniques.";
