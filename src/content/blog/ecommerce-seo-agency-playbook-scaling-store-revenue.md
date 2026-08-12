@@ -1,5 +1,5 @@
 ---
-title: "The E-Commerce SEO Agency Playbook: Scaling Store Revenue Beyond Ads"
+title: "Stop Paying for Every Sale: An SEO Playbook for Shopify Stores"
 excerpt: "Discover how a specialized e-commerce SEO agency scales Shopify & WooCommerce revenue beyond paid ads with product schema and collection optimization."
 metaTitle: "GetUsRanked — E-Commerce SEO Agency Growth Playbook"
 metaDescription: "Discover how a specialized e-commerce SEO agency scales Shopify & WooCommerce revenue beyond paid ads with product schema and collection optimization."

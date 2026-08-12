@@ -1,5 +1,5 @@
 ---
-title: "Generative Engine Optimization (GEO): Why Your Brand Needs an AI SEO Agency Today"
+title: "Your Customers Are Asking ChatGPT Before They Ask Google. Is Your Business There?"
 excerpt: "Discover Generative Engine Optimization (GEO) principles. Learn how an AI SEO agency optimizes your website for ChatGPT and Perplexity AI search."
 metaTitle: "GetUsRanked — Generative Engine Optimization AI SEO Guide"
 metaDescription: "Discover Generative Engine Optimization (GEO) principles. Learn how an AI SEO agency optimizes your website for ChatGPT and Perplexity AI search."

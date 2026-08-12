@@ -4,9 +4,9 @@ excerpt: "Learn how a technical e-commerce SEO agency resolves Shopify and WooCo
 metaTitle: "GetUsRanked — Shopify & WooCommerce E-Commerce SEO Fixes"
 metaDescription: "Learn how a technical e-commerce SEO agency resolves Shopify and WooCommerce speed issues, canonical errors, and collection page indexing bugs."
 category: "Technical SEO"
-date: "2026-08-11"
+date: "2026-09-22"
 readTime: "12 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "Ecommerce SEO Agency", "Shopify SEO", "Technical SEO", "WooCommerce"]
 ---

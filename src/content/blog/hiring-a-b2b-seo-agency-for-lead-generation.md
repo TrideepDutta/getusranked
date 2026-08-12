@@ -4,9 +4,9 @@ excerpt: "Learn how a B2B SEO agency drives high-ticket enterprise leads, builds
 metaTitle: "GetUsRanked — B2B SEO Agency Lead Generation Guide"
 metaDescription: "Learn how a B2B SEO agency drives high-ticket enterprise leads, builds topic clusters, and maps organic search engine optimization to ARR growth."
 category: "Strategy"
-date: "2026-08-11"
+date: "2026-08-18"
 readTime: "12 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "B2B SEO Agency", "Lead Generation", "B2B Marketing"]
 ---

@@ -4,9 +4,9 @@ excerpt: "Learn how a local SEO agency scales multi-location search visibility. 
 metaTitle: "GetUsRanked — Multi-Location Local SEO Agency Strategies"
 metaDescription: "Learn how a local SEO agency scales multi-location search visibility. Optimize Google Business Profiles, dynamic location pages, and geo-schema."
 category: "Local SEO"
-date: "2026-08-11"
+date: "2026-09-08"
 readTime: "12 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "Local SEO Agency", "Multi-Location SEO", "Franchise Marketing"]
 ---

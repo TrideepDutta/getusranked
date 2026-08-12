@@ -1,10 +1,10 @@
 ---
-title: "What to Expect from a Modern AI SEO Agency in the Era of Perplexity & ChatGPT"
+title: "AI Search Changed. Most SEO Agencies Haven't Caught Up Yet."
 excerpt: "Learn how a modern AI SEO agency optimizes for Generative Engine Optimization (GEO). Rank in ChatGPT, Perplexity, and Google AI Overviews today."
 metaTitle: "GetUsRanked — What to Expect from a Modern AI SEO Agency"
 metaDescription: "Learn how a modern AI SEO agency optimizes for Generative Engine Optimization (GEO). Rank in ChatGPT, Perplexity, and Google AI Overviews today."
 category: "AI Search"
-date: "2026-08-11"
+date: "2026-08-25"
 readTime: "12 min read"
 draft: false
 author: "GetUsRanked Team"

@@ -4,9 +4,9 @@ excerpt: "Discover why hiring a local SEO agency drives high-intent foot traffic
 metaTitle: "GetUsRanked — Why Hire a Local SEO Agency for Growth"
 metaDescription: "Discover why hiring a local SEO agency drives high-intent foot traffic and search leads. Dominate Google Map Packs and local 3-pack rankings today."
 category: "Local SEO"
-date: "2026-08-11"
+date: "2026-09-15"
 readTime: "11 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "Local SEO Agency", "Google Business Profile", "Local Search"]
 ---

@@ -4,9 +4,9 @@ excerpt: "Searching for a top SEO agency near me? Learn how to evaluate local se
 metaTitle: "GetUsRanked — How to Find a Top SEO Agency Near Me"
 metaDescription: "Searching for a top SEO agency near me? Learn how to evaluate local search marketing teams, avoid common red flags, and scale organic pipeline."
 category: "Local SEO"
-date: "2026-08-11"
+date: "2026-08-25"
 readTime: "11 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "SEO Agency Near Me", "Local Search", "Digital Marketing"]
 ---

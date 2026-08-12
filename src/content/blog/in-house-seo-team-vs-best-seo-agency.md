@@ -4,9 +4,9 @@ excerpt: "Compare costs, technical skills, and ROI between an in-house marketing
 metaTitle: "GetUsRanked — In-House SEO vs Best SEO Agency Guide"
 metaDescription: "Compare costs, technical skills, and ROI between an in-house marketing team and hiring the best SEO agency for sustainable business growth."
 category: "Strategy"
-date: "2026-08-11"
+date: "2026-09-01"
 readTime: "11 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags: ["GetUsRanked", "SEO Agency", "Best SEO Agency", "SEO Strategy", "Marketing Budget"]
 ---
