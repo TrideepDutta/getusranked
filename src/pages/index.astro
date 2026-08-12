@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/app.css";
+import homeData from "../data/home.json";
 import {
   createGraphSchema,
   getOrganizationSchema,
@@ -12,421 +13,268 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
-const howWeThink = [
-  {
-    title: "Design that ranks, not just looks good",
-    desc: "A beautiful site nobody finds is a beautiful waste of money. Every build starts with SEO and AI-search visibility as a requirement, not an afterthought.",
-  },
-  {
-    title: "Direct access, not account managers",
-    desc: "You work with the person actually building your site. No hand-offs, no junior teams, no layers between you and the work.",
-  },
-  {
-    title: "Built for how people search now",
-    desc: "Google isn't the only front door anymore. We set your site up for AI answer engines too — ChatGPT, Perplexity — so your business shows up wherever people are actually asking.",
-  },
-];
-
-const processSteps = [
-  {
-    num: "01",
-    label: "Audit & Strategy",
-    title: "Audit & Strategy",
-    desc: "We start by understanding your customers, your competitors, and what's actually broken, before a single page gets designed.",
-  },
-  {
-    num: "02",
-    label: "Design & Build",
-    title: "Design & Build",
-    desc: "Your site gets designed and built, WordPress or Shopify, with SEO structure and technical foundations built in from the first line of code.",
-  },
-  {
-    num: "03",
-    label: "Launch & Optimize",
-    title: "Launch & Optimize",
-    desc: "Technical SEO, on-page optimization, and AI-search setup happen before launch. Not as a \"phase two\" you get upsold into later.",
-  },
-  {
-    num: "04",
-    label: "Grow",
-    title: "Grow",
-    desc: "Once you're live, an optional monthly retainer keeps your rankings moving and keeps you visible as search itself keeps changing.",
-  },
-];
-
-const whyUsPillars = [
-  {
-    title: "Founder-led, every project",
-    desc: "One person, full attention. Not spread across forty accounts.",
-  },
-  {
-    title: "Built in the open",
-    desc: "Our own site's SEO growth is tracked and visible — not a claim, a live example.",
-  },
-  {
-    title: "Priced for the work, not the overhead",
-    desc: "No office lease or account-management layer baked into your invoice. You're paying for the build, not the agency's rent.",
-  },
-];
-
-// FAQ section removed 2026-08-12 — content will be reintroduced via CRM-managed data once built. See homepage section order: How We Think → How We Work → Why This Not a Bigger Agency → Pricing Teaser → Why Trust a New Agency → Closing CTA.
+const { hero, howWeThink, process, whyUs, credibility, closingCta, sectionOrder } = homeData;
 
 const homeSchema = createGraphSchema([
   getOrganizationSchema(),
   getWebsiteSchema(),
   getWebPageSchema({
-    name: "GetUsRanked — Websites Built to Rank for Search & AI",
-    description: "GetUsRanked builds WordPress and Shopify sites with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
+    name: homeData.seo.title,
+    description: homeData.seo.description,
     url: `${SITE_URL}/`,
   }),
-  getHowToSchema(processSteps),
+  getHowToSchema(process.steps),
 ]);
 ---
 
-<BaseLayout title="GetUsRanked — Web Design & Search Engine / AI Optimization Agency" schema={homeSchema}>
+<BaseLayout title={homeData.seo.title} schema={homeSchema}>
 
   <Header />
   <main class="flex-1">
 
-    <!-- ═══════ HERO ═══════ -->
-    <section id="hero" class="section-pad bg-canvas overflow-hidden">
-      <div class="container-content">
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center">
-          <!-- Left: Copy -->
-          <div class="reveal">
-            <p class="eyebrow mb-4">GetUsRanked Agency</p>
-            <h1 class="mb-6">
-              We build sites that<br />actually get found.
-            </h1>
-            <p class="text-ink-soft text-xl max-w-xl mb-10 leading-relaxed">
-              WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <a href="/about-us" class="btn btn-primary">About Us & Process</a>
-              <a href="/contact" class="btn btn-ghost">Get a Free Site Review</a>
+    {/* Render sections in CMS-defined order */}
+    {sectionOrder.map((sectionId) => {
+      if (sectionId === "hero" && hero.visible) return (
+        <section id="hero" class="section-pad bg-canvas overflow-hidden">
+          <div class="container-content">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-center">
+              <div class="reveal">
+                <p class="eyebrow mb-4">{hero.eyebrow}</p>
+                <h1 class="mb-6" set:html={hero.heading.replace(/\n/g, '<br />')} />
+                <p class="text-ink-soft text-xl max-w-xl mb-10 leading-relaxed">
+                  {hero.subheading}
+                </p>
+                <div class="flex flex-wrap gap-4">
+                  <a href={hero.primaryCta.href} class="btn btn-primary">{hero.primaryCta.text}</a>
+                  <a href={hero.secondaryCta.href} class="btn btn-ghost">{hero.secondaryCta.text}</a>
+                </div>
+              </div>
+              <div class="flex justify-center xl:justify-end reveal stagger-2">
+                <div class="relative" style="transform: rotate(-2deg);">
+                  <div class="glass-card border border-line-strong rounded-2xl p-8 w-72 text-center">
+                    <p class="font-mono text-xs uppercase tracking-widest text-ink-soft mb-6">{hero.rankCard.label}</p>
+                    <div class="flex items-center justify-center gap-4">
+                      <span class="numeral text-6xl text-ink-soft/40">{hero.rankCard.fromRank}</span>
+                      <svg class="w-6 h-6 text-up" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                      <span class="numeral text-6xl text-blue">{hero.rankCard.toRank}</span>
+                    </div>
+                    <p class="mt-6 text-up font-mono text-xs uppercase tracking-wider font-medium">
+                      {hero.rankCard.footerText}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </section>
+      );
 
-          <!-- Right: Rank Card -->
-          <div class="flex justify-center xl:justify-end reveal stagger-2">
-            <div class="relative" style="transform: rotate(-2deg);">
-              <div class="glass-card border border-line-strong rounded-2xl p-8 w-72 text-center">
-                <p class="font-mono text-xs uppercase tracking-widest text-ink-soft mb-6">Search & AI Visibility</p>
-                <div class="flex items-center justify-center gap-4">
-                  <span class="numeral text-6xl text-ink-soft/40">47</span>
-                  <svg class="w-6 h-6 text-up" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                  <span class="numeral text-6xl text-blue">1</span>
+      if (sectionId === "howWeThink" && howWeThink.visible) return (
+        <section id="how-we-think" class="section-pad bg-canvas-deep">
+          <div class="container-content">
+            <p class="eyebrow mb-3 reveal">{howWeThink.eyebrow}</p>
+            <h2 class="mb-10 max-w-2xl reveal">{howWeThink.heading}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {howWeThink.items.map((item, i) => (
+                <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
+                  <h3 class="font-display text-lg font-bold mb-3">{item.title}</h3>
+                  <p class="text-ink-soft text-sm leading-relaxed">{item.desc}</p>
                 </div>
-                <p class="mt-6 text-up font-mono text-xs uppercase tracking-wider font-medium">
-                  ↑ Position Improved
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+
+      if (sectionId === "process" && process.visible) return (
+        <section id="process" class="section-pad bg-canvas">
+          <div class="container-content">
+            <p class="eyebrow mb-3 reveal">{process.eyebrow}</p>
+            <h2 class="mb-12 max-w-2xl reveal">{process.heading}</h2>
+            <div class="flex flex-col gap-0">
+              {process.steps.map((step, i) => (
+                <div class={`grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-x-8 gap-y-2 py-8 border-t border-line items-start reveal stagger-${i + 1}`}>
+                  <div class="flex items-center gap-3 sm:w-48">
+                    <span class="numeral text-3xl text-ink/15">{step.num}</span>
+                    <span class="font-mono text-xs uppercase tracking-widest text-ink-soft">{step.label}</span>
+                  </div>
+                  <div>
+                    <h3 class="font-display text-lg font-bold mb-2">{step.title}</h3>
+                    <p class="text-ink-soft text-sm leading-relaxed max-w-xl">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+
+      if (sectionId === "whyUs" && whyUs.visible) return (
+        <section id="why-us" class="section-pad bg-canvas-deep">
+          <div class="container-content">
+            <p class="eyebrow mb-3 reveal">{whyUs.eyebrow}</p>
+            <h2 class="mb-10 max-w-2xl reveal">{whyUs.heading}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {whyUs.pillars.map((pillar, i) => (
+                <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
+                  <h3 class="font-display text-lg font-bold mb-3">{pillar.title}</h3>
+                  <p class="text-ink-soft text-sm leading-relaxed">{pillar.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+
+      if (sectionId === "credibility" && credibility.visible) return (
+        <section id="credibility" class="section-pad bg-ink text-canvas">
+          <div class="container-content">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-14">
+              <div class="lg:col-span-7 reveal flex flex-col justify-center">
+                <p class="eyebrow eyebrow-light mb-3">{credibility.eyebrow}</p>
+                <h2 class="text-canvas mb-6">{credibility.heading}</h2>
+                <p class="text-canvas/75 text-base lg:text-lg leading-relaxed max-w-2xl">
+                  {credibility.body}
                 </p>
               </div>
+              <div class="lg:col-span-5 reveal-scale flex flex-col justify-center">
+                <div class="bg-canvas/5 border border-canvas/10 rounded-2xl p-4 lg:p-4.5 shadow-xl transition-all duration-300 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2 pb-2 border-b border-canvas/10 gap-2 shrink-0">
+                    <div class="flex items-center gap-2">
+                      <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        Ranked Keywords
+                      </p>
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-up/10 text-up border border-up/20 font-mono text-[10px] uppercase tracking-wider font-semibold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
+                        Live
+                      </span>
+                    </div>
+                    <button
+                      id="rankings-toggle-btn"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="rankings-content"
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-canvas/10 hover:bg-gold/20 text-canvas/80 hover:text-gold-soft border border-canvas/15 hover:border-gold/30 font-mono text-[10px] font-medium transition-all cursor-pointer group"
+                    >
+                      <span id="rankings-toggle-label">Expand</span>
+                      <svg id="rankings-toggle-icon" class="w-3 h-3 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div id="rankings-summary" class="mb-2 py-1.5 px-2.5 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-between text-[11px] font-mono shrink-0">
+                    <span class="text-gold-soft font-semibold flex items-center gap-1.5">
+                      <span class="text-up font-bold">{credibility.keywordsSummary.rankedCount} / {credibility.keywordsSummary.totalCount}</span> Keywords at Rank #1
+                    </span>
+                    <span class="text-canvas/60 text-[10px]">{credibility.keywordsSummary.serpLabel}</span>
+                  </div>
+                  <div
+                    id="rankings-content"
+                    class="space-y-1.5 overflow-y-auto max-h-[125px] lg:max-h-[135px] pr-1 custom-scrollbar flex-1 min-h-0 transition-all duration-500 relative my-0.5"
+                  >
+                    {credibility.rankedKeywords.map((kw) => (
+                      <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                          <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                            {kw.keyword}
+                          </span>
+                          <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
+                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
+                            </svg>
+                            #{kw.rank}
+                          </span>
+                        </div>
+                        <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                          <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style={`width: ${kw.progress}%;`}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div class="mt-2 pt-2 border-t border-canvas/10 flex items-center justify-between text-[11px] font-mono shrink-0">
+                    <button id="rankings-footer-toggle" type="button" class="text-up hover:text-gold-soft uppercase tracking-wider font-semibold flex items-center gap-1 cursor-pointer transition-colors">
+                      <span id="rankings-footer-text">↑ Expand All Keywords</span>
+                    </button>
+                    <span class="text-canvas/50 text-[10px]">{credibility.keywordsSummary.transparencyLabel}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      );
 
-    <!-- ═══════ HOW WE THINK ═══════ -->
-    <section id="how-we-think" class="section-pad bg-canvas-deep">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">How We Think</p>
-        <h2 class="mb-10 max-w-2xl reveal">Design that ranks, not just looks good</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {howWeThink.map((item, i) => (
-            <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
-              <h3 class="font-display text-lg font-bold mb-3">{item.title}</h3>
-              <p class="text-ink-soft text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════ HOW WE WORK ═══════ -->
-    <section id="process" class="section-pad bg-canvas">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">How We Work</p>
-        <h2 class="mb-12 max-w-2xl reveal">Four steps. Built right from day one.</h2>
-        <div class="flex flex-col gap-0">
-          {processSteps.map((step, i) => (
-            <div class={`grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-x-8 gap-y-2 py-8 border-t border-line items-start reveal stagger-${i + 1}`}>
-              <div class="flex items-center gap-3 sm:w-48">
-                <span class="numeral text-3xl text-ink/15">{step.num}</span>
-                <span class="font-mono text-xs uppercase tracking-widest text-ink-soft">{step.label}</span>
+      if (sectionId === "closingCta" && closingCta.visible) return (
+        <section id="contact" class="section-pad bg-[#E2E7E6] text-ink">
+          <div class="container-content max-w-2xl">
+            <p class="eyebrow mb-3 reveal">{closingCta.eyebrow}</p>
+            <h2 class="text-ink mb-4 reveal">{closingCta.heading}</h2>
+            <p class="text-ink-soft mb-10 leading-relaxed reveal">
+              {closingCta.body}
+            </p>
+            <form
+              id="contact-form"
+              class="flex flex-col gap-6 reveal"
+              action="mailto:hello@getusranked.com"
+              method="POST"
+              enctype="text/plain"
+            >
+              <div>
+                <label for="name" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.name}</label>
+                <input
+                  type="text" id="name" name="name" required
+                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  placeholder={closingCta.formPlaceholders.name}
+                />
               </div>
               <div>
-                <h3 class="font-display text-lg font-bold mb-2">{step.title}</h3>
-                <p class="text-ink-soft text-sm leading-relaxed max-w-xl">{step.desc}</p>
+                <label for="company" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.company}</label>
+                <input
+                  type="text" id="company" name="company" required
+                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  placeholder={closingCta.formPlaceholders.company}
+                />
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════ WHY THIS, NOT A BIGGER AGENCY ═══════ -->
-    <section id="why-us" class="section-pad bg-canvas-deep">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">Why This, Not a Bigger Agency</p>
-        <h2 class="mb-10 max-w-2xl reveal">Honest work, direct focus, no overhead</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {whyUsPillars.map((pillar, i) => (
-            <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
-              <h3 class="font-display text-lg font-bold mb-3">{pillar.title}</h3>
-              <p class="text-ink-soft text-sm leading-relaxed">{pillar.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing teaser section removed 2026-08-12 -->
-
-    <!-- ═══════ WHY TRUST A NEW AGENCY ═══════ -->
-    <section id="credibility" class="section-pad bg-ink text-canvas">
-      <div class="container-content">
-        <!-- Top Split Grid (Equal Height Matching Text Div) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-14">
-          <!-- Left: Copy -->
-          <div class="lg:col-span-7 reveal flex flex-col justify-center">
-            <p class="eyebrow eyebrow-light mb-3">Why Trust a New Agency</p>
-            <h2 class="text-canvas mb-6">We're new, and we're not going to pretend otherwise.</h2>
-            <p class="text-canvas/75 text-base lg:text-lg leading-relaxed max-w-2xl">
-              Instead of faking testimonials, we point you to our own site, live and rankable, as proof of how we work. Every client right now gets more of our actual attention than they'd get once we're bigger. That won't stay true forever, so it's worth taking advantage of now.
-            </p>
-          </div>
-
-          <!-- Right: Growth Metric & Keyword Rankings Card -->
-          <div class="lg:col-span-5 reveal-scale flex flex-col justify-center">
-            <div class="bg-canvas/5 border border-canvas/10 rounded-2xl p-4 lg:p-4.5 shadow-xl transition-all duration-300 flex flex-col justify-between">
-              
-              <!-- Card Header with Toggle -->
-              <div class="flex items-center justify-between mb-2 pb-2 border-b border-canvas/10 gap-2 shrink-0">
-                <div class="flex items-center gap-2">
-                  <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                    </svg>
-                    Ranked Keywords
-                  </p>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-up/10 text-up border border-up/20 font-mono text-[10px] uppercase tracking-wider font-semibold">
-                    <span class="w-1.5 h-1.5 rounded-full bg-up animate-pulse"></span>
-                    Live
-                  </span>
-                </div>
-
-                <!-- Expand / Contract Toggle Button -->
-                <button
-                  id="rankings-toggle-btn"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="rankings-content"
-                  class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-canvas/10 hover:bg-gold/20 text-canvas/80 hover:text-gold-soft border border-canvas/15 hover:border-gold/30 font-mono text-[10px] font-medium transition-all cursor-pointer group"
-                >
-                  <span id="rankings-toggle-label">Expand</span>
-                  <svg id="rankings-toggle-icon" class="w-3 h-3 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                  </svg>
-                </button>
+              <div>
+                <label for="website" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.website}</label>
+                <input
+                  type="url" id="website" name="website"
+                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  placeholder={closingCta.formPlaceholders.website}
+                />
               </div>
-
-              <!-- Contracted Summary Bar -->
-              <div id="rankings-summary" class="mb-2 py-1.5 px-2.5 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-between text-[11px] font-mono shrink-0">
-                <span class="text-gold-soft font-semibold flex items-center gap-1.5">
-                  <span class="text-up font-bold">5 / 5</span> Keywords at Rank #1
-                </span>
-                <span class="text-canvas/60 text-[10px]">100% Page 1 SERP</span>
+              <div>
+                <label for="business" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.business}</label>
+                <textarea
+                  id="business" name="business" rows="3"
+                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50 resize-none"
+                  placeholder={closingCta.formPlaceholders.business}
+                ></textarea>
               </div>
-
-              <!-- Scrollable Keyword Rankings Container (Compact) -->
-              <div
-                id="rankings-content"
-                class="space-y-1.5 overflow-y-auto max-h-[125px] lg:max-h-[135px] pr-1 custom-scrollbar flex-1 min-h-0 transition-all duration-500 relative my-0.5"
-              >
-                <!-- Keyword 1 -->
-                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
-                      SEO service in West Bengal
-                    </span>
-                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
-                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
-                      </svg>
-                      #1
-                    </span>
-                  </div>
-                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
-                  </div>
-                </div>
-
-                <!-- Keyword 2 -->
-                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
-                      SEO agency in Kolkata
-                    </span>
-                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
-                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
-                      </svg>
-                      #1
-                    </span>
-                  </div>
-                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
-                  </div>
-                </div>
-
-                <!-- Keyword 3 -->
-                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
-                      SEO agency in Baghajatin
-                    </span>
-                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
-                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
-                      </svg>
-                      #1
-                    </span>
-                  </div>
-                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
-                  </div>
-                </div>
-
-                <!-- Keyword 4 -->
-                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
-                      best SEO agency for dental clinics
-                    </span>
-                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
-                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
-                      </svg>
-                      #1
-                    </span>
-                  </div>
-                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
-                  </div>
-                </div>
-
-                <!-- Keyword 5 -->
-                <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
-                      top SEO agency in Kolkata
-                    </span>
-                    <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
-                      <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7 7 7M12 3v18"/>
-                      </svg>
-                      #1
-                    </span>
-                  </div>
-                  <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style="width: 100%;"></div>
-                  </div>
-                </div>
+              <div>
+                <label for="email" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.email}</label>
+                <input
+                  type="email" id="email" name="email" required
+                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  placeholder={closingCta.formPlaceholders.email}
+                />
               </div>
+              <div id="contact-form-status" class="hidden p-4 rounded-xl text-sm font-medium transition-all duration-200"></div>
+              <button id="contact-form-submit" type="submit" class="btn btn-primary text-xs mt-2 self-start flex items-center gap-2">
+                <span>{closingCta.formLabels.submitText}</span>
+              </button>
+            </form>
+          </div>
+        </section>
+      );
 
-              <!-- Card Footer with Action Toggle -->
-              <div class="mt-2 pt-2 border-t border-canvas/10 flex items-center justify-between text-[11px] font-mono shrink-0">
-                <button id="rankings-footer-toggle" type="button" class="text-up hover:text-gold-soft uppercase tracking-wider font-semibold flex items-center gap-1 cursor-pointer transition-colors">
-                  <span id="rankings-footer-text">↑ Expand All Keywords</span>
-                </button>
-                <span class="text-canvas/50 text-[10px]">100% Transparency</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ section removed 2026-08-12 — content will be reintroduced via CRM-managed data once built. See homepage section order: How We Think → How We Work → Why This Not a Bigger Agency → Pricing Teaser → Why Trust a New Agency → Closing CTA. -->
-
-    <!-- ═══════ CLOSING CTA & CONTACT ═══════ -->
-    <section id="contact" class="section-pad bg-[#E2E7E6] text-ink">
-      <div class="container-content max-w-2xl">
-        <p class="eyebrow mb-3 reveal">Closing CTA</p>
-        <h2 class="text-ink mb-4 reveal">Let's build something that actually gets found.</h2>
-        <p class="text-ink-soft mb-10 leading-relaxed reveal">
-          Fill out the form below for a free site review. No commitment, no pressure — just an honest look at your current site and search potential.
-        </p>
-        <form
-          id="contact-form"
-          class="flex flex-col gap-6 reveal"
-          action="mailto:hello@getusranked.com"
-          method="POST"
-          enctype="text/plain"
-        >
-          <div>
-            <label for="name" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
-              placeholder="Your name"
-            />
-          </div>
-          <div>
-            <label for="company" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">Company</label>
-            <input
-              type="text"
-              id="company"
-              name="company"
-              required
-              class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
-              placeholder="Your company name"
-            />
-          </div>
-          <div>
-            <label for="website" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">Website or Current Link</label>
-            <input
-              type="url"
-              id="website"
-              name="website"
-              class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
-              placeholder="https://yourbusiness.com"
-            />
-          </div>
-          <div>
-            <label for="business" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">What does your business do?</label>
-            <textarea
-              id="business"
-              name="business"
-              rows="3"
-              class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50 resize-none"
-              placeholder="A brief description of your business and goals"
-            ></textarea>
-          </div>
-          <div>
-            <label for="email" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
-              placeholder="you@company.com"
-            />
-          </div>
-          <div id="contact-form-status" class="hidden p-4 rounded-xl text-sm font-medium transition-all duration-200"></div>
-          <button id="contact-form-submit" type="submit" class="btn btn-primary text-xs mt-2 self-start flex items-center gap-2">
-            <span>Get a Free Site Review</span>
-          </button>
-        </form>
-      </div>
-    </section>
+      return null;
+    })}
 
   </main>
   <Footer />
@@ -541,5 +389,3 @@ const homeSchema = createGraphSchema([
   if (toggleBtn) toggleBtn.addEventListener('click', toggleRankingsCard);
   if (footerToggle) footerToggle.addEventListener('click', toggleRankingsCard);
 </script>
-
-

@@ -1,0 +1,105 @@
+{
+  "seo": {
+    "title": "GetUsRanked — About Our Web Design & Search Visibility Agency",
+    "description": "Learn about GetUsRanked — a founder-led web design and SEO agency building sites that get found by people and AI search engines."
+  },
+  "sectionOrder": ["hero", "pillars", "process", "whatWeDontDo", "cta"],
+  "hero": {
+    "visible": true,
+    "eyebrow": "About GetUsRanked",
+    "heading": "Websites built to be found — by people, and by AI.",
+    "body": "We are a founder-led web design and search visibility studio. We build high-converting WordPress & Shopify websites engineered from day one to rank on Google and get cited by AI answer engines."
+  },
+  "pillars": {
+    "visible": true,
+    "eyebrow": "Our Foundation",
+    "heading": "Why businesses choose GetUsRanked",
+    "items": [
+      {
+        "title": "Founder-Led Execution",
+        "desc": "You work directly with the founder building your site. No account managers, no junior teams relaying messages, and no miscommunication layers."
+      },
+      {
+        "title": "SEO & AI Search Native",
+        "desc": "We build for traditional Google search and modern AI answer engines (ChatGPT, Perplexity, Claude) from line one of code."
+      },
+      {
+        "title": "100% Built in the Open",
+        "desc": "We practice what we preach. Our site's growth is tracked live and publicly, proving our methodology works in real time."
+      }
+    ]
+  },
+  "process": {
+    "visible": true,
+    "eyebrow": "How We Work",
+    "heading": "Four steps. Transparent, documented, and focused on growth.",
+    "steps": [
+      {
+        "num": "01",
+        "label": "Audit",
+        "title": "We start by understanding where you stand",
+        "paragraphs": [
+          "Before any work begins, we run a comprehensive audit of your website and online presence. This isn't a surface-level scan — it's a detailed review of your site's technical health, content quality, keyword positioning, and competitive landscape.",
+          "We check crawlability and indexing, Core Web Vitals performance, on-page SEO elements (titles, metas, headings, internal linking), content gaps relative to your competitors, and your backlink profile. If you have a Google Business Profile, we audit that too.",
+          "You receive the full audit report. It's written in plain language, not jargon — you'll know exactly what's working, what's broken, and what the biggest opportunities are."
+        ]
+      },
+      {
+        "num": "02",
+        "label": "Strategy",
+        "title": "We build a plan specific to your business",
+        "paragraphs": [
+          "Based on the audit findings, we build a custom SEO roadmap. This isn't a template we apply to every client — it's shaped by your industry, your competitors, your current position, and what you actually want to achieve.",
+          "The strategy covers target keywords and search intent mapping, content priorities (what to create, what to improve, what to cut), technical fixes ranked by impact, link building approach, and reporting milestones so you know what to expect and when.",
+          "We walk you through the strategy before work begins. If something doesn't make sense or doesn't align with your goals, we adjust it."
+        ]
+      },
+      {
+        "num": "03",
+        "label": "Execution",
+        "title": "We do the work, month over month",
+        "paragraphs": [
+          "Each month has a clear set of deliverables drawn from the strategy. Nothing is vague — you know what's being worked on and why.",
+          "Typical monthly work includes on-page optimizations (improving existing pages for better targeting), new content creation aligned to your keyword strategy, technical fixes and site health improvements, link building through relevant outreach and digital PR, and Google Business Profile updates and local citation management where applicable.",
+          "We don't make changes to your site without your knowledge. Everything is documented, and significant changes are communicated before they go live."
+        ]
+      },
+      {
+        "num": "04",
+        "label": "Reporting",
+        "title": "You see what moved and what's next",
+        "paragraphs": [
+          "At the end of each reporting period, you get a clear report covering what we did (specific actions taken), what changed (ranking movements, traffic, conversions), and what we're doing next (upcoming priorities and adjustments).",
+          "Reports are written in plain language. We don't hide behind dashboards full of metrics you didn't ask for — we focus on the numbers that actually matter to your business.",
+          "SEO is a long-term investment. Some months will show big movements; others will show the groundwork being laid for future gains. We're honest about both, and we explain the difference."
+        ]
+      }
+    ]
+  },
+  "whatWeDontDo": {
+    "visible": true,
+    "eyebrow": "Transparency",
+    "heading": "What we don't do",
+    "items": [
+      {
+        "title": "No Black-Hat Tactics",
+        "desc": "No link farms, no keyword stuffing, no cloaking. Every technique we use is sustainable and aligned with search engine guidelines."
+      },
+      {
+        "title": "No Overnight Guarantees",
+        "desc": "SEO is a long-term investment. Anyone promising page-one rankings in a week is lying. We set honest expectations from day one."
+      },
+      {
+        "title": "No Vague Promises",
+        "desc": "Every action we take is documented. Every report explains what happened and why. If something isn't working, we say so and adjust."
+      }
+    ]
+  },
+  "cta": {
+    "visible": true,
+    "heading": "Ready to work with us?",
+    "body": "Get a free site review or reach out to discuss your project. We'll show you exactly where you stand and how to grow your search visibility.",
+    "primaryCta": { "text": "Contact Us", "href": "/contact" },
+    "secondaryCta": { "text": "Get a Free Audit", "href": "/#contact" }
+  }
+}

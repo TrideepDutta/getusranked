@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/app.css";
+import aboutData from "../data/about.json";
 import {
   createGraphSchema,
   getOrganizationSchema,
@@ -13,77 +14,18 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
-const steps = [
-  {
-    num: "01",
-    label: "Audit",
-    title: "We start by understanding where you stand",
-    paragraphs: [
-      "Before any work begins, we run a comprehensive audit of your website and online presence. This isn't a surface-level scan — it's a detailed review of your site's technical health, content quality, keyword positioning, and competitive landscape.",
-      "We check crawlability and indexing, Core Web Vitals performance, on-page SEO elements (titles, metas, headings, internal linking), content gaps relative to your competitors, and your backlink profile. If you have a Google Business Profile, we audit that too.",
-      "You receive the full audit report. It's written in plain language, not jargon — you'll know exactly what's working, what's broken, and what the biggest opportunities are.",
-    ],
-  },
-  {
-    num: "02",
-    label: "Strategy",
-    title: "We build a plan specific to your business",
-    paragraphs: [
-      "Based on the audit findings, we build a custom SEO roadmap. This isn't a template we apply to every client — it's shaped by your industry, your competitors, your current position, and what you actually want to achieve.",
-      "The strategy covers target keywords and search intent mapping, content priorities (what to create, what to improve, what to cut), technical fixes ranked by impact, link building approach, and reporting milestones so you know what to expect and when.",
-      "We walk you through the strategy before work begins. If something doesn't make sense or doesn't align with your goals, we adjust it.",
-    ],
-  },
-  {
-    num: "03",
-    label: "Execution",
-    title: "We do the work, month over month",
-    paragraphs: [
-      "Each month has a clear set of deliverables drawn from the strategy. Nothing is vague — you know what's being worked on and why.",
-      "Typical monthly work includes on-page optimizations (improving existing pages for better targeting), new content creation aligned to your keyword strategy, technical fixes and site health improvements, link building through relevant outreach and digital PR, and Google Business Profile updates and local citation management where applicable.",
-      "We don't make changes to your site without your knowledge. Everything is documented, and significant changes are communicated before they go live.",
-    ],
-  },
-  {
-    num: "04",
-    label: "Reporting",
-    title: "You see what moved and what's next",
-    paragraphs: [
-      "At the end of each reporting period, you get a clear report covering what we did (specific actions taken), what changed (ranking movements, traffic, conversions), and what we're doing next (upcoming priorities and adjustments).",
-      "Reports are written in plain language. We don't hide behind dashboards full of metrics you didn't ask for — we focus on the numbers that actually matter to your business.",
-      "SEO is a long-term investment. Some months will show big movements; others will show the groundwork being laid for future gains. We're honest about both, and we explain the difference.",
-    ],
-  },
-];
-
-const pillars = [
-  {
-    title: "Founder-Led Execution",
-    desc: "You work directly with the founder building your site. No account managers, no junior teams relaying messages, and no miscommunication layers.",
-  },
-  {
-    title: "SEO & AI Search Native",
-    desc: "We build for traditional Google search and modern AI answer engines (ChatGPT, Perplexity, Claude) from line one of code.",
-  },
-  {
-    title: "100% Built in the Open",
-    desc: "We practice what we preach. Our site's growth is tracked live and publicly, proving our methodology works in real time.",
-  },
-];
-
-const pageTitle = "GetUsRanked — About Our Web Design & Search Visibility Agency";
-const pageDesc = "Learn about GetUsRanked — a founder-led web design and SEO agency building sites that get found by people and AI search engines.";
+const { hero, pillars, process, whatWeDontDo, cta, sectionOrder } = aboutData;
 
 const aboutSchema = createGraphSchema([
   getOrganizationSchema(),
   getWebsiteSchema(),
   getWebPageSchema({
-    name: pageTitle,
-    description: pageDesc,
+    name: aboutData.seo.title,
+    description: aboutData.seo.description,
     url: `${SITE_URL}/about-us`,
     type: "AboutPage",
   }),
-  getHowToSchema(steps),
+  getHowToSchema(process.steps),
   getBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "About Us", url: "/about-us" },
@@ -91,111 +33,107 @@ const aboutSchema = createGraphSchema([
 ]);
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} schema={aboutSchema}>
+<BaseLayout title={aboutData.seo.title} description={aboutData.seo.description} schema={aboutSchema}>
   <Header />
   <main class="flex-1">
-    <!-- Hero -->
-    <section class="section-pad bg-canvas border-b border-line">
-      <div class="container-content">
-        <div class="max-w-3xl">
-          <p class="eyebrow mb-3 reveal">About GetUsRanked</p>
-          <h1 class="mb-6 reveal">Websites built to be found — by people, and by AI.</h1>
-          <p class="text-ink-soft text-xl leading-relaxed reveal">
-            We are a founder-led web design and search visibility studio. We build high-converting WordPress & Shopify websites engineered from day one to rank on Google and get cited by AI answer engines.
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <!-- Agency Pillars -->
-    <section class="section-pad bg-canvas-deep">
-      <div class="container-content">
-        <p class="eyebrow mb-3 reveal">Our Foundation</p>
-        <h2 class="mb-10 max-w-2xl reveal">Why businesses choose GetUsRanked</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {pillars.map((pillar, i) => (
-            <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
-              <h3 class="font-display text-lg font-bold mb-3">{pillar.title}</h3>
-              <p class="text-ink-soft text-sm leading-relaxed">{pillar.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Process Header & Steps -->
-    <section class="section-pad bg-canvas">
-      <div class="container-content mb-12">
-        <p class="eyebrow mb-3 reveal">How We Work</p>
-        <h2 class="max-w-2xl reveal">Four steps. Transparent, documented, and focused on growth.</h2>
-      </div>
-
-      {steps.map((step, i) => (
-        <div class:list={["py-12 border-t border-line", i % 2 === 0 ? "bg-canvas-deep" : "bg-canvas"]}>
+    {sectionOrder.map((sectionId) => {
+      if (sectionId === "hero" && hero.visible) return (
+        <section class="section-pad bg-canvas border-b border-line">
           <div class="container-content">
-            <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-12 gap-y-4">
-              <!-- Left: Number & Label -->
-              <div class="flex md:flex-col items-center md:items-start gap-3 md:w-32 reveal">
-                <span class="numeral text-5xl text-ink/15">{step.num}</span>
-                <span class="font-mono text-xs uppercase tracking-widest text-ink-soft">{step.label}</span>
-              </div>
+            <div class="max-w-3xl">
+              <p class="eyebrow mb-3 reveal">{hero.eyebrow}</p>
+              <h1 class="mb-6 reveal">{hero.heading}</h1>
+              <p class="text-ink-soft text-xl leading-relaxed reveal">
+                {hero.body}
+              </p>
+            </div>
+          </div>
+        </section>
+      );
 
-              <!-- Right: Content -->
-              <div class="reveal stagger-1">
-                <h3 class="font-display text-2xl font-bold mb-6">{step.title}</h3>
-                <div class="flex flex-col gap-4 max-w-2xl">
-                  {step.paragraphs.map(p => (
-                    <p class="text-ink-soft leading-relaxed">{p}</p>
-                  ))}
+      if (sectionId === "pillars" && pillars.visible) return (
+        <section class="section-pad bg-canvas-deep">
+          <div class="container-content">
+            <p class="eyebrow mb-3 reveal">{pillars.eyebrow}</p>
+            <h2 class="mb-10 max-w-2xl reveal">{pillars.heading}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {pillars.items.map((pillar, i) => (
+                <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
+                  <h3 class="font-display text-lg font-bold mb-3">{pillar.title}</h3>
+                  <p class="text-ink-soft text-sm leading-relaxed">{pillar.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+
+      if (sectionId === "process" && process.visible) return (
+        <section class="section-pad bg-canvas">
+          <div class="container-content mb-12">
+            <p class="eyebrow mb-3 reveal">{process.eyebrow}</p>
+            <h2 class="max-w-2xl reveal">{process.heading}</h2>
+          </div>
+
+          {process.steps.map((step, i) => (
+            <div class:list={["py-12 border-t border-line", i % 2 === 0 ? "bg-canvas-deep" : "bg-canvas"]}>
+              <div class="container-content">
+                <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-12 gap-y-4">
+                  <div class="flex md:flex-col items-center md:items-start gap-3 md:w-32 reveal">
+                    <span class="numeral text-5xl text-ink/15">{step.num}</span>
+                    <span class="font-mono text-xs uppercase tracking-widest text-ink-soft">{step.label}</span>
+                  </div>
+                  <div class="reveal stagger-1">
+                    <h3 class="font-display text-2xl font-bold mb-6">{step.title}</h3>
+                    <div class="flex flex-col gap-4 max-w-2xl">
+                      {step.paragraphs.map(p => (
+                        <p class="text-ink-soft leading-relaxed">{p}</p>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </section>
+          ))}
+        </section>
+      );
 
-    <!-- What We Don't Do -->
-    <section class="section-pad bg-ink text-canvas">
-      <div class="container-content">
-        <p class="eyebrow eyebrow-light mb-3 reveal">Transparency</p>
-        <h2 class="text-canvas mb-6 max-w-2xl reveal">What we don't do</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="border border-canvas/10 rounded-2xl p-6 reveal stagger-1">
-            <p class="font-display font-bold text-canvas text-lg mb-2">No Black-Hat Tactics</p>
-            <p class="text-canvas/60 text-sm leading-relaxed">
-              No link farms, no keyword stuffing, no cloaking. Every technique we use is sustainable and aligned with search engine guidelines.
-            </p>
+      if (sectionId === "whatWeDontDo" && whatWeDontDo.visible) return (
+        <section class="section-pad bg-ink text-canvas">
+          <div class="container-content">
+            <p class="eyebrow eyebrow-light mb-3 reveal">{whatWeDontDo.eyebrow}</p>
+            <h2 class="text-canvas mb-6 max-w-2xl reveal">{whatWeDontDo.heading}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {whatWeDontDo.items.map((item, i) => (
+                <div class={`border border-canvas/10 rounded-2xl p-6 reveal stagger-${i + 1}`}>
+                  <p class="font-display font-bold text-canvas text-lg mb-2">{item.title}</p>
+                  <p class="text-canvas/60 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="border border-canvas/10 rounded-2xl p-6 reveal stagger-2">
-            <p class="font-display font-bold text-canvas text-lg mb-2">No Overnight Guarantees</p>
-            <p class="text-canvas/60 text-sm leading-relaxed">
-              SEO is a long-term investment. Anyone promising page-one rankings in a week is lying. We set honest expectations from day one.
-            </p>
-          </div>
-          <div class="border border-canvas/10 rounded-2xl p-6 reveal stagger-3">
-            <p class="font-display font-bold text-canvas text-lg mb-2">No Vague Promises</p>
-            <p class="text-canvas/60 text-sm leading-relaxed">
-              Every action we take is documented. Every report explains what happened and why. If something isn't working, we say so and adjust.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      );
 
-    <!-- CTA -->
-    <section class="section-pad bg-canvas-deep">
-      <div class="container-content text-center reveal">
-        <h2 class="mb-4">Ready to work with us?</h2>
-        <p class="text-ink-soft max-w-lg mx-auto mb-8 leading-relaxed">
-          Get a free site review or reach out to discuss your project. We'll show you exactly where you stand and how to grow your search visibility.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="/contact" class="btn btn-primary">Contact Us</a>
-          <a href="/#contact" class="btn btn-ghost">Get a Free Audit</a>
-        </div>
-      </div>
-    </section>
+      if (sectionId === "cta" && cta.visible) return (
+        <section class="section-pad bg-canvas-deep">
+          <div class="container-content text-center reveal">
+            <h2 class="mb-4">{cta.heading}</h2>
+            <p class="text-ink-soft max-w-lg mx-auto mb-8 leading-relaxed">
+              {cta.body}
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href={cta.primaryCta.href} class="btn btn-primary">{cta.primaryCta.text}</a>
+              <a href={cta.secondaryCta.href} class="btn btn-ghost">{cta.secondaryCta.text}</a>
+            </div>
+          </div>
+        </section>
+      );
+
+      return null;
+    })}
+
   </main>
   <Footer />
 </BaseLayout>

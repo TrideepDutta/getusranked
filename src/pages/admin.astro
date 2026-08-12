@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/app.css";
+
+const cmsUrl = "http://localhost:3001";
+---
+
+<BaseLayout title="Redirecting to GetUsRanked CMS Admin...">
+  <Header />
+  <main class="flex-1 bg-canvas flex items-center justify-center section-pad">
+    <div class="container-content max-w-xl text-center">
+      <div class="bg-card border border-line rounded-2xl p-8 sm:p-12 shadow-sm">
+        <div class="w-14 h-14 rounded-full bg-blue/10 text-blue flex items-center justify-center mx-auto mb-6">
+          <svg class="w-7 h-7 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+        
+        <h1 class="font-display text-2xl font-bold mb-3 text-ink">Opening CMS Admin Panel...</h1>
+        <p class="text-ink-soft text-sm leading-relaxed mb-6">
+          Redirecting to your CMS control dashboard at <code class="bg-canvas-deep px-2 py-1 rounded text-ink font-mono text-xs">{cmsUrl}</code>
+        </p>
+
+        <div class="flex flex-col gap-3 justify-center items-center">
+          <a href={cmsUrl} class="btn btn-primary text-xs w-full sm:w-auto justify-center">
+            Open CMS Dashboard Directly →
+          </a>
+          <p id="cms-offline-note" class="hidden text-xs text-amber-600 font-mono mt-2 bg-amber-500/10 p-3 rounded-xl border border-amber-500/20">
+            ⚠️ CMS server appears offline. Run <code class="font-bold">npm run cms</code> in terminal to start it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  const cmsUrl = "http://localhost:3001";
+  const offlineNote = document.getElementById("cms-offline-note");
+
+  // Check if CMS server is running, then redirect
+  async function checkAndRedirect() {
+    try {
+      const res = await fetch("http://localhost:4322/api/content", { method: "GET" });
+      if (res.ok) {
+        window.location.href = cmsUrl;
+      } else {
+        if (offlineNote) offlineNote.classList.remove("hidden");
+      }
+    } catch (e) {
+      // If server is not responding, try direct redirect or show offline note after brief delay
+      setTimeout(() => {
+        window.location.href = cmsUrl;
+      }, 1000);
+      
+      setTimeout(() => {
+        if (offlineNote) offlineNote.classList.remove("hidden");
+      }, 3000);
+    }
+  }
+
+  checkAndRedirect();
+</script>

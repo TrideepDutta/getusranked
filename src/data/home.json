@@ -1,0 +1,165 @@
+{
+  "seo": {
+    "title": "GetUsRanked — Web Design & Search Engine / AI Optimization Agency",
+    "description": "GetUsRanked builds WordPress and Shopify sites with SEO and AI-search visibility baked in from day one, not bolted on after launch."
+  },
+  "sectionOrder": [
+    "hero",
+    "howWeThink",
+    "process",
+    "whyUs",
+    "credibility",
+    "closingCta"
+  ],
+  "hero": {
+    "visible": true,
+    "eyebrow": "GetUsRanked Agency",
+    "heading": "We build sites that actually get found.",
+    "subheading": "WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
+    "primaryCta": {
+      "text": "About Us & Process",
+      "href": "/about-us"
+    },
+    "secondaryCta": {
+      "text": "Get a Free Site Review",
+      "href": "/contact"
+    },
+    "rankCard": {
+      "label": "Search & AI Visibility",
+      "fromRank": 47,
+      "toRank": 1,
+      "footerText": "↑ Position Improved"
+    }
+  },
+  "howWeThink": {
+    "visible": true,
+    "eyebrow": "How We Think",
+    "heading": "Design that ranks, not just looks good",
+    "items": [
+      {
+        "title": "Design that ranks, not just looks good",
+        "desc": "A beautiful site nobody finds is a beautiful waste of money. Every build starts with SEO and AI-search visibility as a requirement, not an afterthought."
+      },
+      {
+        "title": "Direct access, not account managers",
+        "desc": "You work with the person actually building your site. No hand-offs, no junior teams, no layers between you and the work."
+      },
+      {
+        "title": "Built for how people search now",
+        "desc": "Google isn't the only front door anymore. We set your site up for AI answer engines too — ChatGPT, Perplexity — so your business shows up wherever people are actually asking."
+      }
+    ]
+  },
+  "process": {
+    "visible": true,
+    "eyebrow": "How We Work",
+    "heading": "Four steps. Built right from day one.",
+    "steps": [
+      {
+        "num": "01",
+        "label": "Audit & Strategy",
+        "title": "Audit & Strategy",
+        "desc": "We start by understanding your customers, your competitors, and what's actually broken, before a single page gets designed."
+      },
+      {
+        "num": "02",
+        "label": "Design & Build",
+        "title": "Design & Build",
+        "desc": "Your site gets designed and built, WordPress or Shopify, with SEO structure and technical foundations built in from the first line of code."
+      },
+      {
+        "num": "03",
+        "label": "Launch & Optimize",
+        "title": "Launch & Optimize",
+        "desc": "Technical SEO, on-page optimization, and AI-search setup happen before launch. Not as a \"phase two\" you get upsold into later."
+      },
+      {
+        "num": "04",
+        "label": "Grow",
+        "title": "Grow",
+        "desc": "Once you're live, an optional monthly retainer keeps your rankings moving and keeps you visible as search itself keeps changing."
+      }
+    ]
+  },
+  "whyUs": {
+    "visible": true,
+    "eyebrow": "Why This, Not a Bigger Agency",
+    "heading": "Honest work, direct focus, no overhead",
+    "pillars": [
+      {
+        "title": "Founder-led, every project",
+        "desc": "One person, full attention. Not spread across forty accounts."
+      },
+      {
+        "title": "Built in the open",
+        "desc": "Our own site's SEO growth is tracked and visible — not a claim, a live example."
+      },
+      {
+        "title": "Priced for the work, not the overhead",
+        "desc": "No office lease or account-management layer baked into your invoice. You're paying for the build, not the agency's rent."
+      }
+    ]
+  },
+  "credibility": {
+    "visible": true,
+    "eyebrow": "Why Trust a New Agency",
+    "heading": "We're new, and we're not going to pretend otherwise.",
+    "body": "Instead of faking testimonials, we point you to our own site, live and rankable, as proof of how we work. Every client right now gets more of our actual attention than they'd get once we're bigger. That won't stay true forever, so it's worth taking advantage of now.",
+    "rankedKeywords": [
+      {
+        "keyword": "SEO service in West Bengal",
+        "rank": 1,
+        "progress": 100
+      },
+      {
+        "keyword": "SEO agency in Kolkata",
+        "rank": 1,
+        "progress": 100
+      },
+      {
+        "keyword": "SEO agency in Baghajatin",
+        "rank": 1,
+        "progress": 100
+      },
+      {
+        "keyword": "best SEO agency for dental clinics",
+        "rank": 1,
+        "progress": 100
+      },
+      {
+        "keyword": "top SEO agency in Kolkata",
+        "rank": 1,
+        "progress": 100
+      }
+    ],
+    "keywordsSummary": {
+      "rankedCount": 5,
+      "totalCount": 5,
+      "serpLabel": "100% Page 1 SERP",
+      "transparencyLabel": "100% Transparency"
+    }
+  },
+  "closingCta": {
+    "visible": true,
+    "eyebrow": "Closing CTA",
+    "heading": "Let's build something that actually gets found.",
+    "body": "Fill out the form below for a free site review. No commitment, no pressure — just an honest look at your current site and search potential.",
+    "formLabels": {
+      "name": "Name",
+      "company": "Company",
+      "website": "Website or Current Link",
+      "business": "What does your business do?",
+      "email": "Email",
+      "submitText": "Get a Free Site Review",
+      "successMessage": "✓ Thank you! Your site review request has been sent successfully. We will get back to you shortly.",
+      "errorMessage": "✕ Something went wrong submitting your request. Please try again or email us directly."
+    },
+    "formPlaceholders": {
+      "name": "Your name",
+      "company": "Your company name",
+      "website": "https://yourbusiness.com",
+      "business": "A brief description of your business and goals",
+      "email": "you@company.com"
+    }
+  }
+}

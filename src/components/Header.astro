@@ -1,13 +1,10 @@
 ---
-const currentPath = Astro.url.pathname;
+import navData from "../data/navigation.json";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about-us", label: "About Us" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact Us" },
-];
+const currentPath = Astro.url.pathname;
+const navLinks = navData.header.navLinks;
+const ctaText = navData.header.ctaText;
+const ctaHref = navData.header.ctaHref;
 ---
 
 <header id="site-header" class="fixed top-3 md:top-4 left-3 right-3 md:left-6 md:right-6 max-w-6xl mx-auto z-50">
@@ -35,7 +32,7 @@ const navLinks = [
           {link.label}
         </a>
       ))}
-      <a href="/contact" class="btn btn-primary text-xs rounded-full">Get a Free Audit</a>
+      <a href={ctaHref} class="btn btn-primary text-xs rounded-full">{ctaText}</a>
     </nav>
 
     <!-- Mobile Menu Toggle Button -->
@@ -80,7 +77,7 @@ const navLinks = [
       </a>
     ))}
     <div class="w-full pt-2 border-t border-line/40 mt-1 nav-item-animate" style={`transition-delay: ${navLinks.length * 35}ms;`}>
-      <a href="/contact" class="btn btn-primary text-xs w-full justify-center rounded-full py-3">Get a Free Audit</a>
+      <a href={ctaHref} class="btn btn-primary text-xs w-full justify-center rounded-full py-3">{ctaText}</a>
     </div>
   </div>
 </header>
@@ -318,7 +315,3 @@ const navLinks = [
     });
   }
 </script>
-
-
-
-

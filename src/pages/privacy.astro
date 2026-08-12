@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/app.css";
+import privacyData from "../data/privacy.json";
 import {
   createGraphSchema,
   getOrganizationSchema,
@@ -12,15 +13,12 @@ import {
   SITE_URL,
 } from "../utils/schema";
 
-const pageTitle = "GetUsRanked — Privacy Policy";
-const pageDesc = "How GetUsRanked collects, uses, and protects your personal information. Read our full privacy policy.";
-
 const privacySchema = createGraphSchema([
   getOrganizationSchema(),
   getWebsiteSchema(),
   getWebPageSchema({
-    name: pageTitle,
-    description: pageDesc,
+    name: privacyData.seo.title,
+    description: privacyData.seo.description,
     url: `${SITE_URL}/privacy`,
   }),
   getBreadcrumbSchema([
@@ -30,163 +28,45 @@ const privacySchema = createGraphSchema([
 ]);
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} schema={privacySchema}>
+<BaseLayout title={privacyData.seo.title} description={privacyData.seo.description} schema={privacySchema}>
 
   <Header />
   <main class="flex-1">
 
     <section class="section-pad bg-canvas">
       <div class="container-content max-w-3xl">
-        <p class="eyebrow mb-3">Legal</p>
-        <h1 class="mb-4">Privacy Policy</h1>
-        <p class="text-ink-soft text-sm mb-10">Last updated: August 2026</p>
+        <p class="eyebrow mb-3">{privacyData.eyebrow}</p>
+        <h1 class="mb-4">{privacyData.heading}</h1>
+        <p class="text-ink-soft text-sm mb-10">Last updated: {privacyData.lastUpdated}</p>
 
         <div class="flex flex-col gap-10">
+          {privacyData.sections.map(section => (
+            <div>
+              <h2 class="text-lg mb-3">{section.title}</h2>
+              <p class="text-ink-soft leading-relaxed mb-3">{section.body}</p>
+              {section.bullets && (
+                <ul class="list-none flex flex-col gap-2 ml-0">
+                  {section.bullets.map(bullet => (
+                    <li class="text-ink-soft text-sm flex items-start gap-2">
+                      <span class="text-blue mt-0.5 text-xs">•</span>
+                      <span set:html={bullet.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {section.afterBullets && (
+                <p class="text-ink-soft leading-relaxed mt-3">{section.afterBullets}</p>
+              )}
+            </div>
+          ))}
 
-          <!-- 1. Information We Collect -->
-          <div>
-            <h2 class="text-lg mb-3">1. Information We Collect</h2>
-            <p class="text-ink-soft leading-relaxed mb-3">
-              We collect information you provide directly to us, including:
-            </p>
-            <ul class="list-none flex flex-col gap-2 ml-0">
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span><strong>Contact information:</strong> Name, email address, company name, and website URL submitted through our contact form.</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span><strong>Business information:</strong> Description of your business provided in the audit request form.</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span><strong>Communication data:</strong> Any information you include in emails or messages sent to us.</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- 2. How We Use Your Information -->
-          <div>
-            <h2 class="text-lg mb-3">2. How We Use Your Information</h2>
-            <p class="text-ink-soft leading-relaxed mb-3">
-              We use the information we collect to:
-            </p>
-            <ul class="list-none flex flex-col gap-2 ml-0">
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Respond to your inquiries and audit requests</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Provide, maintain, and improve our SEO services</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Send you service-related communications</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Generate audit reports and proposals</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Comply with legal obligations</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- 3. Cookies and Tracking -->
-          <div>
-            <h2 class="text-lg mb-3">3. Cookies and Tracking</h2>
-            <p class="text-ink-soft leading-relaxed mb-3">
-              Our website may use the following tracking technologies:
-            </p>
-            <ul class="list-none flex flex-col gap-2 ml-0">
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span><strong>Google Analytics:</strong> To understand how visitors interact with our website (page views, session duration, traffic sources). This data is anonymized and used solely for improving our website.</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span><strong>Google Search Console:</strong> To monitor our website's search performance. This does not track individual visitors.</span>
-              </li>
-            </ul>
-            <p class="text-ink-soft leading-relaxed mt-3">
-              We do not use cookies for advertising or sell any tracking data to third parties.
-            </p>
-          </div>
-
-          <!-- 4. Third-Party Services -->
-          <div>
-            <h2 class="text-lg mb-3">4. Third-Party Services</h2>
-            <p class="text-ink-soft leading-relaxed">
-              We may use third-party services to help us operate our business, including hosting providers, email services, and analytics tools. These services may have access to your information only to perform tasks on our behalf and are obligated not to disclose or use it for any other purpose.
-            </p>
-          </div>
-
-          <!-- 5. Data Retention -->
-          <div>
-            <h2 class="text-lg mb-3">5. Data Retention</h2>
-            <p class="text-ink-soft leading-relaxed">
-              We retain your personal information for as long as necessary to provide our services and fulfill the purposes described in this policy. Contact form submissions are retained for up to 24 months after the last interaction. Client data is retained for the duration of the engagement and 12 months after termination, unless a longer retention period is required by law.
-            </p>
-          </div>
-
-          <!-- 6. Your Rights -->
-          <div>
-            <h2 class="text-lg mb-3">6. Your Rights</h2>
-            <p class="text-ink-soft leading-relaxed mb-3">
-              You have the right to:
-            </p>
-            <ul class="list-none flex flex-col gap-2 ml-0">
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Access the personal information we hold about you</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Request correction of inaccurate information</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Request deletion of your personal information</span>
-              </li>
-              <li class="text-ink-soft text-sm flex items-start gap-2">
-                <span class="text-blue mt-0.5 text-xs">•</span>
-                <span>Withdraw consent for data processing</span>
-              </li>
-            </ul>
-            <p class="text-ink-soft leading-relaxed mt-3">
-              To exercise any of these rights, contact us at
-              <a href="mailto:hello@getusranked.com" class="text-blue">hello@getusranked.com</a>.
-            </p>
-          </div>
-
-          <!-- 7. Data Security -->
-          <div>
-            <h2 class="text-lg mb-3">7. Data Security</h2>
-            <p class="text-ink-soft leading-relaxed">
-              We take reasonable measures to protect your personal information from unauthorized access, alteration, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.
-            </p>
-          </div>
-
-          <!-- 8. Changes to This Policy -->
-          <div>
-            <h2 class="text-lg mb-3">8. Changes to This Policy</h2>
-            <p class="text-ink-soft leading-relaxed">
-              We may update this privacy policy from time to time. Changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.
-            </p>
-          </div>
-
-          <!-- Contact -->
           <div class="border-t border-line pt-8 mt-4">
-            <h2 class="text-lg mb-3">Contact Us</h2>
+            <h2 class="text-lg mb-3">{privacyData.contactSection.title}</h2>
             <p class="text-ink-soft leading-relaxed">
-              If you have questions about this privacy policy or how we handle your data, contact us at
-              <a href="mailto:hello@getusranked.com" class="text-blue">hello@getusranked.com</a>.
+              {privacyData.contactSection.body}{' '}
+              <a href={`mailto:${privacyData.contactSection.email}`} class="text-blue">{privacyData.contactSection.email}</a>.
             </p>
           </div>
-
         </div>
       </div>
     </section>

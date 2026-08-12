@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "GetUsRanked — Refund Policy",
+    "description": "100% money-back guarantee if you're not satisfied with our SEO results after the first 30 days. Read our full refund policy."
+  },
+  "eyebrow": "Legal",
+  "heading": "Refund Policy",
+  "lastUpdated": "August 2026",
+  "guarantee": {
+    "title": "100% Money-Back Guarantee",
+    "body": "At GetUsRanked, we stand behind the quality of our work. If you are not satisfied with the results of our SEO services after the first 30 days of your engagement, we will issue a **full 100% refund** of the fees you have paid — no questions asked. We believe in earning your trust through measurable results, and this guarantee reflects our confidence in the value we deliver."
+  },
+  "sections": [
+    {
+      "title": "1. Eligibility",
+      "body": "To qualify for a full refund, the following conditions must be met:",
+      "bullets": [
+        "The refund request is submitted within **30 days** from the start date of your service engagement.",
+        "You have provided us with the necessary access and information required to perform the agreed-upon services (website access, analytics, etc.).",
+        "You have not made significant changes to your website that directly conflict with or undo the optimizations we implemented.",
+        "This is your first engagement with GetUsRanked (the guarantee applies once per client)."
+      ]
+    },
+    {
+      "title": "2. How to Request a Refund",
+      "body": "Requesting a refund is simple and straightforward:",
+      "numberedList": [
+        "Send an email to hello@getusranked.com with the subject line **\"Refund Request\"**.",
+        "Include your name, company name, and the date your service began.",
+        "Briefly describe why you are unsatisfied with the service (optional, but helps us improve)."
+      ],
+      "afterList": "We will acknowledge your request within **2 business days** and process the refund within **7–10 business days** of confirmation."
+    },
+    {
+      "title": "3. Refund Method",
+      "body": "Refunds will be issued using the original payment method. If payment was made via bank transfer, we will request your bank details to process the refund. For payments made via UPI, credit card, or other digital payment methods, the refund will be credited back to the same account or card used for the original transaction."
+    },
+    {
+      "title": "4. What Happens After a Refund",
+      "body": "Once a refund is processed:",
+      "bullets": [
+        "All active SEO services for your account will be discontinued immediately.",
+        "Any changes already implemented on your website (on-page optimizations, content updates, etc.) will remain in place — we do not reverse completed work.",
+        "You will receive a final report summarizing the work completed during your engagement.",
+        "Access credentials shared with us will no longer be used and should be changed for your security."
+      ]
+    },
+    {
+      "title": "5. Exclusions",
+      "body": "The following are not eligible for a refund:",
+      "bullets": [
+        "Refund requests submitted after the 30-day guarantee period.",
+        "Third-party costs incurred on your behalf (e.g., domain registrations, hosting fees, paid advertising spend, stock images, or premium tools purchased for your project).",
+        "Custom development or design work completed as a separate add-on service outside the core SEO package.",
+        "Situations where the client failed to provide required access or actively obstructed the work."
+      ]
+    },
+    {
+      "title": "6. Our Commitment",
+      "body": "We offer this guarantee because we are confident in the quality of our services and committed to building long-term partnerships based on trust and transparency. If for any reason you are not happy, we want to make it right. Your satisfaction is our top priority, and we would rather part on good terms than have an unhappy client."
+    }
+  ],
+  "contactSection": {
+    "title": "Questions?",
+    "body": "If you have questions about our refund policy, contact us at",
+    "email": "hello@getusranked.com"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "GetUsRanked",
+  "url": "https://getusranked.com",
+  "description": "GetUsRanked builds WordPress & Shopify websites engineered to rank — for search engines and AI engines like ChatGPT & Perplexity from day one.",
+  "email": "hello@getusranked.com",
+  "seoKeywords": "GetUsRanked, Get Us Ranked, GetUsRanked SEO, GetUsRanked Agency, GetUsRanked Web Design, Search Engine Optimization, Generative Engine Optimization, AI Search",
+  "socialLinks": [
+    { "platform": "Instagram", "label": "Instagram", "url": "https://instagram.com/getusranked" },
+    { "platform": "Facebook", "label": "Facebook", "url": "https://facebook.com/getusranked" },
+    { "platform": "LinkedIn", "label": "LinkedIn", "url": "https://linkedin.com/company/getusranked" }
+  ],
+  "brandTagline": "SEO that tracks its own growth as proof. Transparent process, plain-language reporting, no lock-in contracts.",
+  "knowledgeTopics": [
+    "GetUsRanked Search Visibility",
+    "GetUsRanked SEO Services",
+    "Search Engine Optimization (SEO)",
+    "Generative Engine Optimization (GEO)",
+    "Answer Engine Optimization (AEO)",
+    "AI Search Visibility",
+    "WordPress Development",
+    "Shopify Development",
+    "Technical SEO Audits",
+    "On-Page SEO",
+    "Web Design & Development"
+  ]
+}

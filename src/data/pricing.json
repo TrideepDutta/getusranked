@@ -1,0 +1,123 @@
+{
+  "seo": {
+    "title": "GetUsRanked — Pricing",
+    "description": "Transparent, one-time pricing for web design and SEO. Choose between Starter, Growth, or Custom plans with SEO and AI-search visibility built in."
+  },
+  "sectionOrder": ["hero", "plans", "afterLaunch", "faq", "bottomCta"],
+  "hero": {
+    "visible": true,
+    "eyebrow": "Pricing",
+    "heading": "Simple pricing. Three ways to work with us.",
+    "body": "No hidden costs, no vague \"contact for quote\" on the plans that don't need it. Pick what fits, or reach out if your project doesn't fit a box."
+  },
+  "plans": {
+    "visible": true,
+    "items": [
+      {
+        "id": "starter",
+        "label": "PLAN 1",
+        "name": "Starter",
+        "price": "$599",
+        "priceLabel": "one-time",
+        "description": "For businesses that need a real website live fast, with SEO done right from day one.",
+        "highlighted": false,
+        "highlightBadge": "",
+        "features": [
+          "WordPress site, up to 5 pages",
+          "Mobile-optimized, fast-loading build",
+          "On-page SEO setup, optimized for up to 10 target keywords",
+          "AEO-ready FAQ schema (structured for AI answer engines like ChatGPT and Perplexity, not just Google)",
+          "Basic technical SEO foundation (site speed, indexing, meta structure)",
+          "2 rounds of revisions"
+        ],
+        "timeline": "~2–3 weeks.",
+        "payment": "50% upfront, 50% on delivery.",
+        "ctaText": "Get Started",
+        "ctaHref": "/contact",
+        "footnote": ""
+      },
+      {
+        "id": "growth",
+        "label": "PLAN 2",
+        "name": "Growth",
+        "price": "$899",
+        "priceLabel": "one-time",
+        "description": "For businesses that need more site, more content structure, and a stronger SEO foundation to grow on.",
+        "highlighted": true,
+        "highlightBadge": "MOST POPULAR",
+        "features": [
+          "WordPress or standard website, up to 10 pages",
+          "Everything in Starter, plus:",
+          "On-page SEO setup, optimized for up to 20 target keywords",
+          "AEO-ready FAQ schema across key pages",
+          "Blog/content system set up and ready to publish into",
+          "Deeper technical SEO (structured data, internal linking architecture, Core Web Vitals tuning)",
+          "3 rounds of revisions"
+        ],
+        "timeline": "~4–5 weeks.",
+        "payment": "50% upfront, 50% on delivery.",
+        "ctaText": "Get Started",
+        "ctaHref": "/contact",
+        "footnote": ""
+      },
+      {
+        "id": "custom",
+        "label": "PLAN 3",
+        "name": "Custom",
+        "price": "Custom Pricing",
+        "priceLabel": "scoped to your project",
+        "description": "For businesses that need a full custom build, not a template, with room to grow and manage things yourself.",
+        "highlighted": false,
+        "highlightBadge": "",
+        "features": [
+          "Custom website, WordPress or full-stack build, built to your exact requirements",
+          "On-page SEO setup, optimized for 40+ target keywords",
+          "AEO-ready structure sitewide",
+          "An analytics/CRM dashboard so you can edit posts, publish new blog content, or manage core site content yourself, without touching code",
+          "3 rounds of revisions"
+        ],
+        "timeline": "~7–10 weeks, depending on scope.",
+        "payment": "50% upfront, 50% on delivery, milestone payments available for larger builds.",
+        "ctaText": "Connect With Us",
+        "ctaHref": "/contact",
+        "footnote": "Need custom automation on top of this? (workflow automation, third-party integrations, booking/scheduling systems) — scoped and quoted separately, since every automation need is different."
+      }
+    ]
+  },
+  "afterLaunch": {
+    "visible": true,
+    "eyebrow": "After Launch",
+    "heading": "After Launch",
+    "body": "All three plans are one-time builds. Once your site is live, an optional monthly SEO retainer keeps your rankings moving and adapts as search and AI-search algorithms change. This isn't bundled into the build price. It's offered after launch, when you've seen the work and can decide if you want to keep going."
+  },
+  "faq": {
+    "visible": true,
+    "eyebrow": "Pricing FAQ",
+    "heading": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "Do you guarantee these keywords will rank?",
+        "a": "No. We optimize your site to target and compete for the keyword count listed in each plan, honestly and with sustainable methods. No agency can guarantee a ranking position; anyone who promises that isn't being straight with you."
+      },
+      {
+        "q": "What if my project doesn't fit any of these three plans?",
+        "a": "Reach out and we'll talk about it. Not every business fits neatly into 5, 10, or \"custom\" pages, and that's fine."
+      },
+      {
+        "q": "What's not included?",
+        "a": "Ongoing content creation or link building after launch, paid ad management, and any custom feature not explicitly listed above. These are available separately."
+      },
+      {
+        "q": "Can I upgrade later?",
+        "a": "Yes. Start with Starter or Growth and move up when you're ready. You're not locked into the tier you begin with."
+      }
+    ]
+  },
+  "bottomCta": {
+    "visible": true,
+    "heading": "Ready to build a site that ranks?",
+    "body": "Reach out today and let's discuss your project goals. No commitment, no pressure.",
+    "ctaText": "Connect With Us",
+    "ctaHref": "/contact"
+  }
+}

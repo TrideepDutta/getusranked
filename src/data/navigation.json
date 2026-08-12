@@ -1,0 +1,32 @@
+{
+  "header": {
+    "navLinks": [
+      { "href": "/", "label": "Home" },
+      { "href": "/about-us", "label": "About Us" },
+      { "href": "/pricing", "label": "Pricing" },
+      { "href": "/blog", "label": "Blog" },
+      { "href": "/contact", "label": "Contact Us" }
+    ],
+    "ctaText": "Get a Free Audit",
+    "ctaHref": "/contact"
+  },
+  "footer": {
+    "quickLinks": [
+      { "href": "/", "label": "Home" },
+      { "href": "/about-us", "label": "About Us" },
+      { "href": "/pricing", "label": "Pricing" },
+      { "href": "/blog", "label": "Blog" },
+      { "href": "/contact", "label": "Contact Us" },
+      { "href": "/terms", "label": "Terms & Conditions" },
+      { "href": "/privacy", "label": "Privacy Policy" },
+      { "href": "/refund", "label": "Refund Policy" }
+    ],
+    "ctaText": "Request a Free Audit",
+    "ctaHref": "/contact",
+    "bottomLinks": [
+      { "href": "/terms", "label": "Terms" },
+      { "href": "/privacy", "label": "Privacy" },
+      { "href": "/refund", "label": "Refund" }
+    ]
+  }
+}

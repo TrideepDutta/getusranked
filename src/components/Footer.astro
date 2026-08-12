@@ -1,20 +1,10 @@
 ---
-const quickLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about-us", label: "About Us" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact Us" },
-  { href: "/terms", label: "Terms & Conditions" },
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/refund", label: "Refund Policy" },
-];
+import navData from "../data/navigation.json";
+import siteData from "../data/site.json";
 
-const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com/getusranked" },
-  { label: "Facebook", href: "https://facebook.com/getusranked" },
-  { label: "LinkedIn", href: "https://linkedin.com/company/getusranked" },
-];
+const quickLinks = navData.footer.quickLinks;
+const bottomLinks = navData.footer.bottomLinks;
+const socialLinks = siteData.socialLinks;
 ---
 
 <footer class="bg-ink text-canvas">
@@ -28,14 +18,14 @@ const socialLinks = [
           </span>
         </a>
         <p class="text-canvas/60 text-sm mt-4 leading-relaxed max-w-xs">
-          SEO that tracks its own growth as proof. Transparent process, plain-language reporting, no lock-in contracts.
+          {siteData.brandTagline}
         </p>
 
         <!-- Social Profiles -->
         <div class="mt-6 flex flex-wrap gap-4">
           {socialLinks.map(s => (
             <a
-              href={s.href}
+              href={s.url}
               target="_blank"
               rel="noopener noreferrer"
               class="text-canvas/60 hover:text-canvas text-xs font-mono no-underline transition-colors duration-200"
@@ -65,13 +55,13 @@ const socialLinks = [
       <div>
         <h4 class="eyebrow eyebrow-light mb-4">Get in Touch</h4>
         <a
-          href="mailto:hello@getusranked.com"
+          href={`mailto:${siteData.email}`}
           class="text-canvas/70 hover:text-canvas text-sm no-underline transition-colors duration-200 block mb-2"
         >
-          hello@getusranked.com
+          {siteData.email}
         </a>
         <div class="mt-6">
-          <a href="/contact" class="btn btn-ghost-light text-xs">Request a Free Audit</a>
+          <a href={navData.footer.ctaHref} class="btn btn-ghost-light text-xs">{navData.footer.ctaText}</a>
         </div>
       </div>
     </div>
@@ -79,18 +69,14 @@ const socialLinks = [
     <!-- Divider & Copyright -->
     <div class="border-t border-canvas/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
       <p class="text-canvas/40 text-xs font-mono">
-        &copy; {new Date().getFullYear()} GetUsRanked. All rights reserved.
+        &copy; {new Date().getFullYear()} {siteData.name}. All rights reserved.
       </p>
       <div class="flex gap-6">
-        <a href="/terms" class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
-          Terms
-        </a>
-        <a href="/privacy" class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
-          Privacy
-        </a>
-        <a href="/refund" class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
-          Refund
-        </a>
+        {bottomLinks.map(link => (
+          <a href={link.href} class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
+            {link.label}
+          </a>
+        ))}
       </div>
     </div>
   </div>

@@ -1,0 +1,71 @@
+{
+  "seo": {
+    "title": "GetUsRanked — Contact Our Web Design & Search Visibility Team",
+    "description": "Reach out to GetUsRanked for a free site audit, web design consultation, or SEO inquiry. Connect on Instagram, Facebook, and LinkedIn."
+  },
+  "sectionOrder": ["hero", "socialProfiles", "contactForm"],
+  "hero": {
+    "visible": true,
+    "eyebrow": "Contact GetUsRanked",
+    "heading": "Let's talk about getting your website ranked.",
+    "body": "Have a question, need a custom quote, or want a free audit of your current website? Send us a message or connect through our social channels."
+  },
+  "socialProfiles": {
+    "visible": true,
+    "eyebrow": "Social Profiles",
+    "heading": "Connect with us online",
+    "items": [
+      {
+        "platform": "Instagram",
+        "handle": "@getusranked",
+        "url": "https://instagram.com/getusranked",
+        "description": "Follow our agency journey, search experiments, behind-the-scenes builds, and design breakdowns.",
+        "iconColor": "text-[#E4405F]",
+        "svgIcon": "instagram"
+      },
+      {
+        "platform": "Facebook",
+        "handle": "GetUsRanked Agency",
+        "url": "https://facebook.com/getusranked",
+        "description": "Connect on Facebook for agency announcements, industry updates, and live site teardowns.",
+        "iconColor": "text-[#1877F2]",
+        "svgIcon": "facebook"
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "GetUsRanked",
+        "url": "https://linkedin.com/company/getusranked",
+        "description": "Follow on LinkedIn for in-depth SEO strategy articles, technical analysis, and agency milestones.",
+        "iconColor": "text-[#0A66C2]",
+        "svgIcon": "linkedin"
+      }
+    ]
+  },
+  "contactForm": {
+    "visible": true,
+    "directContact": {
+      "eyebrow": "Direct Contact",
+      "heading": "Reach out directly",
+      "body": "We respond to all inquiries within 24 business hours. Whether you need a full site build, an SEO audit, or an enterprise web application — you'll speak directly with the team doing the work.",
+      "emailLabel": "Email",
+      "email": "hello@getusranked.com",
+      "availabilityLabel": "Availability",
+      "availability": "Monday – Friday",
+      "availabilityHours": "9:00 AM – 6:00 PM EST"
+    },
+    "form": {
+      "heading": "Send us a message",
+      "subheading": "Fill out the form below and we'll get back to you with an audit or response promptly.",
+      "fields": {
+        "name": { "label": "Name *", "placeholder": "Your name", "required": true },
+        "email": { "label": "Email *", "placeholder": "you@company.com", "required": true },
+        "company": { "label": "Company / Agency", "placeholder": "Company name", "required": false },
+        "website": { "label": "Website URL", "placeholder": "https://yourbusiness.com", "required": false },
+        "message": { "label": "How can we help? *", "placeholder": "Tell us about your project, goals, or current search performance...", "required": true }
+      },
+      "submitText": "Send Message",
+      "successMessage": "✓ Thank you! Your message has been sent successfully. We will get back to you shortly.",
+      "errorMessage": "✕ Something went wrong submitting your message. Please try again or email us directly."
+    }
+  }
+}
