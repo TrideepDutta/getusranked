@@ -73,52 +73,28 @@ const whyUsPillars = [
 
 const faqs = [
   {
-    q: "What is search engine optimization?",
-    a: "Search Engine Optimization (SEO) is the practice of optimizing a website's technical architecture, content quality, semantic structure, and domain authority to achieve higher rankings in search engine results pages (SERPs) and AI answer engines. Effective SEO increases organic traffic, attracts high-intent prospects, and builds sustainable online brand visibility.",
+    q: "Do you guarantee page-one rankings?",
+    a: "No, and if anyone tells you they can, don't believe them. SEO is a long-term investment, not a switch you flip. What we do guarantee is honest work, sustainable methods, and a clear report showing exactly what moved and why.",
   },
   {
-    q: "How does search engine optimization work",
-    a: "Search Engine Optimization works through three foundational steps: Crawling, Indexing, and Ranking. Search engines and AI crawlers scan your website pages, analyze technical signals and content semantics, and store the information in a global index. When users search or prompt AI engines, sophisticated algorithms evaluate hundreds of factors—such as content relevance, user experience, site authority, and structured schema—to determine which pages to rank or cite as top recommendations.",
+    q: "What's the difference between regular SEO and this \"AEO\" thing?",
+    a: "Regular SEO gets you found on Google. AEO (Answer Engine Optimization) gets your business cited when someone asks ChatGPT or Perplexity a question instead of typing it into Google. Both matter now, and most agencies are still only doing the first one.",
   },
   {
-    q: "How to improve search engine optimization",
-    a: "Improving search engine optimization requires a strategic multi-faceted approach: 1) Enhance Technical SEO by optimizing page speed, mobile UX, and crawlability. 2) Publish High-Intent Content structured with clear headings and JSON-LD schema for search and AI engine readability. 3) Optimize On-Page Elements including title tags, meta descriptions, and semantic internal links. 4) Build Domain Authority through high-quality backlinks and verified brand entity signals.",
+    q: "Will I actually work with you, or get handed off to someone else?",
+    a: "You work directly with the founder building your site. No account managers, no junior team relaying messages. If something needs to change, you're talking to the person who can actually change it.",
   },
   {
-    q: "How can an SEO agency help to build your business",
-    a: "An SEO agency builds your business by turning your website into an automated customer acquisition engine. By capturing high-intent search traffic across Google, Bing, and AI search tools, an SEO agency increases qualified inbound leads, boosts brand credibility, lowers your long-term cost per acquisition (CAC), and delivers compounding organic returns that far outlast paid advertising.",
+    q: "How long does a build take?",
+    a: "Starter builds take about 2-3 weeks. Growth plans run 4-5 weeks. Custom/full-stack builds are 7-10 weeks depending on scope. These are real estimates, not best-case numbers we hope to hit.",
   },
   {
-    q: "How do I choose an SEO agency for AEO visibility?",
-    a: "To choose an SEO agency for Answer Engine Optimization (AEO), look for a partner specializing in entity-based SEO, JSON-LD structured data, topical authority, and direct conversational answer modeling. Traditional SEO alone is no longer enough—a capable AEO agency ensures your brand is indexed and cited directly by AI search engines like ChatGPT, Perplexity, Claude, and Google Gemini.",
+    q: "What happens after my site launches?",
+    a: "It's yours, fully. If you want ongoing SEO to keep your rankings moving as search evolves, we offer an optional monthly retainer, but there's no pressure and no lock-in. Plenty of clients launch and go run their business.",
   },
   {
-    q: "What to expect from an SEO agency",
-    a: "From a professional SEO agency, you should expect a comprehensive site audit, custom keyword and intent research, technical speed and schema optimization, transparent performance tracking, and clear revenue-focused reporting. A top-tier agency focuses on driving qualified organic leads and search dominance across both Google SERPs and modern AI answer engines.",
-  },
-  {
-    q: "What does \"built for AI search\" actually mean?",
-    a: "Search is changing beyond traditional Google queries. We structure your site's content, schema markup, and technical foundations so AI answer engines (like ChatGPT, Perplexity, and Claude) can crawl, process, and cite your site when potential clients ask relevant questions.",
-  },
-  {
-    q: "What platforms do you build websites on?",
-    a: "We specialize in WordPress and Shopify. Whether you need a high-converting content or service site on WordPress, or a scalable e-commerce store on Shopify, we build with clean code, fast load speeds, and built-in search visibility.",
-  },
-  {
-    q: "How long does a typical website build take?",
-    a: "Most standard builds take between 2 to 5 weeks from initial strategy to launch, depending on scope and content readiness. E-commerce stores or custom web applications take around 6 to 9 weeks.",
-  },
-  {
-    q: "Will I work with an account manager or the actual builder?",
-    a: "You work directly with the founder building your site. No junior teams, no account managers relaying messages, and no miscommunication layers between you and the execution.",
-  },
-  {
-    q: "Do you provide ongoing SEO and maintenance after launch?",
-    a: "Yes! Once your site is live, an optional monthly retainer keeps your rankings moving, handles technical maintenance, and keeps you visible as search algorithms and AI engines evolve.",
-  },
-  {
-    q: "What if I need custom features beyond a standard website?",
-    a: "We build custom web apps, client dashboards, booking and scheduling systems, and backend integrations. Reach out through our contact form and we'll scope your project on a call first.",
+    q: "What if I need something custom, like a booking system or a dashboard?",
+    a: "That's exactly what our Custom plan and add-on scoping is for. Reach out, tell us what you need, and we'll scope it together before quoting anything. No project is too specific to ask about.",
   },
 ];
 
@@ -317,40 +293,33 @@ const homeSchema = createGraphSchema([
       </div>
     </section>
 
-    <!-- ═══════ WHY GETUSRANKED ═══════ -->
-    <section id="why-getusranked" class="section-pad bg-canvas-deep">
+    <!-- ═══════ WHAT YOU ACTUALLY GET (Packages Preview) ═══════ -->
+    <section id="packages-preview" class="section-pad bg-canvas-deep">
       <div class="container-content">
-        <p class="eyebrow mb-3 reveal">Why GetUsRanked</p>
-        <h2 class="mb-10 reveal">Built different. Priced fairly.</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {whyUsPillars.map((pt, i) => (
-            <div class={`bg-card border border-line rounded-2xl p-6 reveal stagger-${i + 1}`}>
-              <h3 class="font-display font-bold text-ink text-lg mb-3">{pt.title}</h3>
-              <p class="text-ink-soft text-sm leading-relaxed">{pt.desc}</p>
-            </div>
-          ))}
+        <p class="eyebrow mb-3 reveal">What You Actually Get</p>
+        <h2 class="mb-10 max-w-2xl reveal">Three ways to work with us, priced clearly</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-1">
+            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 1</p>
+            <h3 class="font-display text-lg font-bold mb-1">Starter</h3>
+            <p class="numeral text-2xl text-blue mb-3">$599</p>
+            <p class="text-ink-soft text-sm leading-relaxed">A 5-page WordPress site, SEO-optimized for 10 keywords, AEO-ready from day one.</p>
+          </div>
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-2">
+            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 2</p>
+            <h3 class="font-display text-lg font-bold mb-1">Growth</h3>
+            <p class="numeral text-2xl text-blue mb-3">$899</p>
+            <p class="text-ink-soft text-sm leading-relaxed">Up to 10 pages, 20 keywords targeted, deeper SEO and AI-search setup.</p>
+          </div>
+          <div class="bg-card border border-line rounded-2xl p-6 reveal stagger-3">
+            <p class="font-mono text-xs uppercase tracking-wider text-ink-soft mb-2">Plan 3</p>
+            <h3 class="font-display text-lg font-bold mb-1">Custom</h3>
+            <p class="numeral text-2xl text-blue mb-3">Scoped to your project</p>
+            <p class="text-ink-soft text-sm leading-relaxed">Custom build, 40+ keywords, your own dashboard to manage content. Connect with us.</p>
+          </div>
         </div>
-
-        <!-- Trust badges (Full width 3 columns) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-line">
-          <div class="bg-card border border-line rounded-2xl p-6 hover:border-line-strong transition-colors reveal stagger-1">
-            <p class="font-display font-bold text-ink text-base mb-2">Direct Founder Access</p>
-            <p class="text-ink-soft text-sm leading-relaxed">
-              You work directly with the person building your site — no layers, no junior teams.
-            </p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 hover:border-line-strong transition-colors reveal stagger-2">
-            <p class="font-display font-bold text-ink text-base mb-2">SEO & AI Baked In</p>
-            <p class="text-ink-soft text-sm leading-relaxed">
-              Google & AI search (ChatGPT, Perplexity) readiness configured before launch.
-            </p>
-          </div>
-          <div class="bg-card border border-line rounded-2xl p-6 hover:border-line-strong transition-colors reveal stagger-3">
-            <p class="font-display font-bold text-ink text-base mb-2">Priced For The Work</p>
-            <p class="text-ink-soft text-sm leading-relaxed">
-              No agency overhead or lease costs passed on to you. You pay for execution.
-            </p>
-          </div>
+        <div class="mt-8 text-center reveal">
+          <a href="/packages" class="btn btn-primary">See Full Pricing Details →</a>
         </div>
       </div>
     </section>
