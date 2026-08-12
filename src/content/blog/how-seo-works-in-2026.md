@@ -4,7 +4,7 @@ excerpt: "A comprehensive guide to search engine optimization, AI search engines
 category: "Technical SEO"
 date: "Aug 12, 2026"
 readTime: "6 min read"
-draft: false
+draft: true
 author: "GetUsRanked Team"
 tags:
   - "SEO"
@@ -19,3 +19,4 @@ Search engine optimization has evolved into AI-driven discovery and multi-engine
 - High-intent structured content
 - Fast loading speeds and technical hygiene
 - Entity clarity and authoritative sources
+
