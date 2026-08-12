@@ -1,5 +1,6 @@
 ---
 import JsonLd from "../components/JsonLd.astro";
+import CookieBanner from "../components/CookieBanner.astro";
 import siteData from "../data/site.json";
 import {
   createGraphSchema,
@@ -71,5 +72,11 @@ const pageSchema =
   </head>
   <body class="bg-canvas text-ink min-h-screen flex flex-col">
     <slot />
+    <CookieBanner />
+
+    <script>
+      import { registerServiceWorker } from "../utils/sw-register";
+      registerServiceWorker();
+    </script>
   </body>
 </html>

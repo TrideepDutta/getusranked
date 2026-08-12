@@ -1,0 +1,301 @@
+---
+// CookieBanner.astro - GDPR Cookie Consent Banner & Preferences Modal
+---
+
+<div id="cookie-consent-wrapper" class="hidden">
+  <!-- Backdrop Blur overlay for Modal -->
+  <div
+    id="cookie-modal-backdrop"
+    class="fixed inset-0 bg-ink/70 backdrop-blur-sm z-[9998] transition-opacity duration-300 opacity-0 pointer-events-none"
+  ></div>
+
+  <!-- Main Floating Banner -->
+  <div
+    id="cookie-banner"
+    class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md z-[9997] transition-all duration-500 transform translate-y-full opacity-0"
+    role="dialog"
+    aria-labelledby="cookie-banner-title"
+    aria-describedby="cookie-banner-desc"
+  >
+    <div class="glass-card bg-ink/95 text-canvas p-6 border border-canvas/20 shadow-2xl rounded-2xl relative overflow-hidden">
+      <!-- Glow accent -->
+      <div class="absolute -top-12 -right-12 w-28 h-28 bg-blue/30 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-blue animate-pulse"></span>
+          <span id="cookie-banner-title" class="eyebrow eyebrow-light text-xs font-mono tracking-widest text-gold-soft">
+            Cookie Preferences
+          </span>
+        </div>
+      </div>
+
+      <p id="cookie-banner-desc" class="text-canvas/80 text-xs sm:text-sm leading-relaxed mb-5">
+        We use essential cookies to ensure site security and functionality, and optional cookies to enhance performance, analyze traffic, and personalize your experience.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+        <button
+          id="btn-cookie-accept-all"
+          type="button"
+          class="btn btn-primary text-xs justify-center py-2.5 px-4 font-mono font-medium tracking-wider"
+        >
+          Accept All
+        </button>
+
+        <button
+          id="btn-cookie-essential-only"
+          type="button"
+          class="btn btn-ghost-light text-xs justify-center py-2.5 px-4 font-mono font-medium tracking-wider"
+        >
+          Essential Only
+        </button>
+
+        <button
+          id="btn-cookie-manage"
+          type="button"
+          class="btn text-xs justify-center py-2.5 px-3 text-canvas/70 hover:text-canvas underline underline-offset-4 decoration-canvas/30"
+        >
+          Customize
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Preferences Modal -->
+  <div
+    id="cookie-modal"
+    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none scale-95"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cookie-modal-title"
+  >
+    <div class="glass-card bg-ink text-canvas w-full max-w-lg p-6 sm:p-8 border border-canvas/20 shadow-2xl rounded-2xl max-h-[90vh] flex flex-col relative overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-canvas/10">
+        <div>
+          <span class="eyebrow eyebrow-light text-xs font-mono text-gold-soft">Privacy Settings</span>
+          <h3 id="cookie-modal-title" class="text-xl font-bold font-display text-canvas mt-1">
+            Cookie Preferences
+          </h3>
+        </div>
+        <button
+          id="btn-cookie-modal-close"
+          type="button"
+          class="text-canvas/60 hover:text-canvas p-2 rounded-lg transition-colors"
+          aria-label="Close preferences"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Categories) -->
+      <div class="py-4 overflow-y-auto custom-scrollbar flex-1 space-y-5 text-sm">
+        <p class="text-canvas/70 text-xs leading-relaxed">
+          Customize your cookie choices below. Essential cookies are required to make our site work properly and cannot be disabled. Read our full <a href="/cookie-policy" class="text-blue underline">Cookie Policy</a> for details.
+        </p>
+
+        <!-- Category 1: Essential -->
+        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+          <div class="flex items-center justify-between gap-4 mb-1">
+            <h4 class="font-display font-semibold text-canvas text-sm">Essential Cookies</h4>
+            <span class="text-[10px] font-mono uppercase bg-canvas/10 text-canvas/70 px-2 py-0.5 rounded-full">Always Active</span>
+          </div>
+          <p class="text-canvas/60 text-xs leading-relaxed">
+            Necessary for site security, network management, routing, and user session validation. Cannot be disabled.
+          </p>
+        </div>
+
+        <!-- Category 2: Analytics -->
+        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+          <div class="flex items-center justify-between gap-4 mb-1">
+            <label for="toggle-analytics" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+              Analytics Cookies
+            </label>
+            <input
+              type="checkbox"
+              id="toggle-analytics"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+            />
+          </div>
+          <p class="text-canvas/60 text-xs leading-relaxed">
+            Helps us understand how visitors interact with our pages, traffic statistics, and popular content to continuously improve performance.
+          </p>
+        </div>
+
+        <!-- Category 3: Performance & Cache -->
+        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+          <div class="flex items-center justify-between gap-4 mb-1">
+            <label for="toggle-performance" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+              Performance & Local Caching
+            </label>
+            <input
+              type="checkbox"
+              id="toggle-performance"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+            />
+          </div>
+          <p class="text-canvas/60 text-xs leading-relaxed">
+            Enables speed optimization, client-side data caching, asset preloading, and user interface customization.
+          </p>
+        </div>
+
+        <!-- Category 4: Marketing -->
+        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+          <div class="flex items-center justify-between gap-4 mb-1">
+            <label for="toggle-marketing" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+              Marketing & Conversion
+            </label>
+            <input
+              type="checkbox"
+              id="toggle-marketing"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+            />
+          </div>
+          <p class="text-canvas/60 text-xs leading-relaxed">
+            Allows measurement of campaigns and conversion efficiency across external platforms and digital channels.
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="pt-4 border-t border-canvas/10 flex flex-col sm:flex-row items-center justify-end gap-3">
+        <button
+          id="btn-cookie-save-preferences"
+          type="button"
+          class="btn btn-ghost-light text-xs w-full sm:w-auto justify-center py-2.5 px-5 font-mono"
+        >
+          Save Preferences
+        </button>
+        <button
+          id="btn-cookie-modal-accept-all"
+          type="button"
+          class="btn btn-primary text-xs w-full sm:w-auto justify-center py-2.5 px-5 font-mono"
+        >
+          Accept All
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getCookieConsent, setCookieConsent, hasUserConsented } from '../utils/cookies';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.getElementById('cookie-consent-wrapper');
+    const banner = document.getElementById('cookie-banner');
+    const modal = document.getElementById('cookie-modal');
+    const backdrop = document.getElementById('cookie-modal-backdrop');
+
+    const btnAcceptAll = document.getElementById('btn-cookie-accept-all');
+    const btnEssentialOnly = document.getElementById('btn-cookie-essential-only');
+    const btnManage = document.getElementById('btn-cookie-manage');
+
+    const btnModalClose = document.getElementById('btn-cookie-modal-close');
+    const btnSavePreferences = document.getElementById('btn-cookie-save-preferences');
+    const btnModalAcceptAll = document.getElementById('btn-cookie-modal-accept-all');
+
+    const toggleAnalytics = document.getElementById('toggle-analytics') as HTMLInputElement | null;
+    const togglePerformance = document.getElementById('toggle-performance') as HTMLInputElement | null;
+    const toggleMarketing = document.getElementById('toggle-marketing') as HTMLInputElement | null;
+
+    if (!wrapper || !banner || !modal || !backdrop) return;
+
+    // Reveal wrapper
+    wrapper.classList.remove('hidden');
+
+    function showBanner() {
+      banner?.classList.remove('translate-y-full', 'opacity-0');
+      banner?.classList.add('translate-y-0', 'opacity-100');
+    }
+
+    function hideBanner() {
+      banner?.classList.remove('translate-y-0', 'opacity-100');
+      banner?.classList.add('translate-y-full', 'opacity-0');
+    }
+
+    function showModal() {
+      const consent = getCookieConsent();
+      if (toggleAnalytics) toggleAnalytics.checked = consent ? consent.analytics : false;
+      if (togglePerformance) togglePerformance.checked = consent ? consent.performance : false;
+      if (toggleMarketing) toggleMarketing.checked = consent ? consent.marketing : false;
+
+      backdrop?.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop?.classList.add('opacity-100', 'pointer-events-auto');
+
+      modal?.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+      modal?.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+    }
+
+    function hideModal() {
+      backdrop?.classList.remove('opacity-100', 'pointer-events-auto');
+      backdrop?.classList.add('opacity-0', 'pointer-events-none');
+
+      modal?.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+      modal?.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+    }
+
+    // Expose global open helper for footer / menu links
+    (window as any).openCookieSettings = () => {
+      showModal();
+    };
+
+    // Check if user has previously set consent
+    if (!hasUserConsented()) {
+      setTimeout(() => {
+        showBanner();
+      }, 750);
+    }
+
+    // Action Handlers
+    btnAcceptAll?.addEventListener('click', () => {
+      setCookieConsent({ analytics: true, performance: true, marketing: true });
+      hideBanner();
+      hideModal();
+    });
+
+    btnEssentialOnly?.addEventListener('click', () => {
+      setCookieConsent({ analytics: false, performance: false, marketing: false });
+      hideBanner();
+      hideModal();
+    });
+
+    btnManage?.addEventListener('click', () => {
+      showModal();
+    });
+
+    btnModalClose?.addEventListener('click', () => {
+      hideModal();
+    });
+
+    backdrop?.addEventListener('click', () => {
+      hideModal();
+    });
+
+    btnSavePreferences?.addEventListener('click', () => {
+      setCookieConsent({
+        analytics: toggleAnalytics ? toggleAnalytics.checked : false,
+        performance: togglePerformance ? togglePerformance.checked : false,
+        marketing: toggleMarketing ? toggleMarketing.checked : false,
+      });
+      hideBanner();
+      hideModal();
+    });
+
+    btnModalAcceptAll?.addEventListener('click', () => {
+      setCookieConsent({ analytics: true, performance: true, marketing: true });
+      hideBanner();
+      hideModal();
+    });
+
+    // Handle ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideModal();
+      }
+    });
+  });
+</script>

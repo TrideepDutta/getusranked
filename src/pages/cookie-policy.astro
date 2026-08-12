@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import siteData from "../data/site.json";
+
+const title = `Cookie Policy | ${siteData.name}`;
+const description = `Learn about how ${siteData.name} uses cookies, tracking technologies, local caching, and your choices regarding web storage.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <main class="flex-grow pt-32 pb-20">
+    <div class="container-content">
+      <!-- Page Header -->
+      <div class="max-w-3xl mb-12">
+        <span class="eyebrow mb-3 block">Legal & Privacy</span>
+        <h1 class="font-display font-bold text-ink mb-4">Cookie Policy</h1>
+        <p class="text-ink-soft text-lg leading-relaxed">
+          Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+        </p>
+      </div>
+
+      <!-- Quick Preference Change Banner -->
+      <div class="glass-card p-6 bg-card border border-line rounded-2xl mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="font-display font-semibold text-ink text-base mb-1">Manage Your Cookie Settings</h3>
+          <p class="text-ink-soft text-sm">You can change your consent preferences or withdraw consent for non-essential cookies at any time.</p>
+        </div>
+        <button
+          onclick="window.openCookieSettings?.()"
+          class="btn btn-primary text-xs font-mono whitespace-nowrap cursor-pointer"
+        >
+          Manage Preferences
+        </button>
+      </div>
+
+      <!-- Content Section -->
+      <article class="prose-blog max-w-4xl">
+        <h2>1. What Are Cookies and Local Storage?</h2>
+        <p>
+          Cookies are small text files stored on your computer, mobile device, or tablet by websites you visit. Local storage (such as <code>localStorage</code> and <code>sessionStorage</code>) and service workers allow websites to store data directly in your browser for enhanced speed, offline access, and improved user experience.
+        </p>
+
+        <h2>2. How We Use Cookies & Caching Systems</h2>
+        <p>
+          {siteData.name} uses cookies and browser caching systems for the following purposes:
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Cookie Category</th>
+              <th>Purpose</th>
+              <th>Type & Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Essential Cookies</strong></td>
+              <td>Required for core website security, network routing, navigation, and consent persistence.</td>
+              <td>First-party / 365 Days</td>
+            </tr>
+            <tr>
+              <td><strong>Analytics Cookies</strong></td>
+              <td>Collects aggregated, anonymous data on how visitors interact with our pages to improve site architecture and content.</td>
+              <td>First-party / 30 - 365 Days</td>
+            </tr>
+            <tr>
+              <td><strong>Performance & Cache</strong></td>
+              <td>Stores client-side application cache, asset preloading state, and preferences for faster page loads.</td>
+              <td>Local Storage & Service Worker</td>
+            </tr>
+            <tr>
+              <td><strong>Marketing Cookies</strong></td>
+              <td>Measures campaign performance and referral attribution across digital channels.</td>
+              <td>Third-party / Session to 90 Days</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>3. Specific Cookies We Set</h2>
+        <ul>
+          <li><strong>gur_cookie_consent:</strong> Stores your selected GDPR cookie consent choices (Essential). Expiration: 365 days.</li>
+          <li><strong>gur_cache_*:</strong> Local storage keys storing static content and asset availability for instant loading (Performance). Expiration: Dynamic (TTL-based).</li>
+        </ul>
+
+        <h2>4. Your Rights and Choices</h2>
+        <p>
+          Under the General Data Protection Regulation (GDPR) and ePrivacy Directive, you have the right to accept or reject non-essential cookies. You can update your preferences at any time by clicking the <strong>Manage Preferences</strong> button on this page or through the "Cookie Settings" link in our site footer.
+        </p>
+
+        <h2>5. Controlling Cookies in Your Browser</h2>
+        <p>
+          Most modern web browsers allow you to control cookie settings through their preferences or settings panel. You can block or clear existing cookies by following browser-specific instructions:
+        </p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome Cookie Settings</a></li>
+          <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer">Apple Safari Cookie Settings</a></li>
+          <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer">Mozilla Firefox Cookie Settings</a></li>
+          <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63944205-40b0-5776-62c9-7d3a3038b99a" target="_blank" rel="noopener noreferrer">Microsoft Edge Cookie Settings</a></li>
+        </ul>
+
+        <h2>6. Contact Us</h2>
+        <p>
+          If you have any questions or concerns regarding our Cookie Policy or data handling practices, please contact us at:
+        </p>
+        <p>
+          <strong>Email:</strong> <a href={`mailto:${siteData.email}`}>{siteData.email}</a>
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

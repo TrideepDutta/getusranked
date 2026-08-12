@@ -195,7 +195,7 @@ const contactSchema = createGraphSchema([
   const contactPageForm = document.getElementById('contact-page-form') as HTMLFormElement | null;
   const statusDiv = document.getElementById('contact-page-form-status');
   const submitBtn = document.getElementById('contact-page-form-submit') as HTMLButtonElement | null;
-  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbw2-AWb7ZKKHa8_bHntpg_vVImCgOAJYXumvP1ZJsQaIIvJ0mb4ieVdW3Dgb2YNh9YV/exec';
+  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL;
 
   if (contactPageForm) {
     contactPageForm.addEventListener('submit', async (e) => {

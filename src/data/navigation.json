@@ -19,14 +19,16 @@
       { "href": "/contact", "label": "Contact Us" },
       { "href": "/terms", "label": "Terms & Conditions" },
       { "href": "/privacy", "label": "Privacy Policy" },
-      { "href": "/refund", "label": "Refund Policy" }
+      { "href": "/refund", "label": "Refund Policy" },
+      { "href": "/cookie-policy", "label": "Cookie Policy" }
     ],
     "ctaText": "Request a Free Audit",
     "ctaHref": "/contact",
     "bottomLinks": [
       { "href": "/terms", "label": "Terms" },
       { "href": "/privacy", "label": "Privacy" },
-      { "href": "/refund", "label": "Refund" }
+      { "href": "/refund", "label": "Refund" },
+      { "href": "/cookie-policy", "label": "Cookie Policy" }
     ]
   }
 }
