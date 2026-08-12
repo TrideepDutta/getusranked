@@ -14,6 +14,7 @@ import {
 } from "../utils/schema";
 
 const { hero, socialProfiles, contactForm, sectionOrder } = contactData;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 // SVG icon map — stored here to keep JSON clean
 const socialIcons: Record<string, string> = {
@@ -121,7 +122,7 @@ const contactSchema = createGraphSchema([
               <div class="lg:col-span-7 bg-[#E2E7E6] text-ink border border-line-strong rounded-2xl p-8 reveal stagger-1">
                 <h3 class="font-display text-xl font-bold text-ink mb-2">{contactForm.form.heading}</h3>
                 <p class="text-ink-soft text-sm mb-6">{contactForm.form.subheading}</p>
-                <form id="contact-page-form" class="flex flex-col gap-6" action="mailto:hello@getusranked.com" method="POST" enctype="text/plain">
+                <form id="contact-page-form" class="flex flex-col gap-6">
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label for="contact-name" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{contactForm.form.fields.name.label}</label>
@@ -146,6 +147,13 @@ const contactSchema = createGraphSchema([
                     <label for="contact-message" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{contactForm.form.fields.message.label}</label>
                     <textarea id="contact-message" name="message" rows="4" required={contactForm.form.fields.message.required} class="w-full bg-white/70 border border-line-strong text-ink py-2.5 px-4 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50 resize-none rounded-xl" placeholder={contactForm.form.fields.message.placeholder}></textarea>
                   </div>
+
+                  {turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
+                    <div class="my-1">
+                      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+                    </div>
+                  )}
+
                   <div id="contact-page-form-status" class="hidden p-4 rounded-xl text-sm font-medium transition-all duration-200"></div>
                   <button id="contact-page-form-submit" type="submit" class="btn btn-primary self-start mt-2 flex items-center gap-2">
                     <span>{contactForm.form.submitText}</span>
@@ -163,6 +171,10 @@ const contactSchema = createGraphSchema([
   </main>
   <Footer />
 </BaseLayout>
+
+{turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
 
 <script>
   // Scroll-reveal observer
@@ -191,11 +203,10 @@ const contactSchema = createGraphSchema([
     });
   }
 
-  // Handle Form Submission to Google Sheet / Endpoint
+  // Handle Form Submission to Backend API
   const contactPageForm = document.getElementById('contact-page-form') as HTMLFormElement | null;
   const statusDiv = document.getElementById('contact-page-form-status');
   const submitBtn = document.getElementById('contact-page-form-submit') as HTMLButtonElement | null;
-  const scriptUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL;
 
   if (contactPageForm) {
     contactPageForm.addEventListener('submit', async (e) => {
@@ -217,26 +228,40 @@ const contactSchema = createGraphSchema([
         const formData = new FormData(contactPageForm);
         const data = Object.fromEntries(formData.entries());
 
-        if (scriptUrl) {
-          await fetch(scriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-        }
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
 
-        statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
-        statusDiv.innerHTML = '✓ Thank you! Your message has been sent successfully. We will get back to you shortly.';
-        contactPageForm.reset();
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
+          statusDiv.innerHTML = result.message || '✓ Thank you! Your message has been sent successfully. Check your inbox for confirmation.';
+          contactPageForm.reset();
+        } else {
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
+          statusDiv.innerHTML = `✕ ${result.error || 'Something went wrong submitting your message. Please try again.'}`;
+        }
       } catch (error) {
         console.error('Submission error:', error);
         statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
-        statusDiv.innerHTML = '✕ Something went wrong submitting your message. Please try again or email us directly.';
+        statusDiv.innerHTML = '✕ Network error. Please try again or email us directly at hello@getusranked.com.';
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
+
+        // Reset Cloudflare Turnstile if present
+        if (typeof window !== 'undefined' && (window as any).turnstile) {
+          try {
+            (window as any).turnstile.reset();
+          } catch (e) {
+            // Ignore reset error if turnstile not active
+          }
+        }
       }
     });
   }
 </script>
+
