@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/app.css";
+import {
+  createGraphSchema,
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getWebPageSchema,
+  getBreadcrumbSchema,
+  SITE_URL,
+} from "../utils/schema";
+
+const pageTitle = "GetUsRanked — Refund Policy";
+const pageDesc = "100% money-back guarantee if you're not satisfied with our SEO results after the first 30 days. Read our full refund policy.";
+
+const refundSchema = createGraphSchema([
+  getOrganizationSchema(),
+  getWebsiteSchema(),
+  getWebPageSchema({
+    name: pageTitle,
+    description: pageDesc,
+    url: `${SITE_URL}/refund`,
+  }),
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Refund Policy", url: "/refund" },
+  ]),
+]);
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} schema={refundSchema}>
+
+  <Header />
+  <main class="flex-1">
+
+    <section class="section-pad bg-canvas">
+      <div class="container-content max-w-3xl">
+        <p class="eyebrow mb-3">Legal</p>
+        <h1 class="mb-4">Refund Policy</h1>
+        <p class="text-ink-soft text-sm mb-10">Last updated: August 2026</p>
+
+        <div class="flex flex-col gap-10">
+
+          <!-- Guarantee Overview -->
+          <div>
+            <h2 class="text-lg mb-3">100% Money-Back Guarantee</h2>
+            <p class="text-ink-soft leading-relaxed">
+              At GetUsRanked, we stand behind the quality of our work. If you are not satisfied with the results of our SEO services after the first 30 days of your engagement, we will issue a <strong>full 100% refund</strong> of the fees you have paid — no questions asked. We believe in earning your trust through measurable results, and this guarantee reflects our confidence in the value we deliver.
+            </p>
+          </div>
+
+          <!-- 1. Eligibility -->
+          <div>
+            <h2 class="text-lg mb-3">1. Eligibility</h2>
+            <p class="text-ink-soft leading-relaxed mb-3">
+              To qualify for a full refund, the following conditions must be met:
+            </p>
+            <ul class="list-none flex flex-col gap-2 ml-0">
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>The refund request is submitted within <strong>30 days</strong> from the start date of your service engagement.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>You have provided us with the necessary access and information required to perform the agreed-upon services (website access, analytics, etc.).</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>You have not made significant changes to your website that directly conflict with or undo the optimizations we implemented.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>This is your first engagement with GetUsRanked (the guarantee applies once per client).</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 2. How to Request a Refund -->
+          <div>
+            <h2 class="text-lg mb-3">2. How to Request a Refund</h2>
+            <p class="text-ink-soft leading-relaxed mb-3">
+              Requesting a refund is simple and straightforward:
+            </p>
+            <ul class="list-none flex flex-col gap-2 ml-0">
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">1.</span>
+                <span>Send an email to <a href="mailto:hello@getusranked.com" class="text-blue">hello@getusranked.com</a> with the subject line <strong>"Refund Request"</strong>.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">2.</span>
+                <span>Include your name, company name, and the date your service began.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">3.</span>
+                <span>Briefly describe why you are unsatisfied with the service (optional, but helps us improve).</span>
+              </li>
+            </ul>
+            <p class="text-ink-soft leading-relaxed mt-3">
+              We will acknowledge your request within <strong>2 business days</strong> and process the refund within <strong>7–10 business days</strong> of confirmation.
+            </p>
+          </div>
+
+          <!-- 3. Refund Method -->
+          <div>
+            <h2 class="text-lg mb-3">3. Refund Method</h2>
+            <p class="text-ink-soft leading-relaxed">
+              Refunds will be issued using the original payment method. If payment was made via bank transfer, we will request your bank details to process the refund. For payments made via UPI, credit card, or other digital payment methods, the refund will be credited back to the same account or card used for the original transaction.
+            </p>
+          </div>
+
+          <!-- 4. What Happens After a Refund -->
+          <div>
+            <h2 class="text-lg mb-3">4. What Happens After a Refund</h2>
+            <p class="text-ink-soft leading-relaxed mb-3">
+              Once a refund is processed:
+            </p>
+            <ul class="list-none flex flex-col gap-2 ml-0">
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>All active SEO services for your account will be discontinued immediately.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Any changes already implemented on your website (on-page optimizations, content updates, etc.) will remain in place — we do not reverse completed work.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>You will receive a final report summarizing the work completed during your engagement.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Access credentials shared with us will no longer be used and should be changed for your security.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5. Exclusions -->
+          <div>
+            <h2 class="text-lg mb-3">5. Exclusions</h2>
+            <p class="text-ink-soft leading-relaxed mb-3">
+              The following are not eligible for a refund:
+            </p>
+            <ul class="list-none flex flex-col gap-2 ml-0">
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Refund requests submitted after the 30-day guarantee period.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Third-party costs incurred on your behalf (e.g., domain registrations, hosting fees, paid advertising spend, stock images, or premium tools purchased for your project).</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Custom development or design work completed as a separate add-on service outside the core SEO package.</span>
+              </li>
+              <li class="text-ink-soft text-sm flex items-start gap-2">
+                <span class="text-blue mt-0.5 text-xs">•</span>
+                <span>Situations where the client failed to provide required access or actively obstructed the work.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 6. Our Commitment -->
+          <div>
+            <h2 class="text-lg mb-3">6. Our Commitment</h2>
+            <p class="text-ink-soft leading-relaxed">
+              We offer this guarantee because we are confident in the quality of our services and committed to building long-term partnerships based on trust and transparency. If for any reason you are not happy, we want to make it right. Your satisfaction is our top priority, and we would rather part on good terms than have an unhappy client.
+            </p>
+          </div>
+
+          <!-- Contact -->
+          <div class="border-t border-line pt-8 mt-4">
+            <h2 class="text-lg mb-3">Questions?</h2>
+            <p class="text-ink-soft leading-relaxed">
+              If you have questions about our refund policy, contact us at
+              <a href="mailto:hello@getusranked.com" class="text-blue">hello@getusranked.com</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</BaseLayout>
