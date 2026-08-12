@@ -1,4 +1,5 @@
 ---
+// This component must only render data from blog collection. No hardcoded content allowed.
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
@@ -36,25 +37,8 @@ try {
       draft: item.data.draft,
     }));
   }
-} catch (e) {}
-
-// Fallback to import.meta.glob for instant dev-server sync when new files are saved via CMS
-if (posts.length === 0) {
-  const mdModules = import.meta.glob("../content/blog/*.md", { eager: true });
-  posts = Object.entries(mdModules)
-    .filter(([path]) => !path.endsWith('.gitkeep'))
-    .map(([path, mod]: [string, any]) => {
-      const slug = path.split("/").pop()?.replace(".md", "") || "";
-      return {
-        id: slug,
-        title: mod.frontmatter?.title || slug,
-        excerpt: mod.frontmatter?.excerpt || "",
-        category: mod.frontmatter?.category || "Technical SEO",
-        date: mod.frontmatter?.date || "",
-        readTime: mod.frontmatter?.readTime || "5 min read",
-        draft: mod.frontmatter?.draft || false,
-      };
-    });
+} catch (e) {
+  console.error("Error loading blog collection:", e);
 }
 
 // Filter out draft posts if draft is true
@@ -132,9 +116,9 @@ const blogSchema = createGraphSchema([
                 <line x1="9" y1="15" x2="15" y2="15"></line>
               </svg>
             </div>
-            <h2 class="font-display text-2xl sm:text-3xl font-bold mb-4 text-ink">New Content Coming Soon</h2>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold mb-4 text-ink">No blog posts yet — check back soon</h2>
             <p class="text-ink-soft text-base leading-relaxed mb-8 max-w-xl mx-auto">
-              We're building out our SEO and AI-search insights, real case studies and practical guides, not filler. Check back soon, or get in touch if you have a question we can answer directly.
+              We're building out our SEO and AI-search insights, real case studies and practical guides. Check back soon, or get in touch if you have a question we can answer directly.
             </p>
             <div class="flex justify-center">
               <a href="/contact" class="btn btn-primary">Get in Touch</a>

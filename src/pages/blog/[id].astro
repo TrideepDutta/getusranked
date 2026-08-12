@@ -1,4 +1,5 @@
 ---
+// This component must only render data from blog collection. No hardcoded content allowed.
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
@@ -18,47 +19,28 @@ export async function getStaticPaths() {
   try {
     const collection = await getCollection("blog");
     if (collection && collection.length > 0) {
-      posts = collection;
+      posts = collection.filter((p) => !p.data.draft);
     }
-  } catch (e) {}
-
-  if (posts.length > 0) {
-    return posts.map((post) => ({
-      params: { id: post.id || post.slug },
-      props: { post, isCollection: true },
-    }));
+  } catch (e) {
+    console.error("Error loading blog collection in getStaticPaths:", e);
   }
 
-  // Fallback to import.meta.glob for instant route resolution during dev server sync
-  const mdModules = import.meta.glob("../../content/blog/*.md", { eager: true });
-  return Object.entries(mdModules).map(([path, mod]: [string, any]) => {
-    const slug = path.split("/").pop()?.replace(".md", "") || "";
-    return {
-      params: { id: slug },
-      props: {
-        post: {
-          id: slug,
-          data: mod.frontmatter || {},
-          ContentComponent: mod.Content || mod.default,
-        },
-        isCollection: false,
-      },
-    };
-  });
+  return posts.map((post) => ({
+    params: { id: post.id || post.slug },
+    props: { post },
+  }));
 }
 
-const { post, isCollection } = Astro.props;
+const { post } = Astro.props;
 
 let ContentComp: any = null;
-if (isCollection) {
+if (post) {
   try {
     const rendered = await render(post);
     ContentComp = rendered.Content;
   } catch (e) {
     ContentComp = post.ContentComponent;
   }
-} else {
-  ContentComp = post.ContentComponent;
 }
 
 const pageTitle = post.data.metaTitle || `GetUsRanked — ${post.data.title}`;
