@@ -12,7 +12,7 @@
     "closingCta"
   ],
   "hero": {
-    "visible": false,
+    "visible": true,
     "eyebrow": "GetUsRanked Agency",
     "heading": "We build sites that actually get found.",
     "subheading": "WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
