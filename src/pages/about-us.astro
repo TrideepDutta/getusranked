@@ -101,15 +101,15 @@ const aboutSchema = createGraphSchema([
       );
 
       if (sectionId === "whatWeDontDo" && whatWeDontDo.visible) return (
-        <section class="section-pad bg-ink text-canvas">
+        <section class="section-pad bg-dark-section text-white">
           <div class="container-content">
             <p class="eyebrow eyebrow-light mb-3 reveal">{whatWeDontDo.eyebrow}</p>
-            <h2 class="text-canvas mb-6 max-w-2xl reveal">{whatWeDontDo.heading}</h2>
+            <h2 class="text-white mb-6 max-w-2xl reveal">{whatWeDontDo.heading}</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               {whatWeDontDo.items.map((item, i) => (
-                <div class={`border border-canvas/10 rounded-2xl p-6 reveal stagger-${i + 1}`}>
-                  <p class="font-display font-bold text-canvas text-lg mb-2">{item.title}</p>
-                  <p class="text-canvas/60 text-sm leading-relaxed">{item.desc}</p>
+                <div class={`border border-white/10 rounded-2xl p-6 reveal stagger-${i + 1}`}>
+                  <p class="font-display font-bold text-white text-lg mb-2">{item.title}</p>
+                  <p class="text-white/70 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>

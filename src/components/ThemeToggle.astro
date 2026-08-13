@@ -1,0 +1,79 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+}
+
+const { class: className = "", id = "theme-toggle" } = Astro.props;
+---
+
+<button
+  id={id}
+  type="button"
+  class:list={[
+    "relative inline-flex items-center justify-center w-9 h-9 rounded-full cursor-pointer transition-all duration-300",
+    "bg-canvas/50 hover:bg-canvas/90 text-ink border border-line/40 shadow-sm backdrop-blur-md hover:border-blue/30 active:scale-95 focus:outline-none",
+    className,
+  ]}
+  aria-label="Toggle theme"
+  title="Toggle dark/light mode"
+>
+  <!-- Sun Icon (visible in Dark mode to switch to Light) -->
+  <svg
+    class="theme-toggle-sun w-4 h-4 transition-all duration-300 ease-out transform scale-100 rotate-0 dark:scale-100 dark:rotate-0 hidden dark:block text-gold"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="M4.93 4.93l1.41 1.41"></path>
+    <path d="M17.66 17.66l1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="M6.34 17.66l-1.41 1.41"></path>
+    <path d="M19.07 4.93l-1.41 1.41"></path>
+  </svg>
+
+  <!-- Moon Icon (visible in Light mode to switch to Dark) -->
+  <svg
+    class="theme-toggle-moon w-4 h-4 transition-all duration-300 ease-out transform scale-100 rotate-0 block dark:hidden text-ink-soft"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<script>
+  function setupThemeToggle() {
+    const toggles = document.querySelectorAll("#theme-toggle, #theme-toggle-mobile, .theme-toggle-btn");
+    
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.contains("dark");
+        if (isDark) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  setupThemeToggle();
+
+  // Re-run on view transitions if enabled
+  document.addEventListener("astro:after-swap", setupThemeToggle);
+</script>

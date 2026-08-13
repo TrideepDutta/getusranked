@@ -17,7 +17,7 @@
     aria-labelledby="cookie-banner-title"
     aria-describedby="cookie-banner-desc"
   >
-    <div class="glass-card bg-ink/95 text-canvas p-6 border border-canvas/20 shadow-2xl rounded-2xl relative overflow-hidden">
+    <div class="glass-card bg-dark-section text-white p-6 border border-white/20 shadow-2xl rounded-2xl relative overflow-hidden">
       <!-- Glow accent -->
       <div class="absolute -top-12 -right-12 w-28 h-28 bg-blue/30 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <p id="cookie-banner-desc" class="text-canvas/80 text-xs sm:text-sm leading-relaxed mb-5">
+      <p id="cookie-banner-desc" class="text-white/80 text-xs sm:text-sm leading-relaxed mb-5">
         We use essential cookies to ensure site security and functionality, and optional cookies to enhance performance, analyze traffic, and personalize your experience.
       </p>
 
@@ -54,7 +54,7 @@
         <button
           id="btn-cookie-manage"
           type="button"
-          class="btn text-xs justify-center py-2.5 px-3 text-canvas/70 hover:text-canvas underline underline-offset-4 decoration-canvas/30"
+          class="btn text-xs justify-center py-2.5 px-3 text-white/70 hover:text-white underline underline-offset-4 decoration-white/30"
         >
           Customize
         </button>
@@ -70,19 +70,19 @@
     aria-modal="true"
     aria-labelledby="cookie-modal-title"
   >
-    <div class="glass-card bg-ink text-canvas w-full max-w-lg p-6 sm:p-8 border border-canvas/20 shadow-2xl rounded-2xl max-h-[90vh] flex flex-col relative overflow-hidden">
+    <div class="glass-card bg-dark-section text-white w-full max-w-lg p-6 sm:p-8 border border-white/20 shadow-2xl rounded-2xl max-h-[90vh] flex flex-col relative overflow-hidden">
       <!-- Modal Header -->
-      <div class="flex items-center justify-between pb-4 border-b border-canvas/10">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
         <div>
           <span class="eyebrow eyebrow-light text-xs font-mono text-gold-soft">Privacy Settings</span>
-          <h3 id="cookie-modal-title" class="text-xl font-bold font-display text-canvas mt-1">
+          <h3 id="cookie-modal-title" class="text-xl font-bold font-display text-white mt-1">
             Cookie Preferences
           </h3>
         </div>
         <button
           id="btn-cookie-modal-close"
           type="button"
-          class="text-canvas/60 hover:text-canvas p-2 rounded-lg transition-colors"
+          class="text-white/60 hover:text-white p-2 rounded-lg transition-colors"
           aria-label="Close preferences"
         >
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,75 +93,75 @@
 
       <!-- Modal Body (Categories) -->
       <div class="py-4 overflow-y-auto custom-scrollbar flex-1 space-y-5 text-sm">
-        <p class="text-canvas/70 text-xs leading-relaxed">
+        <p class="text-white/70 text-xs leading-relaxed">
           Customize your cookie choices below. Essential cookies are required to make our site work properly and cannot be disabled. Read our full <a href="/cookie-policy" class="text-blue underline">Cookie Policy</a> for details.
         </p>
 
         <!-- Category 1: Essential -->
-        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <div class="flex items-center justify-between gap-4 mb-1">
-            <h4 class="font-display font-semibold text-canvas text-sm">Essential Cookies</h4>
-            <span class="text-[10px] font-mono uppercase bg-canvas/10 text-canvas/70 px-2 py-0.5 rounded-full">Always Active</span>
+            <h4 class="font-display font-semibold text-white text-sm">Essential Cookies</h4>
+            <span class="text-[10px] font-mono uppercase bg-white/10 text-white/70 px-2 py-0.5 rounded-full">Always Active</span>
           </div>
-          <p class="text-canvas/60 text-xs leading-relaxed">
+          <p class="text-white/60 text-xs leading-relaxed">
             Necessary for site security, network management, routing, and user session validation. Cannot be disabled.
           </p>
         </div>
 
         <!-- Category 2: Analytics -->
-        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <div class="flex items-center justify-between gap-4 mb-1">
-            <label for="toggle-analytics" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+            <label for="toggle-analytics" class="font-display font-semibold text-white text-sm cursor-pointer">
               Analytics Cookies
             </label>
             <input
               type="checkbox"
               id="toggle-analytics"
-              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-white/30 focus:ring-blue"
             />
           </div>
-          <p class="text-canvas/60 text-xs leading-relaxed">
+          <p class="text-white/60 text-xs leading-relaxed">
             Helps us understand how visitors interact with our pages, traffic statistics, and popular content to continuously improve performance.
           </p>
         </div>
 
         <!-- Category 3: Performance & Cache -->
-        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <div class="flex items-center justify-between gap-4 mb-1">
-            <label for="toggle-performance" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+            <label for="toggle-performance" class="font-display font-semibold text-white text-sm cursor-pointer">
               Performance & Local Caching
             </label>
             <input
               type="checkbox"
               id="toggle-performance"
-              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-white/30 focus:ring-blue"
             />
           </div>
-          <p class="text-canvas/60 text-xs leading-relaxed">
+          <p class="text-white/60 text-xs leading-relaxed">
             Enables speed optimization, client-side data caching, asset preloading, and user interface customization.
           </p>
         </div>
 
         <!-- Category 4: Marketing -->
-        <div class="p-4 rounded-xl bg-canvas/5 border border-canvas/10">
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10">
           <div class="flex items-center justify-between gap-4 mb-1">
-            <label for="toggle-marketing" class="font-display font-semibold text-canvas text-sm cursor-pointer">
+            <label for="toggle-marketing" class="font-display font-semibold text-white text-sm cursor-pointer">
               Marketing & Conversion
             </label>
             <input
               type="checkbox"
               id="toggle-marketing"
-              class="w-5 h-5 accent-blue cursor-pointer rounded border-canvas/30 focus:ring-blue"
+              class="w-5 h-5 accent-blue cursor-pointer rounded border-white/30 focus:ring-blue"
             />
           </div>
-          <p class="text-canvas/60 text-xs leading-relaxed">
+          <p class="text-white/60 text-xs leading-relaxed">
             Allows measurement of campaigns and conversion efficiency across external platforms and digital channels.
           </p>
         </div>
       </div>
 
       <!-- Modal Footer -->
-      <div class="pt-4 border-t border-canvas/10 flex flex-col sm:flex-row items-center justify-end gap-3">
+      <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-end gap-3">
         <button
           id="btn-cookie-save-preferences"
           type="button"

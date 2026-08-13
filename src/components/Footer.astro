@@ -7,17 +7,17 @@ const bottomLinks = navData.footer.bottomLinks;
 const socialLinks = siteData.socialLinks;
 ---
 
-<footer class="bg-ink text-canvas">
+<footer class="bg-dark-section text-white">
   <div class="container-content section-pad">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
       <!-- Brand -->
       <div>
         <a href="/" class="no-underline hover:no-underline">
-          <span class="font-display font-bold text-xl text-canvas">
+          <span class="font-display font-bold text-xl text-white">
             GetUs<span class="text-blue">Ranked</span>
           </span>
         </a>
-        <p class="text-canvas/60 text-sm mt-4 leading-relaxed max-w-xs">
+        <p class="text-white/70 text-sm mt-4 leading-relaxed max-w-xs">
           {siteData.brandTagline}
         </p>
 
@@ -28,7 +28,7 @@ const socialLinks = siteData.socialLinks;
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-canvas/60 hover:text-canvas text-xs font-mono no-underline transition-colors duration-200"
+              class="text-white/60 hover:text-white text-xs font-mono no-underline transition-colors duration-200"
             >
               {s.label} &rarr;
             </a>
@@ -43,7 +43,7 @@ const socialLinks = siteData.socialLinks;
           {quickLinks.map(link => (
             <a
               href={link.href}
-              class="text-canvas/70 hover:text-canvas text-sm no-underline transition-colors duration-200"
+              class="text-white/70 hover:text-white text-sm no-underline transition-colors duration-200"
             >
               {link.label}
             </a>
@@ -56,7 +56,7 @@ const socialLinks = siteData.socialLinks;
         <h4 class="eyebrow eyebrow-light mb-4">Get in Touch</h4>
         <a
           href={`mailto:${siteData.email}`}
-          class="text-canvas/70 hover:text-canvas text-sm no-underline transition-colors duration-200 block mb-2"
+          class="text-white/70 hover:text-white text-sm no-underline transition-colors duration-200 block mb-2"
         >
           {siteData.email}
         </a>
@@ -67,20 +67,20 @@ const socialLinks = siteData.socialLinks;
     </div>
 
     <!-- Divider & Copyright -->
-    <div class="border-t border-canvas/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p class="text-canvas/40 text-xs font-mono">
+    <div class="border-t border-white/10 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-white/40 text-xs font-mono">
         &copy; {new Date().getFullYear()} {siteData.name}. All rights reserved.
       </p>
       <div class="flex flex-wrap items-center gap-6">
         {bottomLinks.map(link => (
-          <a href={link.href} class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline transition-colors duration-200">
+          <a href={link.href} class="text-white/40 hover:text-white/70 text-xs font-mono no-underline transition-colors duration-200">
             {link.label}
           </a>
         ))}
         <button
           onclick="window.openCookieSettings?.()"
           type="button"
-          class="text-canvas/40 hover:text-canvas/70 text-xs font-mono no-underline bg-transparent border-0 p-0 cursor-pointer transition-colors duration-200"
+          class="text-white/40 hover:text-white/70 text-xs font-mono no-underline bg-transparent border-0 p-0 cursor-pointer transition-colors duration-200"
         >
           Manage Cookies
         </button>

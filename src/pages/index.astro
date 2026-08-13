@@ -130,19 +130,19 @@ const homeSchema = createGraphSchema([
       );
 
       if (sectionId === "credibility" && credibility.visible) return (
-        <section id="credibility" class="section-pad bg-ink text-canvas">
+        <section id="credibility" class="section-pad bg-dark-section text-white">
           <div class="container-content">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-14">
               <div class="lg:col-span-7 reveal flex flex-col justify-center">
                 <p class="eyebrow eyebrow-light mb-3">{credibility.eyebrow}</p>
-                <h2 class="text-canvas mb-6">{credibility.heading}</h2>
-                <p class="text-canvas/75 text-base lg:text-lg leading-relaxed max-w-2xl">
+                <h2 class="text-white mb-6">{credibility.heading}</h2>
+                <p class="text-white/80 text-base lg:text-lg leading-relaxed max-w-2xl">
                   {credibility.body}
                 </p>
               </div>
               <div class="lg:col-span-5 reveal-scale flex flex-col justify-center">
-                <div class="bg-canvas/5 border border-canvas/10 rounded-2xl p-4 lg:p-4.5 shadow-xl transition-all duration-300 flex flex-col justify-between">
-                  <div class="flex items-center justify-between mb-2 pb-2 border-b border-canvas/10 gap-2 shrink-0">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 lg:p-4.5 shadow-xl transition-all duration-300 flex flex-col justify-between">
+                  <div class="flex items-center justify-between mb-2 pb-2 border-b border-white/10 gap-2 shrink-0">
                     <div class="flex items-center gap-2">
                       <p class="font-mono text-xs uppercase tracking-wider text-gold-soft font-medium flex items-center gap-1.5">
                         <svg class="w-3.5 h-3.5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@ const homeSchema = createGraphSchema([
                       type="button"
                       aria-expanded="false"
                       aria-controls="rankings-content"
-                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-canvas/10 hover:bg-gold/20 text-canvas/80 hover:text-gold-soft border border-canvas/15 hover:border-gold/30 font-mono text-[10px] font-medium transition-all cursor-pointer group"
+                      class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-white/10 hover:bg-gold/20 text-white/80 hover:text-gold-soft border border-white/15 hover:border-gold/30 font-mono text-[10px] font-medium transition-all cursor-pointer group"
                     >
                       <span id="rankings-toggle-label">Expand</span>
                       <svg id="rankings-toggle-icon" class="w-3 h-3 text-gold transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,16 +172,16 @@ const homeSchema = createGraphSchema([
                     <span class="text-gold-soft font-semibold flex items-center gap-1.5">
                       <span class="text-up font-bold">{credibility.keywordsSummary.rankedCount} / {credibility.keywordsSummary.totalCount}</span> Keywords at Rank #1
                     </span>
-                    <span class="text-canvas/60 text-[10px]">{credibility.keywordsSummary.serpLabel}</span>
+                    <span class="text-white/60 text-[10px]">{credibility.keywordsSummary.serpLabel}</span>
                   </div>
                   <div
                     id="rankings-content"
                     class="space-y-1.5 overflow-y-auto max-h-[125px] lg:max-h-[135px] pr-1 custom-scrollbar flex-1 min-h-0 transition-all duration-500 relative my-0.5"
                   >
                     {credibility.rankedKeywords.map((kw) => (
-                      <div class="py-1.5 px-2.5 rounded-lg bg-canvas/[0.04] border border-canvas/10 hover:border-gold/40 hover:bg-canvas/[0.08] transition-all group">
+                      <div class="py-1.5 px-2.5 rounded-lg bg-white/[0.04] border border-white/10 hover:border-gold/40 hover:bg-white/[0.08] transition-all group">
                         <div class="flex items-center justify-between gap-2 mb-1">
-                          <span class="text-[11px] font-medium text-canvas/90 group-hover:text-gold-soft transition-colors truncate">
+                          <span class="text-[11px] font-medium text-white/90 group-hover:text-gold-soft transition-colors truncate">
                             {kw.keyword}
                           </span>
                           <span class="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-up/15 text-up border border-up/30 font-mono text-[10px] font-bold shadow-[0_0_6px_rgba(47,143,92,0.25)]">
@@ -191,17 +191,17 @@ const homeSchema = createGraphSchema([
                             #{kw.rank}
                           </span>
                         </div>
-                        <div class="w-full bg-canvas/10 h-1 rounded-full overflow-hidden">
+                        <div class="w-full bg-white/10 h-1 rounded-full overflow-hidden">
                           <div class="bg-gradient-to-r from-gold to-up h-full rounded-full" style={`width: ${kw.progress}%;`}></div>
                         </div>
                       </div>
                     ))}
                   </div>
-                  <div class="mt-2 pt-2 border-t border-canvas/10 flex items-center justify-between text-[11px] font-mono shrink-0">
+                  <div class="mt-2 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono shrink-0">
                     <button id="rankings-footer-toggle" type="button" class="text-up hover:text-gold-soft uppercase tracking-wider font-semibold flex items-center gap-1 cursor-pointer transition-colors">
                       <span id="rankings-footer-text">↑ Expand All Keywords</span>
                     </button>
-                    <span class="text-canvas/50 text-[10px]">{credibility.keywordsSummary.transparencyLabel}</span>
+                    <span class="text-white/50 text-[10px]">{credibility.keywordsSummary.transparencyLabel}</span>
                   </div>
                 </div>
               </div>
@@ -211,7 +211,7 @@ const homeSchema = createGraphSchema([
       );
 
       if (sectionId === "closingCta" && closingCta.visible) return (
-        <section id="contact" class="section-pad bg-[#E2E7E6] text-ink">
+        <section id="contact" class="section-pad bg-canvas-deep text-ink">
           <div class="container-content max-w-2xl">
             <p class="eyebrow mb-3 reveal">{closingCta.eyebrow}</p>
             <h2 class="text-ink mb-4 reveal">{closingCta.heading}</h2>
@@ -229,7 +229,7 @@ const homeSchema = createGraphSchema([
                 <label for="name" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.name}</label>
                 <input
                   type="text" id="name" name="name" required
-                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  class="w-full bg-card border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-canvas placeholder:text-ink-soft/50"
                   placeholder={closingCta.formPlaceholders.name}
                 />
               </div>
@@ -237,7 +237,7 @@ const homeSchema = createGraphSchema([
                 <label for="company" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.company}</label>
                 <input
                   type="text" id="company" name="company" required
-                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  class="w-full bg-card border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-canvas placeholder:text-ink-soft/50"
                   placeholder={closingCta.formPlaceholders.company}
                 />
               </div>
@@ -245,7 +245,7 @@ const homeSchema = createGraphSchema([
                 <label for="website" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.website}</label>
                 <input
                   type="url" id="website" name="website"
-                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  class="w-full bg-card border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-canvas placeholder:text-ink-soft/50"
                   placeholder={closingCta.formPlaceholders.website}
                 />
               </div>
@@ -253,7 +253,7 @@ const homeSchema = createGraphSchema([
                 <label for="business" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.business}</label>
                 <textarea
                   id="business" name="business" rows="3"
-                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50 resize-none"
+                  class="w-full bg-card border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-canvas placeholder:text-ink-soft/50 resize-none"
                   placeholder={closingCta.formPlaceholders.business}
                 ></textarea>
               </div>
@@ -261,7 +261,7 @@ const homeSchema = createGraphSchema([
                 <label for="email" class="font-mono text-xs uppercase tracking-wider text-ink-soft block mb-2">{closingCta.formLabels.email}</label>
                 <input
                   type="email" id="email" name="email" required
-                  class="w-full bg-white/70 border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-white placeholder:text-ink-soft/50"
+                  class="w-full bg-card border border-line-strong rounded-xl text-ink px-4 py-2.5 text-sm outline-none transition-colors duration-200 focus:border-blue focus:bg-canvas placeholder:text-ink-soft/50"
                   placeholder={closingCta.formPlaceholders.email}
                 />
               </div>
