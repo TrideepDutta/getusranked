@@ -212,7 +212,7 @@ const contactSchema = createGraphSchema([
       // Mobile Safety Fallback: Ensure elements become visible even if IntersectionObserver delays
       setTimeout(() => {
         revealElements.forEach((el) => el.classList.add('revealed'));
-      }, 600);
+      }, 100);
     } else {
       revealElements.forEach((el) => {
         el.classList.add('revealed');
@@ -225,6 +225,8 @@ const contactSchema = createGraphSchema([
     const submitBtn = document.getElementById('contact-page-form-submit') as HTMLButtonElement | null;
 
     if (contactPageForm) {
+      if (contactPageForm.dataset.bound === 'true') return;
+      contactPageForm.dataset.bound = 'true';
       contactPageForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!submitBtn || !statusDiv) return;

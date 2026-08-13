@@ -8,9 +8,9 @@ const ctaText = navData.header.ctaText;
 const ctaHref = navData.header.ctaHref;
 ---
 
-<header id="site-header" class="fixed top-3 md:top-4 left-3 right-3 md:left-6 md:right-6 max-w-6xl mx-auto z-50">
+<header id="site-header" class="fixed top-3 md:top-4 left-3 right-3 md:left-6 md:right-6 max-w-6xl mx-auto z-50 pointer-events-none">
   <!-- Main Header Bar -->
-  <div id="site-header-inner" class="px-5 md:px-7 flex items-center justify-between h-14 md:h-16 glass-header shadow-lg transition-all duration-300">
+  <div id="site-header-inner" class="px-5 md:px-7 flex items-center justify-between h-14 md:h-16 glass-header shadow-lg transition-all duration-300 pointer-events-auto">
     <!-- Logo -->
     <a id="site-logo" href="/" class="flex items-center gap-2 no-underline hover:no-underline">
       <span class="font-display font-bold text-xl tracking-tight text-ink">
@@ -240,8 +240,11 @@ const ctaHref = navData.header.ctaHref;
 
 <script>
   function initHeader() {
-    // Sticky glass header effect + mobile scroll-direction navbar collapse
     const header = document.getElementById("site-header");
+    if (!header || header.dataset.initialized === 'true') return;
+    header.dataset.initialized = 'true';
+
+    // Sticky glass header effect + mobile scroll-direction navbar collapse
     const headerInner = document.getElementById("site-header-inner");
 
     if (headerInner && header) {

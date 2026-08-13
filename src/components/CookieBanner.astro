@@ -6,13 +6,13 @@
   <!-- Backdrop Blur overlay for Modal -->
   <div
     id="cookie-modal-backdrop"
-    class="fixed inset-0 bg-ink/70 backdrop-blur-sm z-[9998] transition-opacity duration-300 opacity-0 pointer-events-none"
+    class="fixed inset-0 bg-ink/70 backdrop-blur-sm z-[9998] transition-opacity duration-300 opacity-0 pointer-events-none hidden"
   ></div>
 
   <!-- Main Floating Banner -->
   <div
     id="cookie-banner"
-    class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md z-[9997] transition-all duration-500 transform translate-y-full opacity-0"
+    class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md z-[9997] transition-all duration-500 transform translate-y-full opacity-0 pointer-events-none hidden"
     role="dialog"
     aria-labelledby="cookie-banner-title"
     aria-describedby="cookie-banner-desc"
@@ -65,7 +65,7 @@
   <!-- Detailed Preferences Modal -->
   <div
     id="cookie-modal"
-    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none scale-95"
+    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none scale-95 hidden"
     role="dialog"
     aria-modal="true"
     aria-labelledby="cookie-modal-title"
@@ -208,13 +208,19 @@
     wrapper.classList.remove('hidden');
 
     function showBanner() {
-      banner?.classList.remove('translate-y-full', 'opacity-0');
-      banner?.classList.add('translate-y-0', 'opacity-100');
+      banner?.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        banner?.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+        banner?.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      });
     }
 
     function hideBanner() {
-      banner?.classList.remove('translate-y-0', 'opacity-100');
-      banner?.classList.add('translate-y-full', 'opacity-0');
+      banner?.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      banner?.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        banner?.classList.add('hidden');
+      }, 500);
     }
 
     function showModal() {
@@ -223,11 +229,15 @@
       if (togglePerformance) togglePerformance.checked = consent ? consent.performance : false;
       if (toggleMarketing) toggleMarketing.checked = consent ? consent.marketing : false;
 
-      backdrop?.classList.remove('opacity-0', 'pointer-events-none');
-      backdrop?.classList.add('opacity-100', 'pointer-events-auto');
+      backdrop?.classList.remove('hidden');
+      modal?.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        backdrop?.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop?.classList.add('opacity-100', 'pointer-events-auto');
 
-      modal?.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-      modal?.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+        modal?.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+        modal?.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+      });
     }
 
     function hideModal() {
@@ -236,6 +246,11 @@
 
       modal?.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
       modal?.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+
+      setTimeout(() => {
+        backdrop?.classList.add('hidden');
+        modal?.classList.add('hidden');
+      }, 300);
     }
 
     // Expose global open helper for footer / menu links

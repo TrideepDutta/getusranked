@@ -141,7 +141,7 @@ const aboutSchema = createGraphSchema([
 
 <script>
   // Scroll-reveal observer
-  const revealElements = document.querySelectorAll('.reveal');
+  const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
 
   if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(
@@ -154,12 +154,16 @@ const aboutSchema = createGraphSchema([
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px 50px 0px',
       }
     );
 
     revealElements.forEach((el) => observer.observe(el));
+
+    setTimeout(() => {
+      revealElements.forEach((el) => el.classList.add('revealed'));
+    }, 100);
   } else {
     revealElements.forEach((el) => {
       el.classList.add('revealed');

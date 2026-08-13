@@ -195,6 +195,13 @@ html.dark a.btn-ghost-light:hover {
   transform: scale(1);
 }
 
+/* Ensure revealed elements on mobile clear GPU transform layer locks */
+@media (max-width: 860px) {
+  .reveal.revealed, .reveal-scale.revealed {
+    transform: none !important;
+  }
+}
+
 /* Stagger delays for grid children */
 .stagger-1 { transition-delay: 0.08s; }
 .stagger-2 { transition-delay: 0.16s; }
@@ -209,6 +216,23 @@ html.dark a.btn-ghost-light:hover {
     transform: none;
     transition: none;
   }
+}
+
+/* ─── Sitewide Mobile Touch & Form Input Controls Overrides ─── */
+input, textarea, select {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  touch-action: auto !important;
+  pointer-events: auto !important;
+}
+
+form, form *, label {
+  pointer-events: auto;
+}
+
+button, a, input[type="submit"], input[type="button"], [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ─── Component Classes ─── */

@@ -74,16 +74,21 @@ const pageSchema = createGraphSchema([
     });
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  document.querySelectorAll(".reveal, .reveal-scale").forEach((el) => observer.observe(el));
+  const revealEls = document.querySelectorAll(".reveal, .reveal-scale");
+  if (revealEls.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+    setTimeout(() => {
+      revealEls.forEach((el) => el.classList.add("revealed"));
+    }, 300);
+  }
 </script>

@@ -329,7 +329,7 @@ const homeSchema = createGraphSchema([
       // Mobile Safety Fallback: Ensure elements become visible even if IntersectionObserver delays
       setTimeout(() => {
         revealElements.forEach((el) => el.classList.add('revealed'));
-      }, 600);
+      }, 100);
     } else {
       // If reduced motion, make everything visible immediately
       revealElements.forEach((el) => {
@@ -343,6 +343,8 @@ const homeSchema = createGraphSchema([
     const submitBtn = document.getElementById('contact-form-submit') as HTMLButtonElement | null;
 
     if (contactForm) {
+      if (contactForm.dataset.bound === 'true') return;
+      contactForm.dataset.bound = 'true';
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!submitBtn || !statusDiv) return;
