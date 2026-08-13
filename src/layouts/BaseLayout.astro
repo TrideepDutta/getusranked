@@ -86,9 +86,25 @@ const pageSchema =
     <slot />
     <CookieBanner />
 
-    <script>
-      import { registerServiceWorker } from "../utils/sw-register";
-      registerServiceWorker();
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        }).catch(function(err) {
+          console.warn('SW unregister failed:', err);
+        });
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              if (name.startsWith('getusranked-')) {
+                caches.delete(name);
+              }
+            }
+          });
+        }
+      }
     </script>
   </body>
 </html>

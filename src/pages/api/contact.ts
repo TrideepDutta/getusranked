@@ -13,6 +13,7 @@ interface ContactRequestBody {
   message?: string;
   business?: string;
   'cf-turnstile-response'?: string;
+  turnstileBlocked?: boolean;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -46,7 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const { name, email, company, website, message: rawMessage, business } = body;
+  const { name, email, company, website, message: rawMessage, business, turnstileBlocked } = body;
   const message = (rawMessage || business || '').trim();
   const turnstileToken = body['cf-turnstile-response'];
 
@@ -69,34 +70,36 @@ export const POST: APIRoute = async ({ request }) => {
   // 4. Verify Cloudflare Turnstile Token (if secret key is configured)
   const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET_KEY;
   if (turnstileSecret && turnstileSecret !== '0x4AAAAAAA...') {
-    if (!turnstileToken) {
+    if (turnstileToken) {
+      try {
+        const turnstileFormData = new URLSearchParams();
+        turnstileFormData.append('secret', turnstileSecret);
+        turnstileFormData.append('response', turnstileToken);
+        turnstileFormData.append('remoteip', clientIp);
+
+        const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: turnstileFormData,
+        });
+
+        const turnstileData = await turnstileRes.json();
+        if (!turnstileData.success) {
+          return new Response(
+            JSON.stringify({ error: 'CAPTCHA verification failed. Please check the security box and try again.' }),
+            { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
+          );
+        }
+      } catch (err) {
+        console.warn('Turnstile siteverify API error (allowing submission fallback):', err);
+      }
+    } else if (turnstileBlocked) {
+      console.warn(`[Turnstile] Client browser (${clientIp}) blocked Turnstile script (e.g. Safari ITP/AdBlocker). Accepting lead with fallback.`);
+    } else {
       return new Response(
-        JSON.stringify({ error: 'CAPTCHA verification failed. Please complete the security check.' }),
+        JSON.stringify({ error: 'Security check incomplete. Please complete the CAPTCHA security check or refresh the page.' }),
         { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
       );
-    }
-
-    try {
-      const turnstileFormData = new URLSearchParams();
-      turnstileFormData.append('secret', turnstileSecret);
-      turnstileFormData.append('response', turnstileToken);
-      turnstileFormData.append('remoteip', clientIp);
-
-      const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: turnstileFormData,
-      });
-
-      const turnstileData = await turnstileRes.json();
-      if (!turnstileData.success) {
-        return new Response(
-          JSON.stringify({ error: 'CAPTCHA verification failed. Please try again.' }),
-          { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
-        );
-      }
-    } catch (err) {
-      console.error('Turnstile verification error:', err);
     }
   }
 

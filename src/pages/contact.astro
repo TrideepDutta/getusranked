@@ -150,7 +150,7 @@ const contactSchema = createGraphSchema([
 
                   {turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
                     <div class="my-1">
-                      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"></div>
+                      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-error-callback="onTurnstileError"></div>
                     </div>
                   )}
 
@@ -172,96 +172,133 @@ const contactSchema = createGraphSchema([
   <Footer />
 </BaseLayout>
 
+<script is:inline>
+  window.turnstileBlocked = false;
+  function onTurnstileError() {
+    window.turnstileBlocked = true;
+  }
+  function onTurnstileScriptError() {
+    window.turnstileBlocked = true;
+  }
+</script>
+
 {turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="onTurnstileScriptError()"></script>
 )}
 
 <script>
-  // Scroll-reveal observer
-  const revealElements = document.querySelectorAll('.reveal');
+  function initContactPage() {
+    // Scroll-reveal observer with fallback for mobile viewport timing
+    const revealElements = document.querySelectorAll('.reveal');
 
-  if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
+    if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.05,
+          rootMargin: '0px 0px 50px 0px',
+        }
+      );
+
+      revealElements.forEach((el) => observer.observe(el));
+
+      // Mobile Safety Fallback: Ensure elements become visible even if IntersectionObserver delays
+      setTimeout(() => {
+        revealElements.forEach((el) => el.classList.add('revealed'));
+      }, 600);
+    } else {
+      revealElements.forEach((el) => {
+        el.classList.add('revealed');
+      });
+    }
+
+    // Handle Form Submission to Backend API
+    const contactPageForm = document.getElementById('contact-page-form') as HTMLFormElement | null;
+    const statusDiv = document.getElementById('contact-page-form-status');
+    const submitBtn = document.getElementById('contact-page-form-submit') as HTMLButtonElement | null;
+
+    if (contactPageForm) {
+      contactPageForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!submitBtn || !statusDiv) return;
+
+        const formData = new FormData(contactPageForm);
+        const turnstileWidget = contactPageForm.querySelector('.cf-turnstile');
+        const turnstileToken = formData.get('cf-turnstile-response');
+
+        // Pre-validate Turnstile token client-side if widget is present and script isn't blocked by Safari ITP
+        if (turnstileWidget && !turnstileToken && !(window as any).turnstileBlocked) {
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-amber-500/10 text-amber-600 border border-amber-500/20 block';
+          statusDiv.innerHTML = '✕ Please complete the security check (CAPTCHA) above before submitting.';
+          return;
+        }
+
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-canvas inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Sending...</span>
+        `;
+        statusDiv.classList.add('hidden');
+
+        try {
+          const data = Object.fromEntries(formData.entries());
+
+          if ((window as any).turnstileBlocked) {
+            (data as any).turnstileBlocked = true;
           }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px',
-      }
-    );
 
-    revealElements.forEach((el) => observer.observe(el));
-  } else {
-    revealElements.forEach((el) => {
-      el.classList.add('revealed');
-    });
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          const result = await res.json();
+
+          if (res.ok && result.success) {
+            statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
+            statusDiv.innerHTML = result.message || '✓ Thank you! Your message has been sent successfully. Check your inbox for confirmation.';
+            contactPageForm.reset();
+          } else {
+            statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
+            statusDiv.innerHTML = `✕ ${result.error || 'Something went wrong submitting your message. Please try again.'}`;
+          }
+        } catch (error) {
+          console.error('Submission error:', error);
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
+          statusDiv.innerHTML = '✕ Network error. Please try again or email us directly at trideep.getusranked@gmail.com.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+
+          // Reset Cloudflare Turnstile if present
+          if (typeof window !== 'undefined' && (window as any).turnstile) {
+            try {
+              (window as any).turnstile.reset();
+            } catch (e) {
+              // Ignore reset error if turnstile not active
+            }
+          }
+        }
+      });
+    }
   }
 
-  // Handle Form Submission to Backend API
-  const contactPageForm = document.getElementById('contact-page-form') as HTMLFormElement | null;
-  const statusDiv = document.getElementById('contact-page-form-status');
-  const submitBtn = document.getElementById('contact-page-form-submit') as HTMLButtonElement | null;
-
-  if (contactPageForm) {
-    contactPageForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!submitBtn || !statusDiv) return;
-
-      const originalBtnText = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-canvas inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        <span>Sending...</span>
-      `;
-      statusDiv.classList.add('hidden');
-
-      try {
-        const formData = new FormData(contactPageForm);
-        const data = Object.fromEntries(formData.entries());
-
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-
-        const result = await res.json();
-
-        if (res.ok && result.success) {
-          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
-          statusDiv.innerHTML = result.message || '✓ Thank you! Your message has been sent successfully. Check your inbox for confirmation.';
-          contactPageForm.reset();
-        } else {
-          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
-          statusDiv.innerHTML = `✕ ${result.error || 'Something went wrong submitting your message. Please try again.'}`;
-        }
-      } catch (error) {
-        console.error('Submission error:', error);
-        statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-600 border border-red-500/20 block';
-        statusDiv.innerHTML = '✕ Network error. Please try again or email us directly at trideep.getusranked@gmail.com.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-
-        // Reset Cloudflare Turnstile if present
-        if (typeof window !== 'undefined' && (window as any).turnstile) {
-          try {
-            (window as any).turnstile.reset();
-          } catch (e) {
-            // Ignore reset error if turnstile not active
-          }
-        }
-      }
-    });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactPage);
+  } else {
+    initContactPage();
   }
 </script>
 

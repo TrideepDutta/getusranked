@@ -234,6 +234,10 @@ html.dark a.btn-ghost-light:hover {
     -webkit-backdrop-filter: blur(12px) saturate(160%);
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .btn:hover {

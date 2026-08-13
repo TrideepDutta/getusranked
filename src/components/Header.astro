@@ -239,81 +239,89 @@ const ctaHref = navData.header.ctaHref;
 </style>
 
 <script>
-  // Sticky glass header effect + mobile scroll-direction navbar collapse
-  const header = document.getElementById("site-header");
-  const headerInner = document.getElementById("site-header-inner");
+  function initHeader() {
+    // Sticky glass header effect + mobile scroll-direction navbar collapse
+    const header = document.getElementById("site-header");
+    const headerInner = document.getElementById("site-header-inner");
 
-  if (headerInner && header) {
-    let lastScrollY = window.scrollY;
-    const SCROLL_DEAD_ZONE = 5; // px of movement ignored to prevent jitter
-    const MOBILE_BREAKPOINT = 860; // matches @media max-width: 859px
+    if (headerInner && header) {
+      let lastScrollY = window.scrollY;
+      const SCROLL_DEAD_ZONE = 25; // Increase dead zone to prevent tap micro-drags from collapsing header
+      const MIN_SCROLL_OFFSET = 60; // Require scrolling past top hero section before collapse triggers
+      const MOBILE_BREAKPOINT = 860; // matches @media max-width: 859px
 
-    const onScroll = () => {
-      const currentY = window.scrollY;
-      const delta = currentY - lastScrollY;
+      const onScroll = () => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
 
-      // Glass effect for desktop (always based on position)
-      if (currentY > 10) {
-        headerInner.classList.add("glass-header-scrolled");
-        headerInner.classList.remove("glass-header");
-      } else {
-        headerInner.classList.add("glass-header");
-        headerInner.classList.remove("glass-header-scrolled");
-      }
-
-      // Mobile-only: direction-based collapse into burger icon
-      if (window.innerWidth < MOBILE_BREAKPOINT) {
-        if (currentY <= 10) {
-          // At the very top — always show full navbar
-          header.classList.remove("is-scrolled");
-        } else if (delta > SCROLL_DEAD_ZONE) {
-          // Scrolling DOWN → collapse into burger
-          header.classList.add("is-scrolled");
-        } else if (delta < -SCROLL_DEAD_ZONE) {
-          // Scrolling UP → expand back out
-          header.classList.remove("is-scrolled");
+        // Glass effect for desktop (always based on position)
+        if (currentY > 10) {
+          headerInner.classList.add("glass-header-scrolled");
+          headerInner.classList.remove("glass-header");
+        } else {
+          headerInner.classList.add("glass-header");
+          headerInner.classList.remove("glass-header-scrolled");
         }
-        // Within dead zone → keep current state (no change)
-      }
 
-      lastScrollY = currentY;
-    };
+        // Mobile-only: direction-based collapse into burger icon
+        if (window.innerWidth < MOBILE_BREAKPOINT) {
+          if (currentY <= MIN_SCROLL_OFFSET) {
+            // Near top of page — always show full navbar
+            header.classList.remove("is-scrolled");
+          } else if (delta > SCROLL_DEAD_ZONE) {
+            // Scrolling DOWN significantly → collapse into burger
+            header.classList.add("is-scrolled");
+          } else if (delta < -SCROLL_DEAD_ZONE) {
+            // Scrolling UP significantly → expand back out
+            header.classList.remove("is-scrolled");
+          }
+        }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+        lastScrollY = currentY;
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Pure GPU-accelerated CSS state toggle logic
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    if (header && toggle && menu) {
+      const toggleMenu = (open?: boolean) => {
+        const shouldOpen = open !== undefined ? open : !header.classList.contains("is-open");
+        if (shouldOpen) {
+          header.classList.add("is-open");
+          toggle.setAttribute("aria-expanded", "true");
+        } else {
+          header.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      };
+
+      toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      // Close menu when clicking any link inside it
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => toggleMenu(false));
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+          toggleMenu(false);
+        }
+      });
+    }
   }
 
-  // Pure GPU-accelerated CSS state toggle logic
-  const toggle = document.getElementById("mobile-menu-toggle");
-  const menu = document.getElementById("mobile-menu");
-
-  if (header && toggle && menu) {
-    const toggleMenu = (open?: boolean) => {
-      const shouldOpen = open !== undefined ? open : !header.classList.contains("is-open");
-      if (shouldOpen) {
-        header.classList.add("is-open");
-        toggle.setAttribute("aria-expanded", "true");
-      } else {
-        header.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-      }
-    };
-
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-
-    // Close menu when clicking any link inside it
-    menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => toggleMenu(false));
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) {
-        toggleMenu(false);
-      }
-    });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
   }
 </script>

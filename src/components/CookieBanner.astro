@@ -184,7 +184,7 @@
 <script>
   import { getCookieConsent, setCookieConsent, hasUserConsented } from '../utils/cookies';
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initCookieBanner() {
     const wrapper = document.getElementById('cookie-consent-wrapper');
     const banner = document.getElementById('cookie-banner');
     const modal = document.getElementById('cookie-modal');
@@ -297,5 +297,11 @@
         hideModal();
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCookieBanner);
+  } else {
+    initCookieBanner();
+  }
 </script>

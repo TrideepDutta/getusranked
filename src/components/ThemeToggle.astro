@@ -75,10 +75,13 @@ const { class: className = "", id = "theme-toggle" } = Astro.props;
     }
   }
 
-  // Run on initial load
-  setupThemeToggle();
+  // Run on initial load safely
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupThemeToggle);
+  } else {
+    setupThemeToggle();
+  }
 
-  // Re-run on view transitions or DOM load
+  // Re-run on view transitions
   document.addEventListener("astro:after-swap", setupThemeToggle);
-  document.addEventListener("DOMContentLoaded", setupThemeToggle);
 </script>

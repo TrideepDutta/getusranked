@@ -15,6 +15,7 @@ import {
 } from "../utils/schema";
 
 const { hero, howWeThink, process, whyUs, credibility, closingCta, sectionOrder } = homeData;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 const homeSchema = createGraphSchema([
   getOrganizationSchema(),
@@ -265,6 +266,13 @@ const homeSchema = createGraphSchema([
                   placeholder={closingCta.formPlaceholders.email}
                 />
               </div>
+
+              {turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
+                <div class="my-1">
+                  <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-error-callback="onTurnstileError"></div>
+                </div>
+              )}
+
               <div id="contact-form-status" class="hidden p-4 rounded-xl text-sm font-medium transition-all duration-200"></div>
               <button id="contact-form-submit" type="submit" class="btn btn-primary text-xs mt-2 self-start flex items-center gap-2">
                 <span>{closingCta.formLabels.submitText}</span>
@@ -281,115 +289,165 @@ const homeSchema = createGraphSchema([
   <Footer />
 </BaseLayout>
 
+<script is:inline>
+  window.turnstileBlocked = false;
+  function onTurnstileError() {
+    window.turnstileBlocked = true;
+  }
+  function onTurnstileScriptError() {
+    window.turnstileBlocked = true;
+  }
+</script>
+
+{turnstileSiteKey && turnstileSiteKey !== '0x4AAAAAAA...' && (
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer onerror="onTurnstileScriptError()"></script>
+)}
+
 <script>
-  // Scroll-reveal observer — triggers 'revealed' class when elements enter viewport
-  const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
+  function initHomePage() {
+    // Scroll-reveal observer — triggers 'revealed' class when elements enter viewport
+    const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
 
-  if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px',
-      }
-    );
-
-    revealElements.forEach((el) => observer.observe(el));
-  } else {
-    // If reduced motion, make everything visible immediately
-    revealElements.forEach((el) => {
-      el.classList.add('revealed');
-    });
-  }
-
-  // Handle Form Submission to Backend API (/api/contact)
-  const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
-  const statusDiv = document.getElementById('contact-form-status');
-  const submitBtn = document.getElementById('contact-form-submit') as HTMLButtonElement | null;
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!submitBtn || !statusDiv) return;
-
-      const originalBtnText = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-canvas inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        <span>Sending...</span>
-      `;
-      statusDiv.classList.add('hidden');
-
-      try {
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-
-        const result = await res.json();
-
-        if (res.ok && result.success) {
-          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
-          statusDiv.innerHTML = result.message || '✓ Thank you! Your site review request has been sent successfully. Check your inbox for confirmation.';
-          contactForm.reset();
-        } else {
-          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20 block';
-          statusDiv.innerHTML = `✕ ${result.error || 'Something went wrong submitting your request. Please try again.'}`;
+    if (revealElements.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.05,
+          rootMargin: '0px 0px 50px 0px',
         }
-      } catch (error) {
-        console.error('Submission error:', error);
-        statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20 block';
-        statusDiv.innerHTML = '✕ Something went wrong submitting your request. Please try again or email us directly.';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-      }
-    });
-  }
+      );
 
-  // Expand & Contract functionality for Ranked Keywords Card
-  const toggleBtn = document.getElementById('rankings-toggle-btn');
-  const footerToggle = document.getElementById('rankings-footer-toggle');
-  const toggleLabel = document.getElementById('rankings-toggle-label');
-  const toggleIcon = document.getElementById('rankings-toggle-icon');
-  const rankingsContent = document.getElementById('rankings-content');
-  const footerText = document.getElementById('rankings-footer-text');
+      revealElements.forEach((el) => observer.observe(el));
 
-  let isExpanded = false;
+      // Mobile Safety Fallback: Ensure elements become visible even if IntersectionObserver delays
+      setTimeout(() => {
+        revealElements.forEach((el) => el.classList.add('revealed'));
+      }, 600);
+    } else {
+      // If reduced motion, make everything visible immediately
+      revealElements.forEach((el) => {
+        el.classList.add('revealed');
+      });
+    }
 
-  function toggleRankingsCard() {
-    isExpanded = !isExpanded;
-    if (rankingsContent) {
-      if (isExpanded) {
-        rankingsContent.style.maxHeight = rankingsContent.scrollHeight + 'px';
-        if (toggleLabel) toggleLabel.textContent = 'Contract';
-        if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
-        if (footerText) footerText.textContent = '↑ Contract Keywords';
-        toggleBtn?.setAttribute('aria-expanded', 'true');
-      } else {
-        rankingsContent.style.maxHeight = '125px';
-        if (toggleLabel) toggleLabel.textContent = 'Expand';
-        if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
-        if (footerText) footerText.textContent = '↑ Expand All Keywords';
-        toggleBtn?.setAttribute('aria-expanded', 'false');
+    // Handle Form Submission to Backend API (/api/contact)
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
+    const statusDiv = document.getElementById('contact-form-status');
+    const submitBtn = document.getElementById('contact-form-submit') as HTMLButtonElement | null;
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!submitBtn || !statusDiv) return;
+
+        const formData = new FormData(contactForm);
+        const turnstileWidget = contactForm.querySelector('.cf-turnstile');
+        const turnstileToken = formData.get('cf-turnstile-response');
+
+        // Pre-validate Turnstile token client-side if widget is present and script isn't blocked by Safari ITP
+        if (turnstileWidget && !turnstileToken && !(window as any).turnstileBlocked) {
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-amber-500/10 text-amber-600 border border-amber-500/20 block';
+          statusDiv.innerHTML = '✕ Please complete the security check (CAPTCHA) above before submitting.';
+          return;
+        }
+
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-canvas inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Sending...</span>
+        `;
+        statusDiv.classList.add('hidden');
+
+        try {
+          const data = Object.fromEntries(formData.entries());
+
+          if ((window as any).turnstileBlocked) {
+            (data as any).turnstileBlocked = true;
+          }
+
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          const result = await res.json();
+
+          if (res.ok && result.success) {
+            statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 block';
+            statusDiv.innerHTML = result.message || '✓ Thank you! Your site review request has been sent successfully. Check your inbox for confirmation.';
+            contactForm.reset();
+          } else {
+            statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20 block';
+            statusDiv.innerHTML = `✕ ${result.error || 'Something went wrong submitting your request. Please try again.'}`;
+          }
+        } catch (error) {
+          console.error('Submission error:', error);
+          statusDiv.className = 'p-4 rounded-xl text-sm font-medium bg-red-500/10 text-red-400 border border-red-500/20 block';
+          statusDiv.innerHTML = '✕ Something went wrong submitting your request. Please try again or email us directly.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+
+          // Reset Cloudflare Turnstile if present
+          if (typeof window !== 'undefined' && (window as any).turnstile) {
+            try {
+              (window as any).turnstile.reset();
+            } catch (e) {
+              // Ignore reset error if turnstile not active
+            }
+          }
+        }
+      });
+    }
+
+    // Expand & Contract functionality for Ranked Keywords Card
+    const toggleBtn = document.getElementById('rankings-toggle-btn');
+    const footerToggle = document.getElementById('rankings-footer-toggle');
+    const toggleLabel = document.getElementById('rankings-toggle-label');
+    const toggleIcon = document.getElementById('rankings-toggle-icon');
+    const rankingsContent = document.getElementById('rankings-content');
+    const footerText = document.getElementById('rankings-footer-text');
+
+    let isExpanded = false;
+
+    function toggleRankingsCard() {
+      isExpanded = !isExpanded;
+      if (rankingsContent) {
+        if (isExpanded) {
+          rankingsContent.style.maxHeight = rankingsContent.scrollHeight + 'px';
+          if (toggleLabel) toggleLabel.textContent = 'Contract';
+          if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
+          if (footerText) footerText.textContent = '↑ Contract Keywords';
+          toggleBtn?.setAttribute('aria-expanded', 'true');
+        } else {
+          rankingsContent.style.maxHeight = '125px';
+          if (toggleLabel) toggleLabel.textContent = 'Expand';
+          if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
+          if (footerText) footerText.textContent = '↑ Expand All Keywords';
+          toggleBtn?.setAttribute('aria-expanded', 'false');
+        }
       }
     }
+
+    if (toggleBtn) toggleBtn.addEventListener('click', toggleRankingsCard);
+    if (footerToggle) footerToggle.addEventListener('click', toggleRankingsCard);
   }
 
-  if (toggleBtn) toggleBtn.addEventListener('click', toggleRankingsCard);
-  if (footerToggle) footerToggle.addEventListener('click', toggleRankingsCard);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHomePage);
+  } else {
+    initHomePage();
+  }
 </script>
