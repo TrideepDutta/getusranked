@@ -3,7 +3,11 @@
     "title": "GetUsRanked — Contact Our Web Design & Search Visibility Team",
     "description": "Reach out to GetUsRanked for a free site audit, web design consultation, or SEO inquiry. Connect on Instagram, Facebook, and LinkedIn."
   },
-  "sectionOrder": ["hero", "socialProfiles", "contactForm"],
+  "sectionOrder": [
+    "hero",
+    "socialProfiles",
+    "contactForm"
+  ],
   "hero": {
     "visible": true,
     "eyebrow": "Contact GetUsRanked",
@@ -48,7 +52,7 @@
       "heading": "Reach out directly",
       "body": "We respond to all inquiries within 24 business hours. Whether you need a full site build, an SEO audit, or an enterprise web application — you'll speak directly with the team doing the work.",
       "emailLabel": "Email",
-      "email": "hello@getusranked.com",
+      "email": "trideep.getusranked@gmail.com",
       "availabilityLabel": "Availability",
       "availability": "Monday – Friday",
       "availabilityHours": "9:00 AM – 6:00 PM EST"
@@ -57,11 +61,31 @@
       "heading": "Send us a message",
       "subheading": "Fill out the form below and we'll get back to you with an audit or response promptly.",
       "fields": {
-        "name": { "label": "Name *", "placeholder": "Your name", "required": true },
-        "email": { "label": "Email *", "placeholder": "you@company.com", "required": true },
-        "company": { "label": "Company / Agency", "placeholder": "Company name", "required": false },
-        "website": { "label": "Website URL", "placeholder": "https://yourbusiness.com", "required": false },
-        "message": { "label": "How can we help? *", "placeholder": "Tell us about your project, goals, or current search performance...", "required": true }
+        "name": {
+          "label": "Name *",
+          "placeholder": "Your name",
+          "required": true
+        },
+        "email": {
+          "label": "Email *",
+          "placeholder": "you@company.com",
+          "required": true
+        },
+        "company": {
+          "label": "Company / Agency",
+          "placeholder": "Company name",
+          "required": true
+        },
+        "website": {
+          "label": "Website URL",
+          "placeholder": "https://yourbusiness.com",
+          "required": true
+        },
+        "message": {
+          "label": "How can we help? *",
+          "placeholder": "Tell us about your project, goals, or current search performance...",
+          "required": true
+        }
       },
       "submitText": "Send Message",
       "successMessage": "✓ Thank you! Your message has been sent successfully. We will get back to you shortly.",
