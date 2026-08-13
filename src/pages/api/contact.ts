@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 import { checkRateLimit } from '../../utils/rate-limiter';
 
@@ -10,6 +11,7 @@ interface ContactRequestBody {
   company?: string;
   website?: string;
   message?: string;
+  business?: string;
   'cf-turnstile-response'?: string;
 }
 
@@ -44,13 +46,14 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const { name, email, company, website, message } = body;
+  const { name, email, company, website, message: rawMessage, business } = body;
+  const message = (rawMessage || business || '').trim();
   const turnstileToken = body['cf-turnstile-response'];
 
   // Input Validation
   if (!name || !email || !message) {
     return new Response(
-      JSON.stringify({ error: 'Name, email, and message are required fields.' }),
+      JSON.stringify({ error: 'Name, email, and message / business description are required fields.' }),
       { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
     );
   }
@@ -97,7 +100,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
   }
 
-  // 5. Fallback Step: Send to Google Sheet Webhook (Background Backup)
+  // 5. Save/Backup Lead to Google Sheet Webhook (Background)
   const googleSheetUrl = import.meta.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL || process.env.PUBLIC_GOOGLE_SHEET_SCRIPT_URL;
   if (googleSheetUrl) {
     try {
@@ -111,85 +114,136 @@ export const POST: APIRoute = async ({ request }) => {
     }
   }
 
-  // 6. Double Email Delivery via Resend
-  const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
-  const adminEmail = import.meta.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_NOTIFICATION_EMAIL || 'trideep.getusranked@gmail.com';
-
   let emailStatus = { autoResponderSent: false, adminAlertSent: false };
 
-  if (resendApiKey && resendApiKey !== 're_123456789_your_api_key') {
-    const resend = new Resend(resendApiKey);
+  // 6. Send Email via Nodemailer (Gmail SMTP)
+  const gmailUser = import.meta.env.GMAIL_USER || process.env.GMAIL_USER || 'trideep.getusranked@gmail.com';
+  const gmailAppPassword = import.meta.env.GMAIL_APP_PASSWORD || process.env.GMAIL_APP_PASSWORD;
+  const adminEmail = import.meta.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_NOTIFICATION_EMAIL || 'trideep.getusranked@gmail.com';
 
-    // 6a. Auto-Responder Email to Client
+  if (gmailAppPassword) {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: gmailUser,
+        pass: gmailAppPassword,
+      },
+    });
+
+    // 6a. Nodemailer Auto-Responder Confirmation Email to Client
     try {
+      const htmlContent = `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background-color: #ffffff; border: 1px solid #e2e7e6; border-radius: 16px; color: #0b1419;">
+          <div style="margin-bottom: 24px; text-align: left;">
+            <h1 style="color: #0b1419; font-size: 24px; font-weight: 700; margin: 0 0 12px 0;">Thanks for reaching out!</h1>
+            <p style="color: #4a555e; font-size: 16px; line-height: 1.6; margin: 0;">Hi ${name},</p>
+          </div>
+          
+          <p style="color: #4a555e; font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+            Thank you for connecting with us at <strong>GetUsRanked</strong>. We've successfully received your inquiry, and our team is currently reviewing your details.
+          </p>
+
+          <p style="color: #4a555e; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+            We carefully assess every site review and growth request, and someone from our team will get back to you within <strong>24 business hours</strong>.
+          </p>
+
+          <div style="background-color: #f6f8f7; border-left: 4px solid #1463FF; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px;">
+            <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #1463FF; margin: 0 0 10px 0;">Summary of Your Submission</p>
+            <p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Name:</strong> ${name}</p>
+            <p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Email:</strong> ${email}</p>
+            ${company ? `<p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Company:</strong> ${company}</p>` : ''}
+            ${website ? `<p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Website:</strong> ${website}</p>` : ''}
+            <p style="font-size: 14px; color: #0b1419; margin: 8px 0 0 0;"><strong>Message / Details:</strong></p>
+            <p style="font-size: 14px; color: #4a555e; font-style: italic; margin: 4px 0 0 0; white-space: pre-wrap;">"${message}"</p>
+          </div>
+
+          <p style="color: #4a555e; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+            If you have any extra details or questions in the meantime, feel free to reply directly to this email.
+          </p>
+
+          <hr style="border: none; border-top: 1px solid #e2e7e6; margin: 24px 0;" />
+          <p style="color: #8a959e; font-size: 13px; margin: 0; line-height: 1.6;">
+            Warm regards,<br />
+            <strong style="color: #0b1419;">The GetUsRanked Team</strong><br />
+            <a href="https://getusranked.com" style="color: #1463FF; text-decoration: none;">getusranked.com</a>
+          </p>
+        </div>
+      `;
+
+      const textContent = `Hi ${name},
+
+Thank you for connecting with us at GetUsRanked. We've successfully received your inquiry, and our team is currently reviewing your details. We will get back to you within 24 business hours.
+
+Summary of your submission:
+- Name: ${name}
+- Email: ${email}
+${company ? `- Company: ${company}\n` : ''}${website ? `- Website: ${website}\n` : ''}- Message: ${message}
+
+If you have any additional details or questions in the meantime, feel free to reply directly to this email.
+
+Warm regards,
+The GetUsRanked Team
+https://getusranked.com`;
+
+      await transporter.sendMail({
+        from: `"GetUsRanked" <${gmailUser}>`,
+        to: email,
+        subject: 'Thanks for reaching out to GetUsRanked!',
+        text: textContent,
+        html: htmlContent,
+      });
+
+      emailStatus.autoResponderSent = true;
+    } catch (err) {
+      console.error('Nodemailer Gmail auto-responder error:', err);
+    }
+
+    // 6b. Nodemailer Admin Alert Email to Team
+    try {
+      const adminHtml = `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #ddd; border-radius: 12px; color: #333;">
+          <h2 style="color: #1463FF; margin-top: 0;">🔥 New Website Inquiry Received</h2>
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+            <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee; width: 130px;"><strong>Name:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${name}</td></tr>
+            <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><a href="mailto:${email}">${email}</a></td></tr>
+            <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Company:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${company || 'N/A'}</td></tr>
+            <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Website:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${website ? `<a href="${website}">${website}</a>` : 'N/A'}</td></tr>
+            <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Client IP:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${clientIp}</td></tr>
+          </table>
+          <div style="margin-top: 16px;">
+            <strong>Message / Business Description:</strong>
+            <p style="background: #f4f5f6; padding: 12px; border-radius: 6px; font-size: 14px; color: #333; white-space: pre-wrap;">${message}</p>
+          </div>
+        </div>
+      `;
+
+      await transporter.sendMail({
+        from: `"GetUsRanked Leads" <${gmailUser}>`,
+        to: adminEmail,
+        subject: `🔥 New Lead Inquiry: ${name} (${company || 'Individual'})`,
+        html: adminHtml,
+      });
+
+      emailStatus.adminAlertSent = true;
+    } catch (err) {
+      console.error('Nodemailer Gmail admin alert error:', err);
+    }
+  }
+
+  // 7. Fallback Delivery via Resend (if Nodemailer not sent & Resend key exists)
+  const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
+  if (!emailStatus.autoResponderSent && resendApiKey && resendApiKey !== 're_123456789_your_api_key') {
+    try {
+      const resend = new Resend(resendApiKey);
       await resend.emails.send({
         from: 'GetUsRanked <trideep.getusranked@gmail.com>',
         to: [email],
-        subject: `We've received your message, ${name}!`,
-        html: `
-          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; background-color: #ffffff; border: 1px solid #e2e7e6; border-radius: 16px;">
-            <div style="margin-bottom: 24px; text-align: left;">
-              <h1 style="color: #0b1419; font-size: 24px; font-weight: 700; margin: 0 0 8px 0;">Thank You for Reaching Out!</h1>
-              <p style="color: #4a555e; font-size: 16px; line-height: 1.6; margin: 0;">Hi ${name},</p>
-            </div>
-            
-            <p style="color: #4a555e; font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
-              We have received your query. Our SEO & digital growth team is reviewing your details and will get back to you within <strong>24 business hours</strong>.
-            </p>
-
-            <div style="background-color: #f6f8f7; border-left: 4px solid #1463FF; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px;">
-              <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #1463FF; margin: 0 0 8px 0;">Summary of Your Submission</p>
-              <p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Name:</strong> ${name}</p>
-              ${company ? `<p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Company:</strong> ${company}</p>` : ''}
-              ${website ? `<p style="font-size: 14px; color: #0b1419; margin: 0 0 6px 0;"><strong>Website:</strong> ${website}</p>` : ''}
-              <p style="font-size: 14px; color: #0b1419; margin: 8px 0 0 0;"><strong>Message:</strong></p>
-              <p style="font-size: 14px; color: #4a555e; font-style: italic; margin: 4px 0 0 0;">"${message}"</p>
-            </div>
-
-            <p style="color: #4a555e; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
-              If you have urgent details to add, feel free to reply directly to this email.
-            </p>
-
-            <hr style="border: none; border-top: 1px solid #e2e7e6; margin: 24px 0;" />
-            <p style="color: #8a959e; font-size: 13px; margin: 0;">
-              Best regards,<br />
-              <strong style="color: #0b1419;">GetUsRanked Team</strong><br />
-              <a href="https://getusranked.com" style="color: #1463FF; text-decoration: none;">getusranked.com</a>
-            </p>
-          </div>
-        `,
+        subject: 'Thanks for reaching out to GetUsRanked!',
+        html: `<p>Hi ${name}, thank you for reaching out! We received your message and our team will review it shortly.</p>`,
       });
       emailStatus.autoResponderSent = true;
     } catch (err) {
-      console.error('Failed to send auto-responder email:', err);
-    }
-
-    // 6b. Admin Alert Email to Team
-    try {
-      await resend.emails.send({
-        from: 'GetUsRanked Leads <notifications@getusranked.com>',
-        to: [adminEmail],
-        subject: `🔥 New Contact Inquiry: ${name} (${company || 'Individual'})`,
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #ddd; border-radius: 12px;">
-            <h2 style="color: #1463FF; margin-top: 0;">New Website Inquiry Received</h2>
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee; width: 120px;"><strong>Name:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${name}</td></tr>
-              <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><a href="mailto:${email}">${email}</a></td></tr>
-              <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Company:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${company || 'N/A'}</td></tr>
-              <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Website:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${website ? `<a href="${website}">${website}</a>` : 'N/A'}</td></tr>
-              <tr><td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Client IP:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #eee;">${clientIp}</td></tr>
-            </table>
-            <div style="margin-top: 16px;">
-              <strong>Message:</strong>
-              <p style="background: #f4f5f6; padding: 12px; border-radius: 6px; font-size: 14px; color: #333;">${message}</p>
-            </div>
-          </div>
-        `,
-      });
-      emailStatus.adminAlertSent = true;
-    } catch (err) {
-      console.error('Failed to send admin notification email:', err);
+      console.error('Resend fallback error:', err);
     }
   }
 
