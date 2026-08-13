@@ -113,7 +113,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   // 6. Double Email Delivery via Resend
   const resendApiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
-  const adminEmail = import.meta.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_NOTIFICATION_EMAIL || 'hello@getusranked.com';
+  const adminEmail = import.meta.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_NOTIFICATION_EMAIL || 'trideep.getusranked@gmail.com';
 
   let emailStatus = { autoResponderSent: false, adminAlertSent: false };
 
@@ -123,7 +123,7 @@ export const POST: APIRoute = async ({ request }) => {
     // 6a. Auto-Responder Email to Client
     try {
       await resend.emails.send({
-        from: 'GetUsRanked <hello@getusranked.com>',
+        from: 'GetUsRanked <trideep.getusranked@gmail.com>',
         to: [email],
         subject: `We've received your message, ${name}!`,
         html: `

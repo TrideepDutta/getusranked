@@ -33,7 +33,7 @@ export function getOrganizationSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.svg`,
     image: `${SITE_URL}/favicon.svg`,
-    email: "hello@getusranked.com",
+    email: "trideep.getusranked@gmail.com",
     description: SITE_DESCRIPTION,
     priceRange: "$$$",
     areaServed: {

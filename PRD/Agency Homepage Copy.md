@@ -100,6 +100,6 @@ Websites built to be found — by people, and by AI.
 
 Quick Links: Home · Packages · Process · Contact
 
-Get in Touch: hello@getusranked.com
+Get in Touch: trideep.getusranked@gmail.com
 
 © 2026 GetUsRanked. All rights reserved.
