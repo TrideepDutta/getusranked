@@ -80,8 +80,9 @@ const ctaHref = navData.header.ctaHref;
         ) : null}
       </a>
     ))}
-    <div class="w-full pt-2 border-t border-line/40 mt-1 nav-item-animate flex items-center gap-3" style={`transition-delay: ${navLinks.length * 35}ms;`}>
+    <div class="w-full pt-2 border-t border-line/40 mt-1 nav-item-animate flex items-center justify-between gap-3" style={`transition-delay: ${navLinks.length * 35}ms;`}>
       <a href={ctaHref} class="btn btn-primary text-xs flex-1 justify-center rounded-full py-3">{ctaText}</a>
+      <ThemeToggle id="theme-toggle-mobile-drawer" />
     </div>
   </div>
 </header>
@@ -221,13 +222,10 @@ const ctaHref = navData.header.ctaHref;
       border-radius: 9999px;
     }
 
-    /* Logo slides rightward into the burger icon and fades out */
-    #site-header.is-scrolled:not(.is-open) #site-logo {
-      opacity: 0;
-      max-width: 0;
-      margin: 0;
-      transform: translateX(60px);
-      pointer-events: none;
+    /* Logo & mobile header theme toggle slide rightward into the burger icon and fade out when scrolled */
+    #site-header.is-scrolled:not(.is-open) #site-logo,
+    #site-header.is-scrolled:not(.is-open) #theme-toggle-mobile-header {
+      display: none !important;
     }
 
     #site-header.is-scrolled:not(.is-open) #mobile-menu-toggle {
