@@ -9,11 +9,10 @@
     "process",
     "whyUs",
     "credibility",
-    "closingCta",
-    "LOL"
+    "closingCta"
   ],
   "hero": {
-    "visible": false,
+    "visible": true,
     "eyebrow": "GetUsRanked Agency",
     "heading": "We build sites that actually get found.",
     "subheading": "WordPress and Shopify sites, built with SEO and AI-search visibility baked in from day one, not bolted on after launch.",
@@ -33,7 +32,7 @@
     }
   },
   "howWeThink": {
-    "visible": false,
+    "visible": true,
     "eyebrow": "How We Think",
     "heading": "Design that ranks, not just looks good",
     "items": [
@@ -162,14 +161,5 @@
       "business": "A brief description of your business and goals",
       "email": "you@company.com"
     }
-  },
-  "LOL": {
-    "visible": true,
-    "eyebrow": "LOL",
-    "heading": "New LOL Section",
-    "body": "MY ASSS NIGGGAA",
-    "items": [
-      "HELLO"
-    ]
   }
 }
